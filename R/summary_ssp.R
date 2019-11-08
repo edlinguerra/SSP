@@ -1,6 +1,8 @@
-## summary.ssp: Script to estimate the tendency of the MultSE for each potential sampling effort
+## summaryssp: Summary of MultSE for each sampling effort in simulated data sets
+#'@importFrom stats quantile
+#'@importFrom stats aggregate
 #'@export
-summary.ssp<- function(results, multi.site = TRUE) {
+summary_ssp<- function(results, multi.site = TRUE) {
   lower <- function(x) {
     quantile(x, 0.025)
   }

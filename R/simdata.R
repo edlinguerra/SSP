@@ -1,130 +1,65 @@
 ## simdata: Script to simulate assemblages
+#'@importFrom stats rbinom
+#'@importFrom stats rnbinom
+#'@importFrom stats rpois
+#'@importFrom stats rnorm
+#'@export
+simdata <- function(Par, cases, n, sites) {
+    Par <- Par
+    n <- n
+    sites <- sites
 
-simdata<-function(paramaters, cases, n, sites, positive.sp = 0.9, negative.sp = 0.1){
-        Par<-paramaters
-        n<-n
-        sites<-sites
-        positive.sp<-positive.sp
-        negative.sp<-negative.sp
-        N<- n*sites
+# function for simulation
+    Simul <- function(Par, n, sites) {
 
-        #function for simulation
-        Simul<-function(paramaters, n, sites, positive.sp, negative.sp){
-        mu<-c(rep(NA, Par$Sest))
-        mu<-Par$par$fo/Par$n
-        Yh<-as.data.frame(matrix(nrow=N, ncol=Par$Sest+2))
-        id.n<-rep(seq(1:n), sites)
-        id.sites<-rep(1:sites, each=n)
-        Yh[,Par$Sest+1]<-id.n
-        Yh[,Par$Sest+2]<-as.factor(id.sites)
+        fs <- Par$par$fs
+        fw <- Par$par$fw
+        Yh <- array(data = NA, dim = c(n, Par$Sest, sites))
 
-        ## For species with random spatial distribution
-        for (i in 1:Par$Sest){
-                for (j in 1:N){
-                        if (Par$par$Spatial.cor[i]=="random"){
-                                Yh[j,i]<-rbinom(1,1,mu[i])
-                        }
+    ## Presence of species using Bernoulli trials
+        for (p in seq_len(sites)) {
+            for (i in seq_len(Par$Sest)){
+                Yh[, i, p] <- rbinom(n, 1, fs[i]) # Presence in sites
+                    if (Yh[1,i,p] == 1) {
+                        Yh[, i, p] <- rbinom(n, 1, fw[i]) # Presence within sites
+                    } else {Yh[, i, p]<-rep(0, n)
+                            }
+                    }
                 }
-        }
 
-        # For positive spatial autoccorrelation
-        for (p in 1:sites){
-                for (j in 1:N){
-                        if (p == Yh[j,Par$Sest+2] & Yh[j,Par$Sest+1] == 1){
-                                for (i in 1:Par$Sest){
-                                        if (Par$par$Spatial.cor[i]=="positive"){
-                                                Yh[j,i]<-rbinom(1,1,mu[i])
-                                        }
-                                }
+# Simulation of abundances
+        for (p in seq_len(sites)) {
+            for (i in seq_len(Par$Sest)) {
+                for (j in seq_len(n)) {
+                    if (Par$type == "counts" & Yh[j, i, p] == 1) {
+                        if (Par$par$d[i] > 0 & Par$par$prob[i] < 0.05) {
+                            Yh[j, i, p] <- rnbinom(1, size = Par$par$d[i], mu = Par$par$mean[i])
                         }
+                        if (Par$par$d[i] >= 0 & Par$par$prob[i] > 0.05 | Par$par$d[i] >=
+                            0 & is.na(Par$par$prob[i])) {
+                            Yh[j, i, p] <- rpois(1, lambda = Par$par$mean[i])
+                        }
+                    }
+                    if (Par$type == "cover" & Yh[j, i, p] == 1) {
+                        Yh[j, i, p] <- exp(rnorm(1, mean = Par$par$logmean, sd = sqrt(Par$par$logvar)))
+                    }
                 }
+            }
         }
+    #bind the sites in a data frame
+        Yh<-data.frame(apply(Yh, MARGIN = 2, rbind))
 
-        for (p in 1:sites){
-                for (j in 1:N){
-                        if (p == Yh[j,Par$Sest+2] & Yh[j,Par$Sest+1] > 1){
-                                for (i in 1:Par$Sest){
-                                        if (Par$par$Spatial.cor[i]=="positive" & Yh[j-1,i] == 1){
-                                                Yh[j,i]<-rbinom(1,1, positive.sp)
-                                        }
-                                        if (Par$par$Spatial.cor[i]=="positive" & Yh[j-1,i] == 0){
-                                                Yh[j,i]<-rbinom(1,1,mu[i])
-                                        }
-                                }
-                        }
-                }
-        }
-        # For negative spatial autoccorrelation
-        for (p in 1:sites){
-                for (j in 1:N){
-                        if (p == Yh[j,Par$Sest+2] & Yh[j,Par$Sest+1] == 1){
-                                for (i in 1:Par$Sest){
-                                        if (Par$par$Spatial.cor[i]=="negative"){
-                                                Yh[j,i]<-rbinom(1,1,mu[i])
-                                        }
-                                }
-                        }
-                }
-        }
-
-        for (p in 1:sites){
-                for (j in 1:N){
-                        if (p == Yh[j,Par$Sest+2] & Yh[j,Par$Sest+1] > 1){
-                                for (i in 1:Par$Sest){
-                                        if (Par$par$Spatial.cor[i]=="negative" & Yh[j-1,i] == 1){
-                                                Yh[j,i]<-rbinom(1,1, negative.sp)
-                                        }
-                                        if (Par$par$Spatial.cor[i]=="negative" & Yh[j-1,i] == 0){
-                                                Yh[j,i]<-rbinom(1,1,mu[i])
-                                        }
-                                }
-                        }
-                }
-        }
-
-        # Simulation of abundances
-        for (i in 1:Par$Sest){
-                for (j in 1:N){
-                        if (Par$type == "counts" & Yh[j,i]==1){
-                                if (Par$par$d[i] > 0 & Par$par$prob[i] < 0.05){
-                                        Yh[j,i]<-rnbinom(1, size= Par$par$d[i], mu=Par$par$mean[i])
-                                }
-                                if (Par$par$d[i] >= 0 & Par$par$prob[i] > 0.05 |Par$par$d[i] >= 0 & is.na(Par$par$prob[i])){
-                                        Yh[j,i]<-rpois(1, lambda=Par$par$mean[i])
-                                }
-                        }
-                        if (Par$type == "cover" & Yh[j,i]==1){
-                                Yh[j,i]<-exp(rnorm(1, mean = Par$par$logmean, sd = sqrt(Par$par$logvar)))
-                        }
-                }
-        }
-        colnames(Yh)<-c(1:Par$Sest, "n", "sites")
+    #Add columns for the id of samples and sites
+        Yh$n<-rep.int(1:n, sites)
+        Yh$sites<-gl(n=sites,k=n)
         return(Yh)
+    }
 
-        }
-
-        simulated.data<-vector("list", cases)
-        for (i in 1:cases){
-                simulated.data[[i]]<-Simul(paramaters = Par, n = n, sites = sites, positive.sp=positive.sp, negative.sp=negative.sp)
-        }
-return(simulated.data)
+# generation of several simulated data sets
+    simulated.data <- vector("list", cases)
+    for (i in 1:cases) {
+        simulated.data[[i]] <- Simul(Par = Par, n = n, sites = sites)
+    }
+    return(simulated.data)
 }
 
-##Description
-# simdata simulates matrixes (as many as requested) using estimated parameters in the list generated by AssemPar.
-# The function returns an object of class List including all the simulated data sets to be used by DatQuality and SampSD.
-
-##Usage
-#simdata(paramaters, cases, n, sites, positive.sp, negative.sp)
-
-## Arguments
-#parameters     List of parameters estimated by assempar.
-
-#cases          Number of data sets to be simulated.
-
-#n              Total number of samples to simulate in each site.
-
-#sites          Total number of sites to simulate in each data set.
-
-#positive.sp    Probability of occurrence of a species once it has been detected in a previos sample. The default is 0.9 for positive, 0.1 for negative occurrences.
-#negative.sp

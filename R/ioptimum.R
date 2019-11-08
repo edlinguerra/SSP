@@ -1,7 +1,7 @@
-## ioptsd: command to indicate the sample size intervals and their relative improvement over the smallest sampling effort.
+## ioptimum: Identification of the optimal sampling effort.
 #'@export
-ioptsd<-function(summary, multi.site = TRUE, c1 = 10, c2 =5, c3= 1){
-  xx<-summary
+ioptimum<-function(xx, multi.site = TRUE, c1 = 10, c2 =5, c3= 1){
+  xx<-xx
 
   ##MultSE for multiple sites
   if (multi.site == TRUE) {

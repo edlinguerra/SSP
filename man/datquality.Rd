@@ -1,17 +1,17 @@
 \name{datquality}
 \alias{datquality}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Diversity metrics of simulated and original data
 }
 \description{
-The function estimates the average number of species and the Simpson diversity index per sampling unit, as well as the total multivariate dispersion of pilot data and simulated data
+The function estimates the average number of species, and the Simpson diversity index per sampling unit, as well as the total multivariate dispersion of pilot data and simulated data
 }
 
 \usage{
 datquality(data, dat.sim, Par, transformation, method)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{data}{
 Data frame giving P/A or abundance (counts or coverage) of species
@@ -30,70 +30,68 @@ The appropiate distance/dissimilarity metric. The function \code{\link[vegan]{ve
 }
 }
 \details{
-The quality of the simulated data sets was assessed by the resemblance these had to the pilot data considering the following estimations: (i) the average number of species per sampling unit, (ii) evenness, defined as the average Simpson diversity index per sampling unit, and (iii) the multivariate dispersion (MVD), measured as the average dissimilarity from all sampling units to the main centroid in the space of the dissimilarity measure used (Anderson 2006). Whereas it is desirable that (i) and (ii) are similar between simulated and pilot data, MVD is expected to be greater in the simulated matrixes. To assess the magnitude of this difference, 0.95 quantiles of the MVD were obtained for all simulated data sets.
+The quality of the simulated data sets is assessed by the resemblance these had to the pilot data considering the following estimations: (i) the average number of species per sampling unit, (ii) diversity, defined as the average Simpson diversity index per sampling unit, and (iii) the multivariate dispersion (MVD), measured as the average dissimilarity from all sampling units to the main centroid in the space of the dissimilarity measure used (Anderson 2006). For the simulated data, the overall mean and standard deviation for i and ii are presented. However, to assess the magnitude of variability in the simulated data, 0.95 quantiles of the MVD for all simulated data sets are presented.
 }
 \value{
 \item{divmetrics}{
-A data frame that includes the metrics for original and simulated data
+A data frame that includes the mean and standard deviation of richness and diversity per sampling unit, and the MVD for original and 0.95 quantiles of MVD of simulated data.
 }
 }
 \references{
 Anderson, M.J. (2006) Distance-based tests for homogeneity of multivariate dispersions. Biometrics, 62, 245-253
 }
 \author{
-Edlin Guerra-Castro (edlinguerra@gmail.com) and Maite Mascaro (mmm@ciencias.unam.mx)
+Edlin Guerra-Castro (edlinguerra@gmail.com), Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro (mmm@ciencias.unam.mx).
 }
 \note{
-%%  ~~further notes~~
+It is desirable that the simulated data be similar to the data observed in terms of species richness and diversity per sampling unit.
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link[vegan]{vegdist}}, \code{\link[vegan]{diversity}}
 }
 \examples{
-## micromollusk from 'Cayo Nuevo', Campeche bank, Gulf of Mexico, Yucatan, Mexico
+###To speed up the simulation of these examples, the cases, sites and n were set small.
+
+##Single site: micromollusk from Cayo Nuevo (Yucatan, Mexico)
 data(micromollusk)
-data(micromolluskGEO)
 
 #Estimation of parameters of pilot data
-dat.par1<-assempar (data = micromollusk,
+par.mic<-assempar (data = micromollusk,
                     type= "P/A",
-                    spatial.str = TRUE,
-                    coords = micromolluskGEO,
-                    moranI.alfa=0.05,
-                    spatial.unsee.sp= "random")
+                    Sest.method = "average")
 
 #Simulation of 10 data sets, each one with 100 potential sampling units from a single site
-dat.sim1<-simdata(dat.par1, cases= 10, n= 100, sites = 1)
+sim.mic<-simdata(par.mic, cases= 10, n= 100, sites = 1)
 
 #Estimation of diversity metrics of original and simulated data
-dat.q1<-datquality(data = micromollusk,
-                   dat.sim = dat.sim1,
-                   Par = dat.par1,
+qua.mic<-datquality(data = micromollusk,
+                   dat.sim = sim.mic,
+                   Par = par.mic,
                    transformation = "none",
                    method = "jaccard" )
+qua.mic
 
-##Sponges from Alacranes National Park, Gulf of Mexico
+##Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico).
 data(sponges)
-data(spongesGEO)
 
 #Estimation of parameters of pilot data
-dat.par2<-assempar(data = sponges,
-                    type= "counts",
-                    spatial.str = TRUE,
-                    coords = spongesGEO,
-                    moranI.alfa=0.05,
-                    spatial.unsee.sp= "random")
+par.spo<-assempar(data = sponges,
+                  type= "counts",
+                  Sest.method = "average")
 
-#Simulation of 10 data sets, each one with 20 potential sampling units (transects) in 20 sites.
-dat.sim2<-simdata(dat.par2, cases= 10, n= 20, sites = 20)
+#Simulation of 3 data sets, each one with 15 potential sampling units in 10 sites.
+sim.spo<-simdata(par.spo, cases= 10, n= 15, sites = 10)
 
 #Estimation of diversity metrics of original and simulated data
-dat.q2<-datquality(data = sponges,
-                   dat.sim = dat.sim2,
-                   Par = dat.par2,
-                   transformation = "square root",
-                   method = "bray")
+qua.spo<-datquality(data = sponges,
+                    dat.sim = sim.spo,
+                    Par = par.spo,
+                    transformation = "square root",
+                    method = "bray")
+qua.spo
 }
+
+\keyword{ multivariate	&	Multivariate Techniques }
+\keyword{ ecological communities }
+\keyword{ numerical ecology }

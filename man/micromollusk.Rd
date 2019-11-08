@@ -8,8 +8,9 @@ Micromollusks of marine shallow sandy bottoms around Cayo Nuevo, Gulf of Mexico,
 }
 \usage{data("micromollusk")}
 \format{
-  A data frame with 6 observations on the following 68 variables.
+  A data frame with 6 observations on the following 69 variables.
   \describe{
+    \item{\code{site}}{a numeric vector}
     \item{\code{Leptochiton.sp.}}{a numeric vector}
     \item{\code{Ischnochiton..Ischnochiton..erythronotus}}{a numeric vector}
     \item{\code{Arcidae.sp.}}{a numeric vector}

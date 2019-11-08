@@ -2,7 +2,7 @@
 \alias{sponges}
 \docType{data}
 \title{
-Coral reef sponges in Alacranes Reef National Park (ARNP), Gulf of Mexico, Mexico
+Sponges in Alacranes Reef National Park (ARNP), Gulf of Mexico, Mexico
 }
 \description{
 Counts of 41 species of sponges in 36 transects of 20 m * 1 m across 8 sites around ARNP}
@@ -11,8 +11,8 @@ Counts of 41 species of sponges in 36 transects of 20 m * 1 m across 8 sites aro
 \format{
   A data frame with 36 observations on the following 42 variables.
   \describe{
+    \item{\code{site}}{Factor w/ 6 levels}
     \item{\code{Agelas.clathrodes}}{a numeric vector}
-    \item{\code{Agelas.citrina}}{a numeric vector}
     \item{\code{Agelas.dispar}}{a numeric vector}
     \item{\code{Agelas.tubulata}}{a numeric vector}
     \item{\code{Agelas.wiedenmayeri}}{a numeric vector}
@@ -66,6 +66,6 @@ Ugalde, D., Gomez, P., & Simoes, N. (2015). Marine sponges (Porifera: Demospongi
 }
 \examples{
 data(sponges)
-
+str(sponges)
 }
 \keyword{datasets}

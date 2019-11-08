@@ -4,85 +4,66 @@
 \title{Estimation of ecological parameters of the assemblage
 }
 \description{
-The function extracts the main parameters of the pilot data using basic R functions as well as functions like \code{\link[vegan]{specpool}} and \code{\link[ape]{Moran.I}}
+The function extracts the main parameters of the pilot data using basic R functions as well as functions like \code{\link[vegan]{specpool}} and \code{\link[vegan]{dispweight}}
 }
 \usage{
-assempar(data, type, spatial.str, coords, moranI.alfa, spatial.unsee.sp)
+assempar(data, type, Sest.method)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{data}{
-Data frame giving P/A or abundance (counts or coverage) of species
+Data frame with species names (columns) and samples (rows) information. The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled.
 }
   \item{type}{
 Nature of the data to be processed. It may be presence / absence ("P/A"), counts of individuals ("counts"), or coverage ("cover")
 }
-  \item{spatial.str}{
-Logical argument indicating whether spatial information (coordinates) of samples is available. If set TRUE, a matrix or data frame with X and Y coordinates must be supplied. This file must have the same number of rows than data to be used by the function Moran.I{ape}. The analysis is only valid for individual counts (argument type = "counts"), and will gave an Error if two or more samples share the same X and Y values
-}
-\item{coords}{
-Matrix or data frame given Y and X coordinates of samples
-}
-\item{moranI.alfa}{
-Probability for rejecting random spatial distribution. Default is < 0.05
-}
-\item{spatial.unsee.sp}{
-Spatial distribution to be assumed for unseen species. It might be "random", "positive" or "negative"
+ \item{Sest.method}{
+Method for estimating species richness. The function \code{\link[vegan]{specpool}} is used for this. Available methods are the incidence-based Chao "chao", first order jackknife "jack1", second order jackknife "jack2" and Bootstrap "boot". By default, the "average" of the four estimates is used.
 }
 }
 \details{
-The observed and expected number of species in the assemblage is estimated with the non-parametric method Chao2. The probability of detection of each species is estimated as the frequency of occurrence of each of the species against the sample size of pilot data. Also, the degree of spatial aggregation of species (only for real counts of individuals), is identified with the index of dispersion D (Clarke et al. 2006). Finally, when the spatial coordinates of sampling units in the pilot data is supplied, the spatial auto-correlation of each species is assessed with the Moran's I test (Legendre & Legendre 1998). The corresponding properties of unseen species are approximated using information of observed species. Specifically, the probabilities of detection are assumed to be equal to the rarest species of pilot data. The mean (and variance) of the abundance is defined as the mean of all species abundances. In addition, the spatial auto-correlation of species was assumed to be random.
+The expected number of species in the assemblage is estimated using non-parametric methods (Gotelli et al. 2011). Due to the variability in the estimates of each approximation (Reese et al. 2014), we recommend using an average of these. The probability detection of each species is estimated among and within sites. The former is calculated as the frequency of occurrences of each of the species against the number of sites sampled, the second as the weighted average frequencies in sites where the species were present. Also, the degree of spatial aggregation of species (only for real counts of individuals), is identified with the index of dispersion D (Clarke et al. 2006). The corresponding properties of unseen species are approximated using information of observed species. Specifically, the probabilities of detection are assumed to be equal to the rarest species of pilot data. The mean (and variance) of the abundances are defined using random poisson values with lambda as the overall mean of species abundances.
 }
 \value{
-%%  If it is a LIST, use
+
 \item{Par}{
-The function returns an object of class List, to be used by \code{\link[SSP]{simdat}}}
+The function returns an object of class List, to be used by \code{\link{simdata}}}
 }
 \references{
 Clarke, K. R., Chapman, M. G., Somerfield, P. J., & Needham, H. R. (2006). Dispersion-based weighting of species counts in assemblage analyses. Journal of Experimental Marine Biology and Ecology, 320, 11-27.
 
-Legendre, P. & Legendre, L. (1998). Numerical Ecology, 2nd edn. Elsevier, Amsterdam.
+Gotelli, N. J., & Colwell, R. K. (2011). Estimating species richness. Pages 39– 54 in A Magurranand B McGill editors. Biological diversity: frontiers in measurement and assessment. Oxford University Press, Oxford, UK.
+
+Reese, G. C., Wilson, K. R., & Flather, C. H. (2014). Performance of species richness estimators across assemblage types and survey parameters. Global Ecology and Biogeography, 23(5), 585-594.
 }
 \author{
-Edlin Guerra-Castro (edlinguerra@gmail.com) and Maite Mascaro (mmm@ciencias.unam.mx)
+Edlin Guerra-Castro (edlinguerra@gmail.com), Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro (mmm@ciencias.unam.mx).
 }
 \note{
-%%  ~~~~
+Be careful about the data file, the first column should indicate the site ID of each sample (as character or numeric), even when a single site was sampled.
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+\code{\link[vegan]{dispweight}}, \code{\link[vegan]{specpool}}, \code{\link{simdata}}}
+
 \examples{
-## micromollusk from 'Cayo Nuevo', Campeche bank, Gulf of Mexico, Yucatan, Mexico
+##Single site: micromollusk from Cayo Nuevo (Yucatan, Mexico)
 data(micromollusk)
-data(micromolluskGEO)
-
-dat.par<-assempar (data = micromollusk,
-                    type= "P/A",
-                    spatial.str = TRUE,
-                    coords = micromolluskGEO,
-                    moranI.alfa=0.05,
-                    spatial.unsee.sp= "random")
-dat.par
+par.mic<-assempar(data = micromollusk,
+                  type= "P/A",
+                  Sest.method = "average")
+par.mic
 
 
-##Sponges from Alacranes National Park, Gulf of Mexico
+##Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico).
 data(sponges)
-data(spongesGEO)
-
-dat.par<-assempar (data = sponges,
-                    type= "counts",
-                    spatial.str = TRUE,
-                    coords = spongesGEO,
-                    moranI.alfa=0.05,
-                    spatial.unsee.sp= "random")
-dat.par
+par.spo<-assempar(data = sponges,
+                  type= "counts",
+                  Sest.method = "average")
+par.spo
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ multivariate	&	Multivariate Techniques }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ecological communities }% __ONLY ONE__ keyword per line
+
+\keyword{ multivariate	&	Multivariate Techniques }
+\keyword{ ecological communities }
+\keyword{ numerical ecology }
