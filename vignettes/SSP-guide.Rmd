@@ -10,7 +10,8 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
-
+library(SSP)
+library(ggplot2)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -18,31 +19,75 @@ knitr::opts_chunk$set(
 )
 ```
 
-`SSP` is an R package design to estimate sample effort in studies of ecological communities based on the definition of pseudo multivariate standard error (MultSE) (Anderson & Santana-Garcon 2015). This guide will provide you a brief overview in how to use `SSP`, as well as some description of the methodologies behind each function. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2019).
+`SSP` is an R package design to estimate sample effort in studies of ecological communities based on the definition of pseudo multivariate standard error (MultSE) (Anderson & Santana-Garcon 2015). This guide will provide you a brief overview in how to use `SSP`. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2019).
 
-The protocol in `SSP` consists in simulating several extensive data matrixes that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and MultSE calculated. The mean value, 0.025 and 0.975 quantiles of MultSE for each sampling effort across all simulated data are then estimated, and potentially ploted using `ggplot2`. The mean values are then standardized regarding the lowest sampling effort, and an optimal sampling effort can be identified as that in which the increase in sampling effort do not improve the precision beyond a threshold value (1, 2 or 3 %).
+The protocol in `SSP` consists in simulating several extensive data matrixes that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and MultSE calculated. The mean value, 0.025 and 0.975 quantiles of MultSE for each sampling effort across all simulated data are then estimated, and potentially ploted using `ggplot2`. The mean values are then standardized regarding the lowest sampling effort (in consequently the worst precision), and an optimal sampling effort can be identified as that in which the increase in sampling effort do not improve the precision beyond a threshold value (e.g. 1, 2 or 3 %).
+
 `SSP` include six functions: `assempar` for extrapolation of assemblage parameters using pilot data; `simdata` for simulation of several data sets based on extrapolated parameters; `datquality` for evaluation of plausibility of simulated data; `sampsd` for repeated estimations of MultSE for different sampling designs in simulated data sets; `summary_sd` for summarizing  the behaviour of MultSE for each sampling design across all simulated data sets, and `ioptimum` for identification of the optimal sampling effort.
 
+## Performance of SSP with real data
+ 
+(i)	**Micromollusks of marine shallow sandy bottoms**: Presence/absence of 67 species were registered in six cores of 4-inch diameter and 10 cm depth taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico (a small reef cay located 240 km off the North-Western coast of Yucatán). Data correspond to a study on the biodiversity of marine benthic reef habitats off the Yucatán shelf (Ortigosa, Suárez-Mozo, Barrera et al. 2018). The main objective was to estimate an adequate sampling effort for further quantitative studies to characterize the variability in species composition. To do this, the pilot data was characterized with `assempar`and several matrixes of P/A data were simulated with `simdata`. To speed up the process, only 10 data sets (*cases*) were simulated, each data matrix consisted in 50 potential sampling replicates in one site. Various sample size’s subsets (*n* = 2 to 50) were repeatedly sampled (*k* = 10) with `sampsd`. The Jaccard index was used as the similarity measure between sample units. Keep in mind that you can simulate many more matrices (*cases*), potential number of samples (*n*), and sampling repetitions (*k*), as long as you have the time and patience to wait for the results!
 
-## Software needed to run SSP in R
-- Required: [R](https://cran.r-project.org/)
-- Suggested: [RStudio IDE](https://www.rstudio.com/products/RStudio/#Desktop)
+```{r, eval = TRUE}
+data(micromollusk)
 
-## Styles
+#Estimation of parameters
+par.mic<-assempar(data = micromollusk, type = "P/A")
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+#Simulation of data
+sim.mic<-simdata(Par = par.mic, cases = 10, n = 50, site = 1)
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+#Sampling and estimation of MultSE
+samp.mic<-sampsd(sim.mic, par.mic,
+                        transformation = "P/A",
+                        method = "jaccard",
+                        multi.site = FALSE,
+                        n=50,
+                        p.n = 50,
+                        sites = 1,
+                        p.s = 1,
+                        k=10)
+
+#Summarizing results
+sum.mic<-summary_ssp(results = samp.mic, multi.site = FALSE)
+
+#Identification of optimal effort
+
+opt.mic<-ioptimum(xx = sum.mic, multi.site = FALSE)
+
+```
+
+
+
+
+
+
 
 ## Figures
 
 The figure sizes have been customised so that you can easily put two images side-by-side. 
 
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r}
+fig.mic<-ggplot(sum.mic, aes(x=samples, y=mean))+
+  geom_point(size = 0.5)+
+  geom_errorbar(aes(ymin=lower, ymax=upper), size=0.1, width=.2)+
+  theme_bw(base_size=16) +
+  ylab ("Multivariate pseudo SE")+ 
+  xlab("Sampling effort (n)")+
+  scale_y_continuous(breaks=seq(0.0, 0.4, 0.025))+
+  scale_x_continuous(breaks=seq(2, 50, 2))+
+  theme(axis.text.x = element_text(colour="black", size=rel(0.7)),
+        axis.text.y = element_text(colour="black", size=rel(0.7)),
+        axis.title.x = element_text(colour="black", size=rel(0.9)),
+        axis.title.y = element_text(colour="black", size=rel(0.9)),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_rect(size=0.4),
+        axis.ticks= element_line(size=0.2))+
+  annotate("rect", xmin=opt.mic[2], xmax=opt.mic[3], ymin=min(sum.mic$lower), ymax=max(sum.mic$upper), alpha=.1, fill="blue")+
+  annotate("text", x=11,  y =max(sum.mic$mean), label = "Optimal effort", fontface = "bold", size = 4 )
+fig.mic 
 ```
 
 You can enable figure captions by `fig_caption: yes` in YAML:
