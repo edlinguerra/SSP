@@ -1,6 +1,6 @@
 ## ioptimum: Identification of the optimal sampling effort.
 #'@export
-ioptimum<-function(xx, multi.site = TRUE, c1 = 10, c2 =5, c3= 1){
+ioptimum<-function(xx, multi.site = TRUE, c1 = 5, c2 =3, c3= 1){
   xx<-xx
 
   ##MultSE for multiple sites

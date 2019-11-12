@@ -10,24 +10,28 @@ datquality <- function(data, dat.sim, Par, transformation, method) {
 
     MVD = function(Y, transformation, method) {
         if (transformation == "square root") {
+            Y$dummy<-1
             Y.t <- Y^0.5
             D <- vegdist(Y.t, method = method)
         }
         if (transformation == "fourth root") {
+            Y$dummy<-1
             Y.t <- Y^0.25
             D <- vegdist(Y.t, method = method)
         }
         if (transformation == "Log (X+1)") {
+            Y$dummy<-1
             Y.t <- log(Y + 1)
             D <- vegdist(Y.t, method = method)
         }
         if (transformation == "P/A") {
+            Y$dummy<-1
             Y.t <- 1 * (Y > 0)
             D <- vegdist(Y.t, method = method)
         }
         if (transformation == "none") {
-            Y.t <- Y
-            D <- vegdist(Y.t, method = method)
+            Y$dummy<-1
+            D <- vegdist(Y, method = method)
         }
 
         n = dim(as.matrix(D))

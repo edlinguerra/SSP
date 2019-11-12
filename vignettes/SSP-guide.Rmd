@@ -3,6 +3,7 @@ title: "Estimation of sampling effort in community ecology with SSP"
 author: "Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+        
 vignette: >
   %\VignetteIndexEntry{Estimation of sampling effort in community ecology with SSP}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,19 +16,25 @@ library(ggplot2)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.retina=2,
+  fig.align='center',
+  fig.width = 7, 
+  fig.height = 5,
+  warning = FALSE,
+  message = FALSE
 )
 ```
 
-`SSP` is an R package design to estimate sample effort in studies of ecological communities based on the definition of pseudo multivariate standard error (MultSE) (Anderson & Santana-Garcon 2015). This guide will provide you a brief overview in how to use `SSP`. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2019).
+`SSP` is an R package design to estimate sample effort in studies of ecological communities based on the definition of pseudo multivariate standard error (*MultSE*) (Anderson & Santana-Garcon 2015). This guide will provide you a brief overview in how to use `SSP`. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2019).
 
-The protocol in `SSP` consists in simulating several extensive data matrixes that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and MultSE calculated. The mean value, 0.025 and 0.975 quantiles of MultSE for each sampling effort across all simulated data are then estimated, and potentially ploted using `ggplot2`. The mean values are then standardized regarding the lowest sampling effort (in consequently the worst precision), and an optimal sampling effort can be identified as that in which the increase in sampling effort do not improve the precision beyond a threshold value (e.g. 1, 2 or 3 %).
+The protocol in `SSP` consists in simulating several extensive data matrixes that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and *MultSE* calculated. The mean value, 0.025 and 0.975 quantiles of *MultSE* for each sampling effort across all simulated data are then estimated, and potentially ploted using `ggplot2`. The mean values are then standardized regarding the lowest sampling effort (in consequently the worst precision), and an optimal sampling effort can be identified as that in which the increase in sampling effort do not improve the precision beyond a threshold value (e.g. 1, 2 or 3 %).
 
-`SSP` include six functions: `assempar` for extrapolation of assemblage parameters using pilot data; `simdata` for simulation of several data sets based on extrapolated parameters; `datquality` for evaluation of plausibility of simulated data; `sampsd` for repeated estimations of MultSE for different sampling designs in simulated data sets; `summary_sd` for summarizing  the behaviour of MultSE for each sampling design across all simulated data sets, and `ioptimum` for identification of the optimal sampling effort.
+`SSP` include six functions: `assempar` for extrapolation of assemblage parameters using pilot data; `simdata` for simulation of several data sets based on extrapolated parameters; `datquality` for evaluation of plausibility of simulated data; `sampsd` for repeated estimations of MultSE for different sampling designs in simulated data sets; `summary_sd` for summarizing  the behaviour of *MultSE* for each sampling design across all simulated data sets, and `ioptimum` for identification of the optimal sampling effort.
 
 ## Performance of SSP with real data
  
-(i)	**Micromollusks of marine shallow sandy bottoms**: Presence/absence of 67 species were registered in six cores of 4-inch diameter and 10 cm depth taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico (a small reef cay located 240 km off the North-Western coast of Yucatán). Data correspond to a study on the biodiversity of marine benthic reef habitats off the Yucatán shelf (Ortigosa, Suárez-Mozo, Barrera et al. 2018). The main objective was to estimate an adequate sampling effort for further quantitative studies to characterize the variability in species composition. To do this, the pilot data was characterized with `assempar`and several matrixes of P/A data were simulated with `simdata`. To speed up the process, only 10 data sets (*cases*) were simulated, each data matrix consisted in 50 potential sampling replicates in one site. Various sample size’s subsets (*n* = 2 to 50) were repeatedly sampled (*k* = 10) with `sampsd`. The Jaccard index was used as the similarity measure between sample units. Keep in mind that you can simulate many more matrices (*cases*), potential number of samples (*n*), and sampling repetitions (*k*), as long as you have the time and patience to wait for the results!
+(i)	**Micromollusks of marine shallow sandy bottoms**: Presence/absence of 67 species were registered in six cores of 4-inch diameter and 10 cm depth taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico (a small reef cay located 240 km off the North-Western coast of Yucatán). Data correspond to a study on the biodiversity of marine benthic reef habitats off the Yucatán shelf (Ortigosa, Suárez-Mozo, Barrera et al. 2018). The main objective was to estimate an adequate sampling effort for further quantitative studies to characterize the variability in species composition. To do this, the pilot data was characterized with `assempar` and several matrixes of P/A data were simulated with `simdata`. To speed up the process, only 10 data sets (*cases*) were simulated, each data matrix consisted in 50 potential sampling replicates in one site. Various sample size’s subsets (*n* = 2 to 50) were repeatedly sampled (*k* = 10) with `sampsd`. The Jaccard index was used as the similarity measure between sample units. Keep in mind that you can simulate many more matrices (*cases*), potential number of samples (*n*), and sampling repetitions (*k*), as long as you have the time and patience to wait for the results!
 
 ```{r, eval = TRUE}
 data(micromollusk)
@@ -58,15 +65,7 @@ opt.mic<-ioptimum(xx = sum.mic, multi.site = FALSE)
 
 ```
 
-
-
-
-
-
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+The behaviour of *MultSE* for each sampling effort on simulated data sets can be plotted using `ggplot2` (Fig. 1). The shaded area indicates the range of samples in which each increase in the sampling effort provides between 5% and 1% improvement in precision; we call this area de **optimal effort**. Beyond 17 samples, the effort does not improve mora than 1 % the higher *MultSE*, which can be considered as a redundant effort. 
 
 ```{r}
 fig.mic<-ggplot(sum.mic, aes(x=samples, y=mean))+
@@ -90,13 +89,13 @@ fig.mic<-ggplot(sum.mic, aes(x=samples, y=mean))+
 fig.mic 
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+```{r, echo= FALSE}
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+knitr::opts_chunk$set(
+  fig.cap = "MultSE for micromollusk data"
+)
+```
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
 
 ## More Examples
 

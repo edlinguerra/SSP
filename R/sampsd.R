@@ -60,7 +60,7 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
             for (i in seq_len(NN)){
                 sel <- balancedtwostage(Y, selection = 1, m = mm[i], n = nn[i], PU = YPU, FALSE)
 
-                #replace incorrect probabilities produced by balancetwostage
+                #replace incorrect probabilities (p < 0 and p > 1) produced by balancetwostage
                 sel[sel[,1]<= -1, 1] <- 0
                 sel[sel[,1]>= 2, 1] <- 1
 
@@ -69,7 +69,9 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
                 rownames(sel) <- c(1:nrow(dat.df))
                 m<-sel[, 1]
                 y <- dat.df[m==1,]
-                dat <- as.matrix(y[ , 1:Sest])
+                dat <- y[ , 1:Sest]
+                dat$dummy <- 1 #dummy constant
+                dat<-as.matrix(dat)
 
                 #Transformation of and estimatation of a dissimilarity matrix "D"
 
@@ -152,6 +154,9 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
             for (i in seq_len(NN)) {
                 y <- sample(nrow(X), mse.results[i,3])
                 dat<-X[y,1:Sest]
+                dat$dummy <- 1 #dummy constant
+                dat<-as.matrix(dat)
+
                 if (transformation == "square root") {
                     dat.t <- dat^0.5
                     rm(dat)
@@ -173,9 +178,7 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
                     D <- vegdist(dat.t, method = method, binary = TRUE)
                 }
                 if (transformation == "none") {
-                    dat.t <- dat
-                    rm(dat)
-                    D <- vegdist(dat.t, method = method)
+                    D <- vegdist(dat, method = method)
                 }
 
                 #estimation of MultSE
