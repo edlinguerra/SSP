@@ -54,17 +54,19 @@ par.mic<-assempar (data = micromollusk,
                     type= "P/A",
                     Sest.method = "average")
 
-#Simulation of 10 data sets, each one with 100 potential sampling units from a single site
-sim.mic<-simdata(par.mic, cases= 10, n= 100, sites = 1)
+#Simulation of 3 data sets, each one with 10 potential sampling units from a single site
+sim.mic<-simdata(par.mic, cases= 3, n= 10, sites = 1)
 
-#Sampling and estimation of MultSE for each sample size (few repetitions to speed up the example)
+#Sampling and estimation of MultSE for each sample size (few repetitions
+#to speed up the example)
+
 sam.mic<-sampsd(sim.mic,
                par.mic,
                transformation = "P/A",
                method = "jaccard",
                multi.site = FALSE,
-               n=100,
-               p.n = 50,
+               n=10,
+               p.n = 10,
                sites = 1,
                p.s = 1,
                k=3)
@@ -82,21 +84,21 @@ par.spo<-assempar(data = sponges,
                   type= "counts",
                   Sest.method = "average")
 
-#Simulation of 3 data sets, each one with 15 potential sampling units in 10 sites.
-sim.spo<-simdata(par.spo, cases= 10, n= 15, sites = 10)
+#Simulation of 3 data sets, each one with 10 potential sampling units in 3 sites.
+sim.spo<-simdata(par.spo, cases= 3, n= 10, sites = 3)
 
-#Sampling and estimation of MultSE for each sampling design (few
-#repetitions to speed up the example)
+#Sampling and estimation of MultSE for each sampling design (few repetitions
+#to speed up the example)
 
 sam.spo<-sampsd(sim.spo,
                 par.spo,
                 transformation = "square root",
                 method = "bray",
                 multi.site = TRUE,
-                n=15,
+                n=10,
                 p.n = 10,
-                sites = 10,
-                p.s = 10,
+                sites = 3,
+                p.s = 3,
                 k=3)
 
 #Summary of MultSE for each sampling effort

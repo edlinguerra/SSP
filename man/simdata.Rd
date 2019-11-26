@@ -59,8 +59,8 @@ par.mic<-assempar(data = micromollusk,
                   type= "P/A",
                   Sest.method = "average")
 
-#Simulation of 10 data sets, each one with 100 potential sampling units from a single site
-sim.mic<-simdata(par.mic, cases= 10, n= 100, sites = 1)
+#Simulation of 3 data sets, each one with 10 potential sampling units from a single site
+sim.mic<-simdata(par.mic, cases= 3, n= 10, sites = 1)
 
 ##Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico).
 data(sponges)
@@ -70,8 +70,8 @@ par.spo<-assempar (data = sponges,
                     type= "counts",
                     Sest.method = "average")
 
-#Simulation of 3 data sets, each one with 15 potential sampling units in 10 sites.
-sim.spo<-simdata(par.spo, cases= 10, n= 15, sites = 10)
+#Simulation of 3 data sets, each one with 10 potential sampling units in 3 sites.
+sim.spo<-simdata(par.spo, cases= 3, n= 10, sites = 3)
 }
 
 \keyword{ multivariate	&	Multivariate Techniques }
