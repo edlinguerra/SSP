@@ -1,7 +1,7 @@
 \name{assempar}
 \alias{assempar}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{Estimation of ecological parameters of the assemblage
+
+\title{Estimation of Ecological Parameters of the Assemblage
 }
 \description{
 The function extracts the main parameters of the pilot data using basic R functions as well as functions like \code{\link[vegan]{specpool}} and \code{\link[vegan]{dispweight}}
