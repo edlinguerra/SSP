@@ -96,3 +96,4 @@ data(micromollusk)
 
 }
 \keyword{datasets}
+\keyword{SSP}

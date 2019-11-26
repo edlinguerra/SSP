@@ -69,3 +69,4 @@ data(sponges)
 str(sponges)
 }
 \keyword{datasets}
+\keyword{SSP}
