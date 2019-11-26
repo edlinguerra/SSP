@@ -2,7 +2,7 @@
 \alias{summary_ssp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Summary of MultSE for each sampling effort in simulated data sets
+Summary of MultSE for Each Sampling Effort in Simulated Data Sets
 }
 \description{
 For each simulated data set, averages of MultSE are estimated at each sampling size. Then an overall mean, as well as lower and upper intervals of means for each sample size are tabulated. A relativization to the maximum is applied to the average MultSE and a numerical derivative, using a forward finite difference, of the resulting quantity is obtained.

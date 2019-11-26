@@ -2,7 +2,7 @@
 \alias{ioptimum}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Identification of the optimal sampling effort
+Identification of the Optimal Sampling Effort
 }
 \description{
 The function estimates the sampling effort in which the rate of change for each additional sampling unit can be considered optimal.

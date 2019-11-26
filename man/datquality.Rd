@@ -2,7 +2,7 @@
 \alias{datquality}
 
 \title{
-Diversity metrics of simulated and original data
+Diversity Metrics of Simulated and Original Data
 }
 \description{
 The function estimates the average number of species, and the Simpson diversity index per sampling unit, as well as the total multivariate dispersion of pilot data and simulated data

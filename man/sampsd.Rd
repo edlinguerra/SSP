@@ -1,7 +1,7 @@
 \name{sampsd}
 \alias{sampsd}
 
-\title{Sampling simulated data and estimates multivariate standard errors
+\title{Sampling Simulated Data and Estimates Multivariate Standard Errors
 
 }
 \description{
