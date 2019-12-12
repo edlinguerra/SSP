@@ -8,7 +8,7 @@ Identification of the Optimal Sampling Effort
 The function estimates the sampling effort in which the rate of change for each additional sampling unit can be considered optimal.
 }
 \usage{
-ioptimum(xx, multi.site = TRUE, c1 = 5, c2 =3, c3= 1)
+ioptimum(xx, multi.site = TRUE, c1 = 5, c2 = 3, c3 = 1)
 }
 
 \arguments{
@@ -44,7 +44,7 @@ The cuts that define the sampling effort as necessary, sub-optimal, optimal or r
 \code{\link[SSP]{sampsd}}
 }
 \examples{
-###To speed up the simulation of these examples, the cases, sites and n were set small.
+###To speed up the simulation of these examples, the cases, sites and N were set small.
 
 ##Single site: micromollusk from Cayo Nuevo (Yucatan, Mexico)
 data(micromollusk)
@@ -55,7 +55,7 @@ par.mic<-assempar (data = micromollusk,
                     Sest.method = "average")
 
 #Simulation of 3 data sets, each one with 10 potential sampling units from a single site
-sim.mic<-simdata(par.mic, cases= 3, n= 10, sites = 1)
+sim.mic<-simdata(par.mic, cases= 3, N = 10, sites = 1)
 
 #Sampling and estimation of MultSE for each sample size (few repetitions
 #to speed up the example)
@@ -65,16 +65,16 @@ sam.mic<-sampsd(sim.mic,
                transformation = "P/A",
                method = "jaccard",
                multi.site = FALSE,
-               n=10,
-               p.n = 10,
+               N =10,
+               n = 10,
                sites = 1,
-               p.s = 1,
-               k=3)
+               m = 1,
+               k = 3)
 
 #Summary of MultSE for each sampling effort
 summ.mic<-summary_ssp(results = sam.mic, multi.site = FALSE)
 
-opt.mic<-ioptimum(summ.mic, multi.site = FALSE, c1 = 5, c2 =3, c3= 1)
+opt.mic<-ioptimum(summ.mic, multi.site = FALSE, c1 = 5, c2 = 3, c3 = 1)
 
 ##Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico).
 data(sponges)
@@ -85,7 +85,7 @@ par.spo<-assempar(data = sponges,
                   Sest.method = "average")
 
 #Simulation of 3 data sets, each one with 10 potential sampling units in 3 sites.
-sim.spo<-simdata(par.spo, cases= 3, n= 10, sites = 3)
+sim.spo<-simdata(par.spo, cases= 3, N = 10, sites = 3)
 
 #Sampling and estimation of MultSE for each sampling design (few repetitions
 #to speed up the example)
@@ -95,16 +95,16 @@ sam.spo<-sampsd(sim.spo,
                 transformation = "square root",
                 method = "bray",
                 multi.site = TRUE,
-                n=10,
-                p.n = 10,
+                N =10,
+                n = 10,
                 sites = 3,
-                p.s = 3,
-                k=3)
+                m = 3,
+                k = 3)
 
 #Summary of MultSE for each sampling effort
 summ.spo<-summary_ssp(results = sam.spo, multi.site = TRUE)
 
-opt.spo<-ioptimum(summ.spo, multi.site = TRUE, c1 = 10, c2 =5, c3= 1)
+opt.spo<-ioptimum(summ.spo, multi.site = TRUE, c1 = 10, c2 = 5, c3 = 1)
 
 }
 

@@ -62,7 +62,7 @@ par.mic<-assempar (data = micromollusk,
                     Sest.method = "average")
 
 #Simulation of 3 data sets, each one with 10 potential sampling units from a single site
-sim.mic<-simdata(par.mic, cases= 3, n= 10, sites = 1)
+sim.mic<-simdata(par.mic, cases= 3, N = 10, sites = 1)
 
 #Estimation of diversity metrics of original and simulated data
 qua.mic<-datquality(data = micromollusk,
@@ -81,7 +81,7 @@ par.spo<-assempar(data = sponges,
                   Sest.method = "average")
 
 #Simulation of 3 data sets, each one with 10 potential sampling units in 3 sites.
-sim.spo<-simdata(par.spo, cases= 3, n= 10, sites = 3)
+sim.spo<-simdata(par.spo, cases= 3, N = 10, sites = 3)
 
 #Estimation of diversity metrics of original and simulated data
 qua.spo<-datquality(data = sponges,

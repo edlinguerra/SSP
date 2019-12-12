@@ -8,7 +8,7 @@
 Each set of simulated data is sampled many times for each sampling effort, from 2 replicates to those defined as an argument in the function. Then, distance-based multivariate standard errors is estimated using pseudo-variance (for single site evaluation) or Mean Squares estimates in a linear model (for multisite evaluation).
 }
 \usage{
-sampsd(dat.sim, Par, transformation, method, multi.site = TRUE, n, p.n, sites, p.s, k)
+sampsd(dat.sim, Par, transformation, method, multi.site = TRUE, N, n, sites, m, k)
 }
 
 \arguments{
@@ -27,24 +27,24 @@ The appropiate distance/dissimilarity metric. The function \code{\link[vegan]{ve
   \item{multi.site}{
 Logical argument indicating if several sites were simulated
   }
-  \item{n}{
+  \item{N}{
 Total number of samples simulated for each site
   }
-  \item{p.n}{
-Maxinum number of samples to take at each site. Can be equal or less than n
+  \item{n}{
+Maxinum number of samples to take at each site. Can be equal or less than N
   }
   \item{sites}{
 Total number of sites simulated for each data set
   }
-  \item{p.s}{
+  \item{m}{
 Maxinum number of sites to sample at each data set
   }
   \item{k}{
-Number of repetitions of each combination between n and sites
+Number of repetitions of each combination between N and sites
   }
 }
 \details{
-If several sites had been generated (multi.site = TRUE), subsets of sites of size 2 to p.s are sampled, followed by the selection of sampling units (from 2 to p.n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site (multi.site = FALSE), sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to p.n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the MultSE is estimated as \eqn{\sqrtV/n}, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, MultSE are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015).
+If several sites had been generated (multi.site = TRUE), subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site (multi.site = FALSE), sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the MultSE is estimated as \eqn{\sqrtV/n}, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, MultSE are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015).
 }
 \value{
 \item{mse.results}{
@@ -78,7 +78,7 @@ par.mic<-assempar (data = micromollusk,
                     Sest.method = "average")
 
 #Simulation of 3 data sets, each one with 10 potential sampling units from a single site
-sim.mic<-simdata(par.mic, cases= 3, n= 10, sites = 1)
+sim.mic<-simdata(par.mic, cases = 3, N = 10, sites = 1)
 
 #Sampling and estimation of MultSE for each sample size (few repetitions to speed up the example)
 sam.mic<-sampsd(sim.mic,
@@ -86,11 +86,11 @@ sam.mic<-sampsd(sim.mic,
                transformation = "P/A",
                method = "jaccard",
                multi.site = FALSE,
-               n=10,
-               p.n = 10,
+               N =10,
+               n = 10,
                sites = 1,
-               p.s = 1,
-               k=3)
+               m = 1,
+               k = 3)
 
 ##Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico).
 data(sponges)
@@ -101,7 +101,7 @@ par.spo<-assempar(data = sponges,
                   Sest.method = "average")
 
 #Simulation of 3 data sets, each one with 10 potential sampling units in 3 sites.
-sim.spo<-simdata(par.spo, cases= 3, n= 10, sites = 3)
+sim.spo<-simdata(par.spo, cases = 3, N = 10, sites = 3)
 
 #Sampling and estimation of MultSE for each sampling design (few
 #repetitions to speed up the example)
@@ -111,11 +111,11 @@ sam.spo<-sampsd(sim.spo,
                 transformation = "square root",
                 method = "bray",
                 multi.site = TRUE,
-                n=10,
-                p.n = 10,
+                N = 10,
+                n = 10,
                 sites = 3,
-                p.s = 3,
-                k=3)
+                m = 3,
+                k = 3)
 
 }
 

@@ -5,7 +5,7 @@
 #'@importFrom sampling getdata
 #'@export
 
-sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.n, sites, p.s, k) {
+sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE, N, n, sites, m, k) {
     names(dat.sim) <- sprintf("%i", 1:length(dat.sim))
     if (multi.site == TRUE) {
         # Function to estimate the multivariate standard errors (multiple sites and sample replicates)
@@ -36,17 +36,17 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
         samp<-function (X = NULL){
 
             #Matrix to store the results
-            p.n <- seq(2, p.n, by = 1)
-            p.s <- seq(2, p.s, by = 1)
-            mse.results <- matrix(nrow = length(p.n) * length(p.s) * k, ncol = 6)
-            mse.results[, 2] <- base::rep(1:k, times = length(p.n) * length(p.s))
-            mse.results[, 3] <- base::rep(p.s, times = length(p.n), each = k)
-            mse.results[, 4] <- base::rep(p.n, times = 1, each = length(p.s) * k)
-            colnames(mse.results) <- c("dat.sim", "k", "p.s", "p.n", "MSE.sites", "MSE.n")
+            n <- seq(2, n, by = 1)
+            m <- seq(2, m, by = 1)
+            mse.results <- matrix(nrow = length(n) * length(m) * k, ncol = 6)
+            mse.results[, 2] <- base::rep(1:k, times = length(n) * length(m))
+            mse.results[, 3] <- base::rep(m, times = length(n), each = k)
+            mse.results[, 4] <- base::rep(n, times = 1, each = length(m) * k)
+            colnames(mse.results) <- c("dat.sim", "k", "m", "n", "MSE.sites", "MSE.n")
 
             #Objects needed for loop in samp
-            Y <- cbind(1:(n * sites))
-            YPU <- as.numeric(as.vector(gl(sites, n)))
+            Y <- cbind(1:(N * sites))
+            YPU <- as.numeric(as.vector(gl(sites, N)))
             NN<-nrow(mse.results)
             mm<-mse.results[,3]
             nn <- rep(NA, NN)
@@ -116,9 +116,9 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
         results<-do.call(rbind, results)
 
         #Identity of each simulated data
-        p.n <- seq(2, p.n, by = 1)
-        p.s <- seq(2, p.s, by = 1)
-        results[, 1] <- base::rep(1:length(dat.sim), each = length(p.n) * length(p.s) * k)
+        n <- seq(2, n, by = 1)
+        m <- seq(2, m, by = 1)
+        results[, 1] <- base::rep(1:length(dat.sim), each = length(n) * length(m) * k)
 
         return(results)
 
@@ -139,11 +139,11 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
         samp<-function (X = NULL){
 
             #Matrix to store the results
-            p.n <- seq(2, p.n, by = 1)
-            mse.results <- matrix(nrow = length(p.n) * k, ncol = 4)
-            mse.results[, 2] <- rep(1:k, times = length(p.n))
-            mse.results[, 3] <- rep(p.n, times = 1, each = k)
-            colnames(mse.results) <- c("dat.sim", "k", "p.n", "mSE")
+            n <- seq(2, n, by = 1)
+            mse.results <- matrix(nrow = length(n) * k, ncol = 4)
+            mse.results[, 2] <- rep(1:k, times = length(n))
+            mse.results[, 3] <- rep(n, times = 1, each = k)
+            colnames(mse.results) <- c("dat.sim", "k", "n", "mSE")
 
             #Objects needed for loop in samp
             NN<-nrow(mse.results)
@@ -197,8 +197,8 @@ sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE,n, p.
         results<-do.call(rbind, results)
 
         #Identity of each simulated data
-        p.n <- seq(2, p.n, by = 1)
-        results[, 1] <- base::rep(1:length(dat.sim), each = length(p.n) * k)
+        n <- seq(2, n, by = 1)
+        results[, 1] <- base::rep(1:length(dat.sim), each = length(n) * k)
 
         return(results)
     } # end of loop for a single site
