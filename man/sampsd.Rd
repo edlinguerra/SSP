@@ -40,7 +40,7 @@ Total number of sites simulated for each data set
 Maxinum number of sites to sample at each data set
   }
   \item{k}{
-Number of repetitions of each combination between N and sites
+Number of repetitions of each sampling effort (samples and sites) at each data set
   }
 }
 \details{
