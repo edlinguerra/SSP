@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-`SSP` is an R package design to estimate sampling effort in studies of ecological communities based on the definition of pseudo multivariate standard error (*MultSE*) (Anderson & Santana-Garcon 2015). This guide will provide you a brief overview in how to use `SSP`. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2019).
+`SSP` is an R package design to estimate sampling effort in studies of ecological communities based on the definition of pseudo multivariate standard error (*MultSE*) (Anderson & Santana-Garcon 2015) and simulation of data. This guide will provide you a brief overview in how to use `SSP`. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2020).
 
 The protocol in `SSP` consists in simulating several extensive data matrices that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and *MultSE* is calculated to each one. The mean value, 0.025 and 0.975 quantiles of *MultSE* for each sampling effort across all simulated data are then estimated, and optionally plotted using `ggplot2`. The mean values are then standardized regarding the lowest sampling effort (consequently, the worst precision), and an optimal sampling effort can be identified as that in which the increase in sample size do not improve the precision beyond a threshold value (e.g. 1 %).
 
@@ -81,13 +81,13 @@ The first function to use is `assempar`. The arguments of this functions are:
 </tr>
 <tr class="odd">
 <td align="center"><code>Sest.method</code></td>
-<td align="left">Method for estimating species richness. The function function <code>specpool</code> is used for this. Available methods are the incidence-based Chao "chao", first order jackknife "jack1", second order jackknife "jack2" and Bootstrap "boot". By default, the "average" of the four estimates is used.</td>
+<td align="left">Method for estimating species richness. The function <code>specpool</code> is used for this. Available methods are the incidence-based Chao "chao", first order jackknife "jack1", second order jackknife "jack2" and Bootstrap "boot". By default, the "average" of the four estimates is used.</td>
 </tr>
 
 </tbody>
 </table>
 
-This function extracts the main parameters of the pilot data using basic R functions as well as functions like `specpool` and `dispweight` from `vegan`. The expected number of species in the assemblage is estimated using non-parametric methods (Gotelli et al. 2011). Due to the variability in the estimates of each approximation (Reese et al. 2014), we recommend using an average of these. The probability detection of each species is estimated among and within sites. The former is calculated as the frequency of occurrences of each of the species against the number of sites sampled, the second as the weighted average frequencies in sites where the species were present. Also, the degree of spatial aggregation of species (only for real counts of individuals), is identified with the index of dispersion D (Clarke et al. 2006). The corresponding properties of unseen species are approximated using information of observed species. Specifically, the probabilities of detection are assumed to be equal to the rarest species of pilot data. The mean (and variance) of the abundances are defined using random poisson values with lambda as the overall mean of species abundances. `assempar`	returns an object of class `list`, to be used by `simdata`.
+This function extracts the main parameters of the pilot data using basic R functions as well as functions like `specpool` and `dispweight` from `vegan`. The expected number of species in the assemblage is estimated using non-parametric methods (Gotelli et al. 2011). Due to the variability in the estimates of each approximation (Reese et al. 2014), we recommend using an average of these. The probability detection of each species is estimated between and within sites. The former is calculated as the frequency of occurrences of each of the species against the number of sites sampled, the second as the weighted average frequencies in sites where the species were present. Also, the degree of spatial aggregation of species (only for real counts of individuals), is identified with the index of dispersion D (Clarke et al. 2006). The corresponding properties of unseen species are approximated using information of observed species. Specifically, the probabilities of detection are assumed to be equal to the rarest species of pilot data. The mean (and variance) of the abundances are defined using random Poisson values with lambda as the overall mean of species abundances. `assempar`	returns an object of class `list`, to be used by `simdata`.
 
 The second function to use is `simdata`, with the following arguments:
 
@@ -123,9 +123,9 @@ The second function to use is `simdata`, with the following arguments:
 </tbody>
 </table>
 
-The presence/absence of each species at each site are simulated with Bernoulli trials and probability of success equals to the empirical frequency of occurrence of each species among sites in the pilot data. For sites with the presence of the species, Bernoulli trials are used, with a probability of success equal to the estimated empirical frequency within the sites where it appears, to simulate the distribution of the species at that site. Once created, the P/A matrixes are converted to matrixes of abundances replacing presences by random values from an adequate statistical distribution and parameters equals to those estimated in the pilot data. Counts of individuals are generated using Poisson or negative binomial distributions, depending on the degree of aggregation of each species in the pilot data (McArdle & Anderson 2004; Anderson & Walsh 2013). When abundances were measured as a continuous variable (i.e. coverage, biomass), they are generated using the lognormal distribution. The simulation procedure is repeated to generate as many simulated data matrixes as needed. This function returns an object of class `list` that will be used by `sampsd` and `datquality`.
+The presence/absence of each species at each site are simulated with Bernoulli trials and probability of success equals to the empirical frequency of occurrence of each species among sites in the pilot data. Then, for sites with the simulated presence of the species, Bernoulli trials are used again with probability of success equal to the empirical frequency estimated  within the sites in pilot data. If required, the presence/absence matrixes are converted to matrixes of abundances replacing presences by random values from an adequate statistical distribution and parameters equals to those estimated in the pilot data. Counts of individuals are generated using Poisson or negative binomial distributions, depending on the degree of aggregation of each species in the pilot data (McArdle & Anderson 2004; Anderson & Walsh 2013). When abundances were measured as a continuous variable (i.e. coverage, biomass), they are generated using the lognormal distribution. The simulation procedure is repeated to generate as many simulated data matrixes (i.e. cases) as needed. This function returns an object of class `list` that will be used by `sampsd` and `datquality`.
 
-The third function is `sampsd`. If several sites had been generated (multi.site = TRUE), subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to p.n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site (multi.site = FALSE), sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the *MultSE* is estimated as $\sqrt{V/n}$, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, *MultSE* are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015). The arguments of this function:
+The third function is `sampsd`. If several sites had been generated (multi.site = TRUE), subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site (multi.site = FALSE), sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the *MultSE* is estimated as $\sqrt{V/n}$, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, *MultSE* are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015). The arguments of this function:
 
 <table style="width:100%;">
 <colgroup>
@@ -177,13 +177,13 @@ The third function is `sampsd`. If several sites had been generated (multi.site 
 </tr>
 <tr class="even">
 <td align="center"><code>k</code></td>
-<td align="left">Number of repetitions of each combination between N and sites</td>
+<td align="left">Number of repetitions of each sampling effort (samples and sites) at each data set</td>
 </tr>
 
 </tbody>
 </table>
 
-After the sampling proceadure and estimation of *MultSE*, `summary_ssp` is requiered to estimate the mean of *MultSE* of all *k* repetitions within each simulated data, and then an overall mean as well as the lower and upper intervals of means for each sample size among all simulated data. In order to have a general and comparable criteria to evaluate the rate of change of the averaged *MultSE* with respect to the sampling effort, a relativization to the maximum *MultSE* value (obteined with the lower sampling effort) is calculated; then, a standard forward finite derivation is computed. All this results are presented in a data frame, that can be used to plot *MultSE* with respect to the sampling effort. The arguments of this function are:
+The fourth function is `summary_ssp`.  This function is requiered to estimate an average of all *MultSE* obtained with the *k* repetitions for each sampling effort within each case, and then an overall mean as well as the lower and upper intervals of means for each sampling effort among all cases. In order to have a general and comparable criteria to evaluate the rate of change of the averaged *MultSE* with respect to the sampling effort, a relativization to the maximum *MultSE* value (obteined with the lower sampling effort) is calculated; then, a standard forward finite derivation is computed. All this results are presented in a data frame, that can be used to plot *MultSE* with respect to the sampling effort, using `ggplot2`. The arguments of this function are:
 
 
 <table style="width:100%;">
@@ -309,7 +309,7 @@ opt.mic<-ioptimum(xx = sum.mic, multi.site = FALSE, c1 = 5, c2 = 3, c3 = 1)
 
 ```
 
-The behavior of *MultSE* for each sampling effort on simulated data sets can be plotted using `ggplot2` (Fig. 1). The shaded area indicates the range of samples in which each increase in the sampling effort provides between 3% and 1% improvement in precision for each aditional sample; we call this area the **optimal improvement**. Beyond 17 samples, the effort does not improve more than 1 % the higher *MultSE*, which can be considered as a redundant effort. 
+The behavior of *MultSE* for each sampling effort on simulated data sets can be plotted using `ggplot2` (Fig. 1). The shaded area indicates the range of samples in which each increase in the sampling effort provides between 3% and 1% improvement in precision for each aditional sample; we call this area the **optimal improvement**. Beyond 17 samples, the effort does not improve more than 1% the higher *MultSE*, which can be considered as a redundant effort. 
 
 ```{r eval=FALSE}
 fig.mic<-ggplot(sum.mic, aes(x=samples, y=mean))+
@@ -464,8 +464,9 @@ cv
 ```
 
 
-With these projections, and considering the costs (time, money) of visiting a site and doing each transect, as well as the relative importance of each spatial scale, it will be convenient to keep the number of sites in 6, and to increase the number of transect to 8.  
+With these projections, and considering the costs (time, money) of visiting a site and doing each transect, as well as the relative importance of each spatial scale, it will be convenient to keep the number of sites in 6, and to increase the number of transect to 8. 
 
+These examples demonstrates that `SSP` has key advantages in estimating sample effort to study communities whose data will be analyzed with statistical techniques based on similarity indices, such as PERMANOVA. However, it is important to mention that `SSP` is not free from assumptions. First, simulations in `simdata` do not consider any environmental constraint, nor the co-occurrence of species neither their joint distribution functions. In addition, the `SSP` protocol assumes that potential differences in species composition among sites is due to spatial aggregation of species measured in the pilot data. Thus, any spatial structure of species that was not captured by the pilot data will not be reflected in the simulation. Although the protocol performs well with small pilot data, it is recommendable that the pilot sampling captures the greatest possible variability in the system under study. Despite these limitations, if the properties of the simulated data resemble the community of interest and show ecological plausibility, the extrapolations derived from the procedure presented here will hold valid to define an optimal sampling effort for any study based on dissimilarity-based multivariate analysis. 
 
 ------
 
@@ -480,6 +481,8 @@ With these projections, and considering the costs (time, money) of visiting a si
 -Clarke, K. R., Chapman, M. G., Somerfield, P. J., & Needham, H. R. (2006). Dispersion-based weighting of species counts in assemblage analyses. Journal of Experimental Marine Biology and Ecology, 320, 11-27.
 
 -Gotelli, N. J., & Colwell, R. K. (2011). Estimating species richness. Pages 39– 54 in A Magurranand B McGill editors. Biological diversity: frontiers in measurement and assessment. Oxford University Press, Oxford, UK.
+
+-Guerra-Castro, E. J., Cajas, L. C., Cruz-Motta, J. J., Simoes, N., & Mascaro, M. (2020). A simulation-based protocol to estimate sampling effort in studies of ecological communities
 
 -McArdle, B. H., & M. J. Anderson. (2004). Variance heterogeneity, transformations, and models of species abundance: a cautionary tale. Canadian Journal of Fisheries and Aquatic Sciences 61:1294-1302.
 
