@@ -19,8 +19,4 @@ r_packages:
   - sampling
 
 before_install:
-  - tlmgr install sidecap
-
-warnings_are_errors: false
-
-r_build_args: " --compact-vignettes=gs+qpdf"
+  - tlmgr install index
