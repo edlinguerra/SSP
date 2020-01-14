@@ -25,7 +25,8 @@ Suggests:
     knitr,
     rmarkdown,
     ggplot2,
-    testthat
+    testthat,
+    roxygen2
 VignetteBuilder: knitr
 URL: https://github.com/edlinguerra/SSP
 BugReports: https://github.com/edlinguerra/SSP/issues
