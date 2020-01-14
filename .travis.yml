@@ -1,12 +1,12 @@
-language: r
+language: R
 cache: packages
+latex: false
+sudo: false
 
 r:
   - release
   - oldrel
   - devel
-
-sudo: false
 
 addons:
   apt:
