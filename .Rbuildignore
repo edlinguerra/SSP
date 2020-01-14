@@ -1,3 +1,14 @@
 ^SSP\.Rproj$
 ^\.Rproj\.user$
 ^.*\.Rproj$
+^README\.Rmd$
+^cran-comments\.Rmd$
+^data/pilot\.Rdata$
+^data/pilot\.csv$
+^vignettes/SSP-guide\.R$
+^vignettes/permanova_pilot\.R$
+^vignettes/
+^\.git$
+^\.gitignore$
+^\Rhistory$
+^\.travis\.yml$
