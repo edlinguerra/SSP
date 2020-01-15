@@ -1,6 +1,5 @@
 language: R
 cache: packages
-latex: false
 sudo: false
 
 r:
@@ -8,15 +7,7 @@ r:
   - oldrel
   - devel
 
-addons:
-  apt:
-    packages:
-      - qpdf
-
 r_packages:
   - vegan
   - stats
   - sampling
-
-before_install:
-  - tlmgr install index
