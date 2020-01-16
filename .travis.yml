@@ -11,3 +11,8 @@ r_packages:
   - vegan
   - stats
   - sampling
+  - roxygen2
+  - knitr
+  - rmarkdown
+  - ggplot2
+  - testthat
