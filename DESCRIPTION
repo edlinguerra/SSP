@@ -17,6 +17,7 @@ Description: Simulation-based sampling protocol (SSP) uses dissimilarity-based m
     for evaluation of plausibility of simulated data; SampSD for repeated estimations of MultSE for different sampling designs 
     in simulated data sets; and MSEplot for visualization of the behaviour of MultSE for each sampling design across all simulated 
     data sets.
+Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
