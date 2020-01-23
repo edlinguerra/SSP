@@ -64,10 +64,7 @@ sam.mic<-sampsd(sim.mic,
                par.mic,
                transformation = "P/A",
                method = "jaccard",
-               multi.site = FALSE,
-               N =10,
                n = 10,
-               sites = 1,
                m = 1,
                k = 3)
 
@@ -94,10 +91,7 @@ sam.spo<-sampsd(sim.spo,
                 par.spo,
                 transformation = "square root",
                 method = "bray",
-                multi.site = TRUE,
-                N =10,
                 n = 10,
-                sites = 3,
                 m = 3,
                 k = 3)
 
