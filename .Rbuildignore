@@ -2,7 +2,7 @@
 ^\.Rproj\.user$
 ^.*\.Rproj$
 ^README\.Rmd$
-^README\.Rm$
+^README\.md$
 ^cran-comments\.Rmd$
 ^data/pilot\.Rdata$
 ^data/pilot\.csv$

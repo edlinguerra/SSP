@@ -8,7 +8,7 @@
 Each set of simulated data is sampled many times for each sampling effort, from 2 replicates to those defined as an argument in the function. Then, distance-based multivariate standard errors is estimated using pseudo-variance (for single site evaluation) or Mean Squares estimates in a linear model (for multisite evaluation).
 }
 \usage{
-sampsd(dat.sim, Par, transformation, method, multi.site = TRUE, N, n, sites, m, k)
+sampsd(dat.sim, Par, transformation, method, n, m, k)
 }
 
 \arguments{
@@ -22,29 +22,20 @@ A list of parameters estimated by \code{\link{assempar}}
 Mathematical function to reduce the weight of very dominant species: 'square root', 'fourth root', 'Log (X+1)', 'P/A', 'none'
 }
   \item{method}{
-The appropiate distance/dissimilarity metric. The function \code{\link[vegan]{vegdist}} is call for that purpose.
-  }
-  \item{multi.site}{
-Logical argument indicating if several sites were simulated
-  }
-  \item{N}{
-Total number of samples simulated for each site
+The appropiate distance/dissimilarity metric (e.g. Gower, Bray–Curtis, Jaccard, etc). The function \code{\link[vegan]{vegdist}} is call for that purpose.
   }
   \item{n}{
-Maxinum number of samples to take at each site. Can be equal or less than N
-  }
-  \item{sites}{
-Total number of sites simulated for each data set
+Maximum number of samples to take at each site. Can be equal or less than N
   }
   \item{m}{
-Maxinum number of sites to sample at each data set
+Maximum number of sites to sample at each data set. Can be equal or less than sites
   }
   \item{k}{
 Number of repetitions of each sampling effort (samples and sites) at each data set
   }
 }
 \details{
-If several sites had been generated (multi.site = TRUE), subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site (multi.site = FALSE), sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the MultSE is estimated as \eqn{\sqrtV/n}, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, MultSE are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015).
+If several sites had been generated, subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site, sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the *MultSE* is estimated as the square root of the quotient between the pseudo variance and the sampling effort (Anderson & Santana-Garcon, 2015). When several sites were generated, MultSE are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015).
 }
 \value{
 \item{mse.results}{
@@ -85,10 +76,7 @@ sam.mic<-sampsd(sim.mic,
                par.mic,
                transformation = "P/A",
                method = "jaccard",
-               multi.site = FALSE,
-               N =10,
                n = 10,
-               sites = 1,
                m = 1,
                k = 3)
 
@@ -110,10 +98,7 @@ sam.spo<-sampsd(sim.spo,
                 par.spo,
                 transformation = "square root",
                 method = "bray",
-                multi.site = TRUE,
-                N = 10,
                 n = 10,
-                sites = 3,
                 m = 3,
                 k = 3)
 
