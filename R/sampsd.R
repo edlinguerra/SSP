@@ -7,6 +7,7 @@
 
 sampsd <- function(dat.sim, Par, transformation, method, n, m, k) {
     names(dat.sim) <- sprintf("%i", 1:length(dat.sim))
+
     N<-max(dat.sim[[1]][,'N'])
     sites<-max(as.numeric(dat.sim[[1]][,'sites']))
     if (sites == 1) {
