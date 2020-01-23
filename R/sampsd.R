@@ -5,8 +5,18 @@
 #'@importFrom sampling getdata
 #'@export
 
-sampsd <- function(dat.sim, Par, transformation, method, multi.site = TRUE, N, n, sites, m, k) {
+sampsd <- function(dat.sim, Par, transformation, method, n, m, k) {
     names(dat.sim) <- sprintf("%i", 1:length(dat.sim))
+    N<-max(dat.sim[[1]][,'N'])
+    sites<-max(as.numeric(dat.sim[[1]][,'sites']))
+    if (sites == 1) {
+        multi.site = FALSE
+    } else {multi.site = TRUE}
+    if (n > N){
+        stop("'n' must be equal or less than 'N'")}
+    if (m > sites){
+        stop("'m' must be equal or less than 'sites'")}
+
     if (multi.site == TRUE) {
         # Function to estimate the multivariate standard errors (multiple sites and sample replicates)
         model.MSE <- function(D, y) {
