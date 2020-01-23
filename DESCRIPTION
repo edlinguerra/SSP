@@ -25,7 +25,6 @@ RoxygenNote: 6.1.1
 Suggests: 
     knitr,
     rmarkdown,
-    ggplot2,
     testthat,
     roxygen2
 VignetteBuilder: knitr
@@ -34,4 +33,5 @@ BugReports: https://github.com/edlinguerra/SSP/issues
 Imports: 
     vegan,
     stats,
-    sampling
+    sampling,
+    ggplot2
