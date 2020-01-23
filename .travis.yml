@@ -16,3 +16,6 @@ r_packages:
   - rmarkdown
   - ggplot2
   - testthat
+
+os:
+  - osx
