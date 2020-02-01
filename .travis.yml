@@ -18,4 +18,5 @@ r_packages:
   - testthat
 
 os:
+  - linux
   - osx
