@@ -33,25 +33,25 @@ knitr::opts_chunk$set(
 #  par.mic<-assempar(data = micromollusk, type = "P/A")
 #  
 #  #Simulation of data
-#  sim.mic<-simdata(Par = par.mic, cases = 10, n = 50, site = 1)
+#  sim.mic<-simdata(Par = par.mic, cases = 10, N = 50, site = 1)
 #  
 #  #Sampling and estimation of MultSE
 #  samp.mic<-sampsd(sim.mic, par.mic,
 #                          transformation = "P/A",
 #                          method = "jaccard",
 #                          multi.site = FALSE,
-#                          n=50,
-#                          p.n = 50,
+#                          N = 50,
+#                          n = 50,
 #                          sites = 1,
 #                          m = 1,
-#                          k=10)
+#                          k = 10)
 #  
 #  #Summarizing results
 #  sum.mic<-summary_ssp(results = samp.mic, multi.site = FALSE)
 #  
 #  #Identification of optimal effort
 #  
-#  opt.mic<-ioptimum(xx = sum.mic, multi.site = FALSE, c1=5, c2=3, c3=1)
+#  opt.mic<-ioptimum(xx = sum.mic, multi.site = FALSE, c1 = 5, c2 = 3, c3 = 1)
 #  
 
 ## ----eval=FALSE----------------------------------------------------------
@@ -73,7 +73,9 @@ knitr::opts_chunk$set(
 #          axis.ticks= element_line(size=0.2))+
 #    annotate("rect", xmin=opt.mic[2], xmax=opt.mic[3], ymin=min(sum.mic$lower),
 #             ymax=max(sum.mic$upper), alpha=.1, fill="blue")+
-#    annotate("text", x=12,  y =max(sum.mic$mean), label = "Optimal effort",
+#    annotate("text", x=12.5,  y = 0.325, label = "Optimal",
+#             fontface = "bold", size = 3 )+
+#    annotate("text", x=12.5,  y = 0.315, label = "improvement",
 #             fontface = "bold", size = 3 )
 #  fig.mic
 
@@ -98,14 +100,14 @@ knitr::include_graphics('fig1.png')
 #                          n = 20,
 #                          sites = 20,
 #                          m = 20,
-#                          k=10)
+#                          k = 10)
 #  
 #  #Summarizing results
 #  sum.spo<-summary_ssp(results = samp.spo, multi.site = TRUE)
 #  
 #  #Identification of optimal effort
 #  
-#  opt.spo<-ioptimum(xx = sum.spo, multi.site = TRUE, c1=5, c2=3, c3=1)
+#  opt.spo<-ioptimum(xx = sum.spo, multi.site = TRUE, c1 = 5, c2 = 3, c3 = 1)
 #  
 #  
 #  #Data frame to generate shade rectangles for sub optimal and optimal efforts for each source of variation
@@ -134,6 +136,7 @@ knitr::include_graphics('fig1.png')
 #          theme_bw(base_size=16) +
 #          ylab ("Multivariate pseudo SE")+
 #          xlab("Sampling effort")+
+#          scale_x_continuous(breaks = c(2:20))+
 #          theme(axis.text.x = element_text(colour="black", size=rel(0.7)),
 #                axis.text.y = element_text(colour="black", size=rel(0.7)),
 #                axis.title.x = element_text(colour="black", size=rel(0.9)),
