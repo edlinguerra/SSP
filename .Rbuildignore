@@ -6,10 +6,12 @@
 ^cran-comments\.Rmd$
 ^data/pilot\.Rdata$
 ^data/pilot\.csv$
-^vignettes/SSP-guide\.R$
-^vignettes/permanova_pilot\.R$
-^vignettes/
 ^\.git$
 ^\.gitignore$
 ^\Rhistory$
 ^\.travis\.yml$
+^comments\.Rmd$
+^comments\.html$
+^vignettes/SSP-guide\.R$
+^vignettes/SSP-guide\.html$
+^vignettes/permanova_pilot\.R$
