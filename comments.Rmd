@@ -1,0 +1,99 @@
+---
+title: "Comments"
+author: "Edlin Guerra Castro"
+date: "21/1/2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Luis
+
+-Vignette
+
+1. La sección de paquetes requeridos la quitaría o no la pondría con subtítulo, creo que da la idea de que el usuario tendría que instalar manualmente esos paquetes, pero como ya estan en las dependencias no hace falata en realidad.
+
+**aclarado en vignette**
+
+2. En la seccion de funciones y secuencia, pondría el uso de cada funcion con un subtitulo de tercer nivel, creo que haria más facil ubicar el paso especifico que quieres volver revisar (en ese sentido, de ser así, tambien podría ponerse la tabla de contenido para darle clic al paso especifico).
+
+**agregado títulos de tercer nivel a cada funcion**
+
+**falta índice o tabla de contenido**
+
+-Función sampsd
+
+1. En la ayuda específica de la función hay un errorsito de tipeo en Usage, en la de definición de m. Dice maxinum en lugar de maximum.
+**corregido**
+
+2. En un momento me apareció este error: Error in dimnames(x) <- dn :  la longitud de 'dimnames' [1] no es igual a la extensión del arreglo al cambiar sites. Cambiando valores vi que se trataba que el valor que puse en el parametro sites, pero tanteé, quizas se podría poner un warning sobre los valores que deberian tener mas sentido, como por ejemplo cuando se explica que n puede ser menor o igual que N.
+**corregido**
+
+3. En la definición de method, creo que se podría reiterar algunos ejemplos de distancias que se pueden usar para mantener el estilo como en los ejemplos de transformation, y tambien que de repente el usuario podría no hacer el match de que es el mismo parametro de vegdist
+
+**texto agregado**
+    
+-Función summary_ssp
+
+1. En la ayuda de la función, en el usage o en arguments, habría que aclarar que multi.site = TRUE es el default.
+
+**ya no es default**
+
+2. En la función ioptimum probando con el dataset de corales que te mencionaba obtuve NA en la fila de samples, probablemente porque los valores de las funciones anteriores no las puse con demasiado detalle, pero suponiendo que esto sea un resultado real...qué significaría que el usuario obtenga NA en las muestras?
+
+**modificado, en vez de NA será el máx esfuerzo, se explica en el Vignette y Help**
+
+3. Creo que las figuras de los ejemplos son muy claras y limpias, sobretodo por el uso de las regiones para resaltar los óptimos. Quizas seria interesante escribir la base de ese grafico como el output, de una septima funcion de manera que el usuario pueda inspeccionar visualmente el resultado.
+
+**hecho, plot_ssp**
+
+4. Github representa mejor el readme de la carpeta principal con markdown estandar, poniendolo como .md en vez  de .rmd
+
+**listo**
+
+
+# Cesar
+
+-  Documentación: No sé si es por los problemas descritos arriba, pero no pude abrir la vignette del paquete. Si pude acceder a la ayuda de cada función. PS: ahora que veo el repositorio me doy cuenta que creo que no existe una vignette del paquete en si mismo. No estoy familiarizado con la estructure de los paquetes de R y la documentación. En el futuro sería finísimo si pudieras incluir la vignette, creo que haría más fácil entender el paquete y la secuencia de funciones más rápido para usuarios inexpertos como yo.
+
+**no estaba incluido el .html, ahora sí**
+
+- Estuve probando el paquete con datos de peces: tres sitios, tres transectas por sitio. 
+
+- La dispersión multivariada para los datos del piloto debería ser solo un número? i.e. la dispersión observada, es por eso que el valor de MVDmin and MVDmax es el mismo para el piloto? En este caso que usé multiples sitios (3) la dispersión multivariada se calcula al centroide de todas las muestras, o al centroide de cada sitio y luego se promedia? Son esos dos cálculos equivalentes?
+
+**es la variación total en la matríz, se especifica en la ayuda*
+
+- En el data frame par de la función assempar: me parece que prob lo sacas del vegan::distweight es eso correcto? Si prob es el p-value de D me preguntaba cual es el significado y propósito del calculo que haces cuando prob es menor que 0.05? PS: Ah ya vi que lo usas para definir la forma de la distribución que usas para simular las abundancias (creo)
+
+**exacto**
+
+- En summary_ssp que significa y cómo se interpreta der (standard forward finite derivation is estimated)? Veo que lo usas para comparar con los puntos de corte (c1, c2, c3) en ioptimum. En la ayuda de ioptimum dice que c1, c2 y c3 son expresados en porcentaje, eso quiere decir que der es también un porcentaje. PS: ya me estoy dando cuenta que der  es la diferencia entre los MSE relativos estandarizado dividido por la diferencia entre número de muestras. Lo que no entiendo acá ahora es por qué dividir por la diferencia entre número de muestras? Ese valor no será siempre igual a 1, por lo tanto der  es solo la diferencia entre los MSE relativos?
+
+**ciertamente, pregunté sobre la necesidad de mantener el denominador, y me recomendaron dejarlo, ya que si por alguna razón alguien modifica el código que genera la secuencia de esfuerzos de muestreo (ada dos o cuatro, típico de personas que trabajan con baterias de muestras, no por unidades), la derivada se calcula correctamente sin causar un error**
+
+- Sería fino si la función summary_ssp también incluyera como resultado un gráfico (puede ser bien básico usando base R), algo como el cambio de MSE con respecto a esfuerzo de muestreo.
+
+**hehco**
+
+- Me da la impresión que los números de muestras óptimos calculados son insensibles al número de especies estimado por assempar: es este el comportamiento esperado?
+
+**sí, estimaciones no relacionadas ya que las métricas no necesariamente están relacionadas**
+
+- Solo le di un vistazo rápido al código de sampsd que me parece que es where most of the magic happens, pero estaba pensando si algunas de las variables como número de casos, y muestras y sitios simulados se podrían guardar en el objeto resultante de simdata, eso quizás haría más simple el uso de sampsd. Así solo pasarías como argumento ese objeto con las variables necesarias incluídas.
+
+**listo**
+
+- Después de jugar con la data y las funciones el paquete arroja para diferentes combinaciones de parámetros que usé: c1= 4 a 6, c2 = 6 a 9 y c3 = NA. La data que estoy usando no es un piloto ni tampoco es mía, pero si lo fuera pensaría que nueve transectas por sitio es un montón. Te quería preguntar, por curiosidad, cuando la gente que usa el paquete calcula el número optimo que tan alejado es ese número de las expectativas o limitaciones de los investigadores. En este caso, la sugerencia de hacer 9 transectas y estar aún suboptimal me parece que sería difícil de vender a los responsables.
+
+**espectativa que se debe describir en el ms**
+
+Edgar
+
+Gracias por compartir tu paquete antes de someterlo al CRAN. Me parece una excelente aportación, lo probé con un set de datos propio y todo funcionó sin problemas. Hay algunas dudas que me surgieron en el camino pero es más por desconocimiento teórico de algunos argumentos/parámetros que se necesitan en las funciones. Aunado a lo anterior, no logré encontrar el vignette que nos comentaste, ni en la carpeta que se instaló en mi computadora ni en tu sitio de github.
+
+**Ciertamente, no se generó el .html, el documento está, pero no se generó y por eso no lo pudieron ver. ESto fue solventado**
+
+Por último, en tu sitio de github vi unas figuras con los resultados del esfuerzo de muestro y su óptimo, has considerado hacer una función que realice las gráficas, creo que complementaría muy bien todo lo que hace el paquete. Sé que hay gente que prefiere tener los datos crudos y representarlos en una figura pero habrá quien prefiera tener una función que le permita visualizar los resultados.
+
+**Listo, ya es una función**
