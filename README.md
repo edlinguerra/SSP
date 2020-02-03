@@ -27,7 +27,7 @@ sampling effort and *MultSE*.
 
   - Required: `vegan`, `sampling`, `stats` `ggplot2`
     [R](https://cran.r-project.org/). These are installed automatically.
-  - Suggested: `devtools`, `httr` to build `SSP` from
+  - Suggested: `devtools`, `knitr`, and `httr` to build `SSP` from
     [github](https://github.com/edlinguerra/SSP). All these must be
     installed by you.
 

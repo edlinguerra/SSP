@@ -48,7 +48,7 @@ install.packages("SSP")
 ## install the latest version from github
 install.packages('devtools')
 library(devtools)
-install_github('edlinguerra/SSP')
+install_github('edlinguerra/SSP', build_vignettes = TRUE)
 
 ## import packages
 library(SSP)
