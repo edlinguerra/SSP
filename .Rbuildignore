@@ -12,7 +12,5 @@
 ^\.travis\.yml$
 ^comments\.Rmd$
 ^comments\.html$
-^vignettes/SSP-guide\.R$
 ^vignettes/permanova_pilot\.R$
-^doc$
 ^Meta$
