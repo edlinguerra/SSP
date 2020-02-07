@@ -13,5 +13,6 @@
 ^comments\.Rmd$
 ^comments\.html$
 ^vignettes/SSP-guide\.R$
-^vignettes/SSP-guide\.html$
 ^vignettes/permanova_pilot\.R$
+^doc$
+^Meta$
