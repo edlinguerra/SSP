@@ -1,7 +1,6 @@
 ---
 title: "Estimation of sampling effort in community ecology with SSP"
 author: "Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
         
 vignette: >
@@ -27,32 +26,16 @@ knitr::opts_chunk$set(
   message = FALSE
 )
 ```
+------------
 
-`SSP` is an R package design to estimate sampling effort in studies of ecological communities based on the definition of pseudo multivariate standard error (*MultSE*) (Anderson & Santana-Garcon 2015) and simulation of data. This guide will provide you a brief overview in how to use `SSP`. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2020).
+## RATIONALE OF SSP
 
-The protocol in `SSP` consists in simulating several extensive data matrices that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and *MultSE* is calculated to each one. The mean value, 0.025 and 0.975 quantiles of *MultSE* for each sampling effort across all simulated data are then estimated and plotted. The mean values are standardized regarding the lowest sampling effort (consequently, the worst precision), and an optimal sampling effort can be identified as that in which the increase in sample size do not improve the precision beyond a threshold value (e.g. 2.5 %).
+**SSP** is an R package design to estimate sampling effort in studies of ecological communities based on the definition of pseudo multivariate standard error (*MultSE*) (Anderson & Santana-Garcon 2015) and simulation of data. This guide will provide you a brief overview in how to use **SSP**. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2020).
 
-`SSP` include seven functions: `assempar` for extrapolation of assemblage parameters using pilot data; `simdata` for simulation of several data sets based on extrapolated parameters; `datquality` for evaluation of plausibility of simulated data; `sampsd` for repeated estimations of *MultSE* for different sampling designs in simulated data sets; `summary_sd` for summarizing the behavior of *MultSE* for each sampling design across all simulated data sets, `ioptimum` for identification of the optimal sampling effort, and  `plot_ssp` to plot sampling effort and *MultSE*.
+The protocol in **SSP** consists in simulating several extensive data matrices that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and *MultSE* is calculated to each one. The mean value, 0.025 and 0.975 quantiles of *MultSE* for each sampling effort across all simulated data are then estimated and plotted. The mean values are standardized regarding the lowest sampling effort (consequently, the worst precision), and an optimal sampling effort can be identified as that in which the increase in sample size do not improve the precision beyond a threshold value (e.g. 2.5 %).
 
-## PACKAGE NEEDED IN SSP
-- Required: `vegan`, `sampling`, `stats`, `ggplot2` [R](https://cran.r-project.org/). These are installed automatically.
-- Suggested: `devtools`, `httr` to build `SSP` from [github](https://github.com/edlinguerra/SSP). All these must be installed by you.
+**SSP** include seven functions: `assempar` for extrapolation of assemblage parameters using pilot data; `simdata` for simulation of several data sets based on extrapolated parameters; `datquality` for evaluation of plausibility of simulated data; `sampsd` for repeated estimations of *MultSE* for different sampling designs in simulated data sets; `summary_sd` for summarizing the behavior of *MultSE* for each sampling design across all simulated data sets, `ioptimum` for identification of the optimal sampling effort, and  `plot_ssp` to plot sampling effort and *MultSE*.
 
-## HOW TO RUN SSP:
-The `SSP` package will be available on [CRAN](https://cran.r-project.org/) but can be downloaded from github using the following commands:  
-
-```{r eval=FALSE}
-## install SSP package from CRAN
-install.packages("SSP")
-
-## install the latest version from github
-install.packages('devtools')
-library(devtools)
-install_github('edlinguerra/SSP', build_vignettes = TRUE)
-
-## import packages
-library(SSP)
-```
 ------------
 
 ## FUNCTIONS AND SEQUENCE
