@@ -6,17 +6,9 @@ Authors@R: c(person(given = "Edlin", family = "Guerra-Castro", role = c("aut", "
     person(given = "Nuno", family = "Simoes", role = "aut", email = "ns@ciencias.unam.mx"),
     person(given = "Juan", family = "Cruz-Motta", role = "aut", email = "jjcruzmotta@gmail.com"),
     person(given = "Juan", family = "Cajas", role = "aut", email = "carlos.cajas@enesmerida.unam.mx"))       
-Description: Simulation-based sampling protocol (SSP) uses dissimilarity-based multivariate standard error (MultSE)
-    as an estimator of precision to evaluate the adequacy of different sampling efforts (i.e. number of sample replicates) 
-    at different spatial scales. The procedure consists in simulating several extensive data matrixes that mimic some of 
-    the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several 
-    sampling efforts are repeatedly executed and MultSE calculated. The mean value, 0.025 and 0.975 quantiles of MultSE 
-    for each sampling effort across all simulated data are then plotted, and an adequate sampling effort is identified as that
-    where the slope of the relation stabilizes. SSP is provided in five functions: AssemPar for extrapolation of assemblage
-    parameters using pilot data; SimData for simulation of several data sets based on extrapolated parameters; DatQuality 
-    for evaluation of plausibility of simulated data; SampSD for repeated estimations of MultSE for different sampling designs 
-    in simulated data sets; and MSEplot for visualization of the behaviour of MultSE for each sampling design across all simulated 
-    data sets.
+Maintainer: Edlin Guerra-Castro <edlinguerra@gmail.com>
+Description: Simulation-based sampling protocol uses simulation of ecological data and multivariate standard error
+    to evaluate the cost/benefit of different sampling efforts.
 Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
