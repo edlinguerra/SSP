@@ -22,7 +22,7 @@ Logical argument indicating whether several sites were simulated
 }
 }
 \details{
-The plot is generated using \code{\link{ggplot2}}.
+This function allows to visualize the behavior of the MultSE as sampling effort increases. When the simulation involves two sampling scales, a graph for samples and one for sites will be generated. Above the MultSE~Sampling effort projection, two shaded areas are drawn, highlighting: sub-optimal improvement (light grey), and optimal improvement (dark gray). Both reflect the sampling effort that improves the precision at acceptable (light gray) or desirable levels (dark gray), but beyond the later, any gain could be considered unnecessary. In addition, for each sampling effort, the relativized improvement (in relation to the MultSE estimated with the lower sampling effort) is presented cumulatively (as percentages). This is very useful because it indicates exactly how much the precision is improved for each sampling effort.The plot is generated using \code{\link{ggplot2}}.
 }
 \value{
 A \code{\link{ggplot2}} object
@@ -34,7 +34,7 @@ Wickham, H. 2016. ggplot2: elegant graphics for data analysis. Springer.
 Edlin Guerra-Castro (edlinguerra@gmail.com), Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro (mmm@ciencias.unam.mx)
 }
 \note{
-This is an exploratory plot, you can edit it using \code{\link{ggplot2}} functions.
+This is an exploratory plot that can be edited using \code{\link{ggplot2}} functions.
 }
 \seealso{
 \code{\link{ggplot2}}
