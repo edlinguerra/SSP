@@ -1,11 +1,11 @@
 \name{sampsd}
 \alias{sampsd}
 
-\title{Sampling Simulated Data and Estimates Multivariate Standard Errors
+\title{Sampling Simulated Data and Estimates of Multivariate Standard Errors
 
 }
 \description{
-Each set of simulated data is sampled many times for each sampling effort, from 2 replicates to those defined as an argument in the function. Then, distance-based multivariate standard errors is estimated using pseudo-variance (for single site evaluation) or Mean Squares estimates in a linear model (for multisite evaluation).
+Each set of simulated data is sampled many times for each sampling effort, from 2 replicates to those defined as an argument in the function. Then, distance-based multivariate standard errors are estimated using pseudo-variance (for single site evaluation) or Mean Squares Estimates in a linear model (for multisite evaluation).
 }
 \usage{
 sampsd(dat.sim, Par, transformation, method, n, m, k)
@@ -22,7 +22,7 @@ A list of parameters estimated by \code{\link{assempar}}
 Mathematical function to reduce the weight of very dominant species: 'square root', 'fourth root', 'Log (X+1)', 'P/A', 'none'
 }
   \item{method}{
-The appropiate distance/dissimilarity metric (e.g. Gower, Bray–Curtis, Jaccard, etc). The function \code{\link[vegan]{vegdist}} is call for that purpose.
+The appropriate distance/dissimilarity metric (e.g. Gower, Bray–Curtis, Jaccard, etc). The function \code{\link[vegan]{vegdist}} is called for that purpose.
   }
   \item{n}{
 Maximum number of samples to take at each site. Can be equal or less than N
@@ -31,11 +31,11 @@ Maximum number of samples to take at each site. Can be equal or less than N
 Maximum number of sites to sample at each data set. Can be equal or less than sites
   }
   \item{k}{
-Number of repetitions of each sampling effort (samples and sites) at each data set
+Number of repetitions of each sampling effort (samples and sites) for each data set
   }
 }
 \details{
-If several sites had been generated, subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site, sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the MultSE is estimated as \eqn{\sqrt(V/n)}, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, MultSE are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015).
+If several virtual sites have been generated, subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2006). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrices. If simulated data correspond to a single site, sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high (> 10). Keep this in mind as it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrices constructed using the appropriate coefficient. When simulations are done for a single site, the MultSE is estimated as \eqn{\sqrt(V/n)}, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, MultSE are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015).
 }
 \value{
 \item{mse.results}{
@@ -44,13 +44,13 @@ A matrix including all estimated MultSE for each simulated data, combination of 
 \references{
 Anderson, M.J. & Santana-Garcon, J. (2015) Measures of precision for dissimilarity-based multivariate analysis of ecological communities. Ecology Letters, 18, 66-73
 
-Tille, Y. (2011) Sampling Algorithms. International Encyclopedia of Statistical Science (ed. M. Lovric), pp. 1273-1274. Springer Berlin Heidelberg, Berlin, Heidelberg
+Tillé, Y. (2006). Sampling algorithms. Springer, New York, NY.
 }
 \author{
 Edlin Guerra-Castro (edlinguerra@gmail.com), Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro (mmm@ciencias.unam.mx).
 }
 \note{
-For quick exploratory analyzes, keep the number of repetitions small. Once you have explored the behavior of the MultSE, you can repeat the process keeping k-value large (e.g. 100). This process will take some time, it will depend on the power of your computer.
+For quick exploratory analyzes, keep the number of repetitions small. Once you have explored the behavior of the MultSE, you can repeat the process keeping k-values large (e.g. 100). This process will take some time and it will depend on the power of your computer.
 }
 
 \seealso{
