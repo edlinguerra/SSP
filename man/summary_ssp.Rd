@@ -5,7 +5,7 @@
 Summary of MultSE for Each Sampling Effort in Simulated Data Sets
 }
 \description{
-For each simulated data set, averages of MultSE are estimated at each sampling size. Then an overall mean, as well as lower and upper intervals of means for each sample size are tabulated. A relativization to the maximum is applied to the average MultSE and a numerical derivative, using a forward finite difference, of the resulting quantity is obtained.
+For each simulated data set, averages of MultSE are estimated for each sampling size. Then an overall mean, as well as lower and upper intervals of means for each sample size are tabulated. A relativization to the maximum is applied to the average MultSE and a numerical derivative, using a forward finite difference, of the resulting quantity is obtained.
 
 }
 \usage{
@@ -21,11 +21,11 @@ Logical argument indicating whether several sites were simulated}
 }
 
 \details{
-For each set of simulated data, the average of the MultSE in each sampling effort is estimated. Then, an overall mean, lower and upper quantiles of means are tabulated for each sampling effort among all simulated data. In order to have a general and comparable criteria to evaluate the rate of change of the average MultSE with respect to the sampling effort, a relativization to the maximum MultSE (obteined with the lower sampling effort) is calculated; then, a standard forward finite derivation is estimated.
+For each set of simulated data, the average of the MultSE in each sampling effort is estimated (Anderson & Santana-Garcon 2015). Then, an overall mean, lower and upper quantiles of means are tabulated for each sampling effort among all simulated data. In order to have a general and comparable criteria to evaluate the rate of change of the average MultSE with respect to the sampling effort, a relativization to the maximum MultSE (obtained with the lower sampling effort) is calculated; then, a standard forward finite derivation is calculated.
 }
 \value{
 \item{mse.results}{
-A data frame indluding the summary of multivariate standard error for each sampling effort.
+A data frame including the summary of multivariate standard error for each sampling effort.
 }
 }
 \references{
