@@ -23,7 +23,7 @@ Logical argument indicating if several sites were simulated
 \item{c3}{Third cut. By default 2.5\% improvement for each sample with respect to the highest MultSE.}
 }
 \details{
-Sampling efforts between the minimum (i.e. 2) and c1, can be considered the necessary efforts to improve the precision. The number of samples between c1 and c2 reflects the sub-optimal sampling efforts. The number of samples between c2 and c3 indicate the optimal sampling effort. A cost / benefit criterion can be used to set the final sample size within this range. The sampling effort beyond c3 would imply a marginal improvement of the MultSE for each increase in sample size, which would result in an unnecessary sampling effort due to redundancy. The relationship between MultSe, sampling effort, and optimal sampling can be visualized with  \code{\link{plot_ssp}}
+Sampling efforts between the minimum (i.e. 2) and c1, can be considered the necessary efforts to improve the precision. The number of samples between c1 and c2 reflects the sub-optimal sampling efforts. The number of samples between c2 and c3 indicate the optimal sampling effort. A cost / benefit criterion (e.g. Underwood, 1990) can be used to set the final sample size within this range. The sampling effort beyond c3 would imply a marginal improvement of the MultSE for each increase in sample size, which would result in an unnecessary sampling effort due to redundancy. The relationship between MultSe, sampling effort, and optimal sampling can be visualized with  \code{\link{plot_ssp}}
 }
 \value{
 \item{sample.cut}{
