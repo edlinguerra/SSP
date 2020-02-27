@@ -1,6 +1,6 @@
 ---
 title: "Estimation of sampling effort in community ecology with SSP"
-author: "Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro"
+author: "Edlin Guerra-Castro, Juan Carlos Cajas, Juan José Cruz-Motta, Nuno Simoes and Maite Mascaro"
 output: rmarkdown::html_vignette
         
 vignette: >
@@ -30,11 +30,11 @@ knitr::opts_chunk$set(
 
 ## RATIONALE OF SSP
 
-**SSP** is an R package design to estimate sampling effort in studies of ecological communities based on the definition of pseudo multivariate standard error (*MultSE*) (Anderson & Santana-Garcon 2015) and simulation of data. This guide will provide you a brief overview in how to use **SSP**. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2020).
+**SSP** is an R package designed to estimate sampling effort in studies of ecological communities based on the definition of pseudo multivariate standard error (*MultSE*) (Anderson & Santana-Garcon 2015) and simulation of data. This guide will provide you with a brief overview on how to use **SSP**. The theoretical background is described in a submitted paper by Guerra-Castro et al. (2020).
 
-The protocol in **SSP** consists in simulating several extensive data matrices that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and *MultSE* is calculated to each one. The mean value, 0.025 and 0.975 quantiles of *MultSE* for each sampling effort across all simulated data are then estimated and plotted. The mean values are standardized regarding the lowest sampling effort (consequently, the worst precision), and an optimal sampling effort can be identified as that in which the increase in sample size do not improve the precision beyond a threshold value (e.g. 2.5 %).
+The protocol in **SSP** consists of simulating several extensive data matrices that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and *MultSE* is calculated to each one. The mean value, 0.025 and 0.975 quantiles of *MultSE* for each sampling effort across all simulated data are then estimated and plotted. The mean values are standardized in relation to the lowest sampling effort (consequently, the worst precision), and an optimal sampling effort can be identified as that in which the increase in sample size do not improve the precision beyond a threshold value (e.g. 2.5 %).
 
-**SSP** include seven functions: `assempar` for extrapolation of assemblage parameters using pilot data; `simdata` for simulation of several data sets based on extrapolated parameters; `datquality` for evaluation of plausibility of simulated data; `sampsd` for repeated estimations of *MultSE* for different sampling designs in simulated data sets; `summary_sd` for summarizing the behavior of *MultSE* for each sampling design across all simulated data sets, `ioptimum` for identification of the optimal sampling effort, and  `plot_ssp` to plot sampling effort and *MultSE*.
+**SSP** includes seven functions: `assempar` for extrapolation of assemblage parameters using pilot data; `simdata` for simulation of several data sets based on extrapolated parameters; `datquality` for evaluation of plausibility of simulated data; `sampsd` for repeated estimations of *MultSE* for different sampling designs in simulated data sets; `summary_sd` for summarizing the behavior of *MultSE* for each sampling design across all simulated data sets, `ioptimum` for identification of the optimal sampling effort, and  `plot_ssp` to plot sampling effort vs *MultSE*.
 
 ------------
 
@@ -58,7 +58,7 @@ The first function to use is `assempar`. The arguments of this functions are:
 <tbody>
 <tr class="odd">
 <td align="center"><code>data</code></td>
-<td align="left">a <code>data.frame</code> with species names (columns) and samples (rows) information. The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled</td>
+<td align="left"><code>data.frame</code> with species names (columns) and samples (rows) information. The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled</td>
 </tr>
 <tr class="even">
 <td align="center"><code>type</code></td>
@@ -72,7 +72,7 @@ The first function to use is `assempar`. The arguments of this functions are:
 </tbody>
 </table>
 
-This function extracts the main parameters of the pilot data using basic R functions as well as functions like `specpool` and `dispweight` from `vegan`. The expected number of species in the assemblage is estimated using non-parametric methods (Gotelli et al. 2011). Due to the variability in the estimates of each approximation (Reese et al. 2014), we recommend using an average of these. The probability detection of each species is estimated between and within sites. The former is calculated as the frequency of occurrences of each of the species against the number of sites sampled, the second as the weighted average frequencies in sites where the species were present. Also, the degree of spatial aggregation of species (only for real counts of individuals), is identified with the index of dispersion D (Clarke et al. 2006). The corresponding properties of unseen species are approximated using information of observed species. Specifically, the probabilities of detection are assumed to be equal to the rarest species of pilot data. The mean (and variance) of the abundances are defined using random Poisson values with lambda as the overall mean of species abundances. `assempar`	returns an object of class `list`, to be used by `simdata`.
+`assempar` extracts the main parameters of the pilot data using basic R functions combined with `vegan` functions like `specpool` and `dispweight`. The expected number of species in the assemblage is estimated using non-parametric methods (Gotelli et al. 2011). Due to the variability of the estimates of each approximation (Reese et al. 2014), we recommend using an average of these. The probability detection of each species is estimated between and within sites. The former is calculated as the frequency of occurrences of each of the species against the number of sites sampled, the second as the weighted average frequencies in sites where the species were present. Also, the degree of spatial aggregation of species (only for real counts of individuals), is identified with the index of dispersion D (Clarke et al. 2006). The corresponding properties of unseen species are approximated using information of observed species. Specifically, the probabilities of detection are assumed to be equal to the rarest species of pilot data. The mean (and variance) of the abundances are defined using random Poisson values with lambda as the overall mean of species abundances. `assempar`	returns an object of class `list`, to be used by `simdata`.
 
 ## 2. simdata
 
@@ -92,7 +92,7 @@ The second function to use is `simdata`, with the following arguments:
 <tbody>
 <tr class="odd">
 <td align="center"><code>Par</code></td>
-<td align="left">a <code>list</code> of parameters estimated by <code>assempar</code></td>
+<td align="left"><code>list</code> of parameters estimated by <code>assempar</code></td>
 </tr>
 <tr class="even">
 <td align="center"><code>cases</code></td>
@@ -110,11 +110,11 @@ The second function to use is `simdata`, with the following arguments:
 </tbody>
 </table>
 
-The presence/absence of each species at each site are simulated with Bernoulli trials and probability of success equals to the empirical frequency of occurrence of each species among sites in the pilot data. Then, for sites with the simulated presence of the species, Bernoulli trials are used again with probability of success equal to the empirical frequency estimated  within the sites in pilot data. If required, the presence/absence matrixes are converted to matrixes of abundances replacing presences by random values from an adequate statistical distribution and parameters equals to those estimated in the pilot data. Counts of individuals are generated using Poisson or negative binomial distributions, depending on the degree of aggregation of each species in the pilot data (McArdle & Anderson 2004; Anderson & Walsh 2013). When abundances were measured as a continuous variable (i.e. coverage, biomass), they are generated using the lognormal distribution. The simulation procedure is repeated to generate as many simulated data matrixes (i.e. cases) as needed. This function returns an object of class `list` that will be used by `sampsd` and `datquality`.
+The presence/absence of each species at each site are simulated with Bernoulli trials and probability of success equals to the empirical frequency of occurrence of each species among sites in the pilot data. Then, for sites with the simulated presence of the species, Bernoulli trials are used again with probability of success equal to the empirical frequency estimated within the sites in pilot data. If required, the presence/absence matrices are converted to matrices of abundances replacing presences by random values from an adequate statistical distribution and parameters equals to those estimated in the pilot data. Counts of individuals are generated using Poisson or negative binomial distributions, depending on the degree of aggregation of each species in the pilot data (McArdle & Anderson 2004; Anderson & Walsh 2013). When abundances were measured as a continuous variable (i.e. coverage, biomass), they are generated using the lognormal distribution. The simulation procedure is repeated to generate as many simulated data matrices (i.e. cases) as needed. This function returns an object of class `list` that will be used by `sampsd` and `datquality`.
 
 ## 3. sampsd
 
-The third function is `sampsd`. If several sites had been generated, subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site, sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the MultSE is estimated as \eqn{\sqrt(V/n)}, being V the pseudo variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, *MultSE* are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015). The arguments of this function:
+The third function is `sampsd`. If several virtual sites have been simulated, subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2006). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site, sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the MultSE is estimated as \eqn{\sqrt(V/n)}, being V the *pseudo*-variance measured at each sample of size n (Anderson & Santana-Garcon, 2015). When several sites were generated, *MultSE* are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson & Santana-Garcon, 2015). The arguments of this function are:
 
 <table style="width:100%;">
 <colgroup>
@@ -130,11 +130,11 @@ The third function is `sampsd`. If several sites had been generated, subsets of 
 <tbody>
 <tr class="odd">
 <td align="center"><code>dat.sim</code></td>
-<td align="left">a <code>list</code> of data sets generated by <code>simdata</code></td>
+<td align="left"><code>list</code> of data sets generated by <code>simdata</code></td>
 </tr>
 <tr class="even">
 <td align="center"><code>Par</code></td>
-<td align="left">a <code>list</code> of parameters estimated by <code>assempar</code></td>
+<td align="left"><code>list</code> of parameters estimated by <code>assempar</code></td>
 </tr>
 <tr class="odd">
 <td align="center"><code>transformation</code></td>
@@ -142,7 +142,7 @@ The third function is `sampsd`. If several sites had been generated, subsets of 
 </tr>
 <tr class="even">
 <td align="center"><code>method</code></td>
-<td align="left">The appropiate distance/dissimilarity metric. The function <code>vegdist</code> is call for that purpose</td>
+<td align="left">The appropiate distance/dissimilarity metric. The function <code>vegdist</code> is called for that purpose</td>
 </tr>
 <tr class="odd">
 <td align="center"><code>n</code></td>
@@ -154,7 +154,7 @@ The third function is `sampsd`. If several sites had been generated, subsets of 
 </tr>
 <tr class="odd">
 <td align="center"><code>k</code></td>
-<td align="left">Number of repetitions of each sampling effort (samples and sites) at each data set</td>
+<td align="left">Number of repetitions of each sampling effort (samples and sites) for each data set</td>
 </tr>
 
 </tbody>
@@ -162,7 +162,7 @@ The third function is `sampsd`. If several sites had been generated, subsets of 
 
 ## 4. summary_ssp
 
-The fourth function is `summary_ssp`.  This function is requiered to estimate an average of all *MultSE* obtained with the *k* repetitions for each sampling effort within each case, and then an overall mean as well as the lower and upper intervals of means for each sampling effort among all cases. In order to have a general and comparable criteria to evaluate the rate of change of the averaged *MultSE* with respect to the sampling effort, a relativization to the maximum *MultSE* value (obteined with the lower sampling effort) is calculated; then, a standard forward finite derivation is computed. All this results are presented in a data frame, that can be used to plot *MultSE* with respect to the sampling effort, using `ssp_plot`. The arguments of this function are:
+The fourth function is `summary_ssp`.  This function is required to estimate an average of all *MultSE* obtained with the *k* repetitions for each sampling effort within each case, and then an overall mean as well as the lower and upper intervals of means for each sampling effort among all cases. In order to have a general and comparable criteria to evaluate the rate of change of the averaged *MultSE* with respect to the sampling effort, a relativization to the maximum *MultSE* value (obtained with the lower sampling effort) is calculated; then, a standard forward finite derivation is computed. All these results are presented in a data frame that can be used to plot *MultSE* with respect to the sampling effort, using `ssp_plot`. The arguments of this function are:
 
 
 <table style="width:100%;">
@@ -179,7 +179,7 @@ The fourth function is `summary_ssp`.  This function is requiered to estimate an
 <tbody>
 <tr class="odd">
 <td align="center"><code>results</code></td>
-<td align="left">a <code>matrix</code> generated by <code>sampsd</code></td>
+<td align="left"><code>matrix</code> generated by <code>sampsd</code></td>
 </tr>
 <tr class="even">
 <td align="center"><code>multi.site</code></td>
@@ -207,7 +207,7 @@ The fifth function, `ioptimum` estimates what we consider the optimal improvemen
 <tbody>
 <tr class="odd">
 <td align="center"><code>xx</code></td>
-<td align="left">a <code>data frame</code> generated by <code>summary_ssp</code></td>
+<td align="left"><code>data frame</code> generated by <code>summary_ssp</code></td>
 </tr>
 <tr class="even">
 <td align="center"><code>multi.site</code></td>
@@ -217,11 +217,11 @@ The fifth function, `ioptimum` estimates what we consider the optimal improvemen
 </tbody>
 </table>
 
-This function identifies three cut-off points based on the finite derivative between the standardized *MultSE* and the sampling effort (as the percentage improvement in precision per sample unit), allowing us to identify: (1) the minimum required improvement, (2) sub-optimal improvement, (3) optimal improvement and (4) unnecessary improvement. It is possible that the cut-off points defined by omission will not be achieved, and this occurs because the arguments *n* or *m* of `sampsd` were low. In situations like this, a warning message will specifically indicate which cut-off point was not achieved, and will return the maximum effort currently executed. To achieve 5%, 3%, and 1% of optimization, `sampsd` and `summary_ssp` must be run again with higher values of *n* or *m*. Alternatively, the cut-off points can be made flexible, say, 5%, 4%, 3%, respectively, or higher.
+This function identifies three cut-off points based on the finite derivative between the standardized *MultSE* and the sampling effort (as the percentage of improvement in precision per sample unit), allowing us to identify: (1) the minimum improvement required, (2) sub-optimal improvement, (3) optimal improvement and (4) unnecessary improvement. It is possible that the cut-off points defined by omission will not be achieved, which might occurs if the arguments *n* or *m* of `sampsd` were small. In situations like this, a warning message will specifically indicate which cut-off point was not achieved, and will return the maximum effort currently executed. To achieve 5%, 3%, and 1% of optimization, `sampsd` and `summary_ssp` must be run again with higher values of *n* or *m*. Alternatively, the cut-off points can be made flexible, say, 5%, 4%, 3%, respectively, or higher.
 
 ## 6. ssp_plot
 
-This function allows to visualize the behavior of the *MultSE* as the sampling effort increases. When the simulation involves two sampling scales, a graph for samples and one for sites will be generated. Above the *MultSE*~*Sampling effort* projection, two shaded areas are drawn, highlighting: sub-optimal improvement (light grey), and optimal improvement (dark gray). Both reflect the sampling effort that improves the precision at acceptable (light gray) or desirable levels (dark gray), but beyond the later, any gain could be considered unnecessary. In adition, for each sampling effort, the relativized improvement (with respect to the *MultSE* estimated with the lower sampling effort) is presented cumulatively (in percentage). This is very usefull because indicates exactly how much the precision is improved for each sampling effort. The graphic is generated with `ggplot2`, so the resulting object can be modified using functions of that package.The arguments of this functions are:
+This function allows to visualize the behavior of the *MultSE* as sampling effort increases. When the simulation involves two sampling scales, a graph for samples and one for sites will be generated. Above the *MultSE*~*Sampling effort* projection, two shaded areas are drawn, highlighting: sub-optimal improvement (light grey), and optimal improvement (dark gray). Both reflect the sampling effort that improves the precision at acceptable (light gray) or desirable levels (dark gray), but beyond the later, any gain could be considered unnecessary. In addition, for each sampling effort, the relativized improvement (in relation to the *MultSE* estimated with the lower sampling effort) is presented cumulatively (as percentages). This is very useful because it indicates exactly how much the precision is improved for each sampling effort. The graphic is generated with `ggplot2`, so the resulting object can be modified using functions of that package. The arguments of this function are:
 
 <table style="width:100%;">
 <colgroup>
@@ -237,11 +237,11 @@ This function allows to visualize the behavior of the *MultSE* as the sampling e
 <tbody>
 <tr class="odd">
 <td align="center"><code>xx</code></td>
-<td align="left">a <code>data frame</code> generated by <code>summary_ssp</code></td>
+<td align="left"><code>data frame</code> generated by <code>summary_ssp</code></td>
 </tr>
 <tr class="even">
 <td align="center"><code>opt</code></td>
-<td align="left">A vector or data matrix generated by \code{\link{ioptimum}}</td>
+<td align="left"><code>vector</code> or <code>matrix</code> generated by <code>ioptimum</code></td>
 </tr>
 <tr class="odd">
 <td align="center"><code>multi.site</code></td>
@@ -253,7 +253,7 @@ This function allows to visualize the behavior of the *MultSE* as the sampling e
 
 ## 7. datquality 
 
-It could be desirable to measure the plausibility of simulated data. This can be done measuring the resemblance these had to the pilot data. This can be assessed with `datquality`, a function that estimate: the average number of species per sampling unit, (ii) the average species diversity per sampling unit, defined as the average Simpson diversity index per sampling unit, and (iii) the multivariate dispersion (*MVD*), measured as the average dissimilarity from all sampling units to the main centroid in the space of the dissimilarity measure used (Anderson 2006). The arguments of this functions are:
+It could be desirable to measure the plausibility of simulated data. This can be done by measuring the similarity between the simulated and the pilot data. This can be assessed with `datquality`, a function that estimate: (i) the average number of species per sampling unit, (ii) the average species diversity (Simpson diversity index) per sampling unit, and (iii) the multivariate dispersion (*MVD*), measured as the average dissimilarity from all sampling units to the main centroid in the space of the dissimilarity measure used (Anderson 2006). The arguments of this functions are:
 
 <table style="width:100%;">
 <colgroup>
@@ -269,7 +269,7 @@ It could be desirable to measure the plausibility of simulated data. This can be
 <tbody>
 <tr class="odd">
 <td align="center"><code>data</code></td>
-<td align="left">a <code>data.frame</code> with species names (columns) and samples (rows) information. The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled</td>
+<td align="left">a <code>data.frame</code> with species names (columns) and samples (rows) information. The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled or not</td>
 </tr>
 <tr class="even">
 <td align="center"><code>dat.sim</code></td>
@@ -285,7 +285,7 @@ It could be desirable to measure the plausibility of simulated data. This can be
 </tr>
 <tr class="odd">
 <td align="center"><code>method</code></td>
-<td align="left">The appropiate distance/dissimilarity metric. The function <code>vegdist</code> is call for that purpose</td>
+<td align="left">The appropriate distance/dissimilarity metric. The function <code>vegdist</code> is called for that purpose</td>
 </tr>
 
 </tbody>
@@ -295,7 +295,7 @@ It could be desirable to measure the plausibility of simulated data. This can be
 
 ## Performance of SSP with real data
  
-**Micromollusks of marine shallow sandy bottoms:** Presence/absence of 67 species were registered in six cores of 4-inch diameter and 10 cm depth taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico (a small reef cay located 240 km off the North-Western coast of Yucatan). Data correspond to a study on the biodiversity of marine benthic reef habitats off the Yucatan shelf (Ortigosa et al. 2018). The main objective was to estimate an adequate sampling effort for further quantitative studies to characterize the variability in species composition. To do this, the pilot data was characterized with `assempar` and several matrices of P/A data were simulated with `simdata`. To speed up the process, only 10 data sets (*cases*) were simulated, each data matrix consisted in *N*  = 50 potential sampling replicates in one *site*. Several sample size’s subsets (*n* = 2 to 50) were repeatedly sampled (*k* = 10) with `sampsd`. The Jaccard index was used as the similarity measure between sample units. Keep in mind that you can simulate many more matrices (*cases*), number of samples (*N* and *n*), and repetitions (*k*), as long as you have the time and patience to wait for the results!
+**Micromollusks of marine shallow sandy bottoms:** Presence/absence of 67 species were registered in six cores of 10 cm diameter and 10 cm deep taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico (a small reef cay located 240 km off the North-Western coast of Yucatan). Data correspond to a study on the biodiversity of marine benthic reef habitats off the Yucatan shelf (Ortigosa et al. 2018). The main objective was to estimate an adequate sampling effort for further quantitative studies to characterize the variability in species composition. To do this, the pilot data was characterized with `assempar` and several matrices of P/A data were simulated with `simdata`. To speed up the process, only 10 data sets (*cases*) were simulated, each data matrix consisted of *N*  = 50 potential sampling replicates in one *site*. Several sample size’s subsets (*n* = 2 to 50) were repeatedly sampled (*k* = 10) with `sampsd`. The Jaccard index was used as the similarity measure between sample units. Keep in mind that you can simulate many more matrices (*cases*), number of samples (*N* and *n*), and repetitions (*k*), as long as you have the time and patience to wait for the results!
 
 ```{r eval=FALSE}
 data(micromollusk)
@@ -326,15 +326,15 @@ fig.1<-plot_ssp(xx = sum.mic, opt = opt.mic, multi.site = FALSE)
 fig.1 
 ```
 
-The behavior of *MultSE* for each sampling effort on simulated data sets can be plotted using `plot_ssp` (Fig.1). The shaded areas indicates the range of samples in which each increase in sampling effort provides suboptimal improvement (light grey), and optimal improvement (dark gray). The suboptimal region highlights improvement between 37% and 47%, while the optimal indicate that up to 66% could be improved with 17 samples, with remarkable precision gain with each additional sample. From 18 samples, it seems that the gain is very little and unjustified, which can be considered as a redundant effort. 
+The behavior of *MultSE* for each sampling effort on simulated data sets can be plotted using `plot_ssp` (Fig.1). The shaded areas indicate the range of samples in which each increase in sampling effort provides suboptimal improvement (light grey), and optimal improvement (dark gray). The suboptimal region highlights improvement between 37% and 47%, while the optimal indicates that up to 66% could be improved with 17 samples, with remarkable precision gained with each additional sample. After 18 samples, the improvement obtained with the increment of the sampling effort is small enough to consider the extra effort unnecessary and redundant. 
 
 ```{r, echo = FALSE, out.width='100%', fig.align='center', fig.cap='Fig. 1. MultSE and sampling effort relationship using micromollusk simulated data'}
 knitr::include_graphics('fig1.png')
 ```
   
 
-**Coral reef sponges:** Spatial variability of sponge diversity in reefs from Alacranes Reef National Park (ARNP), Gulf of Mexico, Mexico, was estimated in 36 transects of 20 m × 1 m across 6 sites (≈ 4 to 5 transect per site). In each transect, the colonies of 41 sponge species were counted. This data corresponds to a pilot study on sponge biodiversity in reef habitats in the Yucatán shelf (Ugalde et al. 2015). The main objective was to estimate an adequate sampling effort in two spatial scales (i.e. transect and sites) for further quantitative studies. The studied area represents the leeward area of the reef, with very similar reef geomorphology. Therefore, it cannot be argued a priori that spatial differences in sponge diversity (if any) are due to some environmental model. In this sense, we consider it valid to simulate for the entire leeward area, considering the information of the six sites.  
-Several matrixes were simulated, each consisting in 20 potential *sites* with 20 potential *N* transects  per site. As well as the above example, the pilot data was characterized with `assempar` and several matrices with counts of individual sponges were simulated with `simdata`. Again, to speed up the process, only 10 data sets (*cases*) were simulated. Each combination of *n* (from 2 to 20) and *m* (from 2 to 20) were repeatedly sampled (*k* = 10) with `sampsd`. The Bray-Curtis index was used as the similarity measure between sample units after square root transformation of simulated abundances. As well, the optimal sampling effort was represented using `plot_ssp`.  
+**Coral reef sponges:** Structure and composition of sponge assemblages associated with reefs from Alacranes Reef National Park (ARNP), Gulf of Mexico, Mexico, was estimated in 36 transects of 20 m × 1 m across 6 sites (≈ 4 to 5 transect per site). In each transect, the colonies of 41 species of sponges were counted. This data corresponds to a pilot study on sponge biodiversity in reef habitats of the Yucatán shelf (Ugalde et al. 2015). The main objective was to estimate an adequate sampling effort at two spatial scales (i.e. transect and sites) for further quantitative studies. The studied area represented the leeward area of the reef, with very similar reef geomorphology. Therefore, it cannot be argued a priori that spatial differences in sponge diversity (if any) were due to some environmental model. In this sense, we considered valid to simulate data for the entire leeward area, using the information of the six sites. 
+Several matrices were simulated, each consisting in 20 potential *sites* with 20 potential *N* transects  per site. As for the first example, the pilot data was characterized with `assempar` and several matrices with counts of individual sponges were simulated with `simdata`. Again, to speed up the process, only 10 data sets (*cases*) were simulated. Each combination of *n* (from 2 to 20) and *m* (from 2 to 20) were repeatedly sampled (*k* = 10) with `sampsd`. The Bray-Curtis index was used as the similarity measure between sample units after square root transformation of simulated abundances. Similarly, the optimal sampling effort was represented using `plot_ssp`.  
 
 ```{r eval=FALSE}
 data(sponges)
@@ -370,7 +370,7 @@ fig.2
 knitr::include_graphics('fig2.png')
 ```
   
-At the scale of sites, Fig.2 shows noticeable decrease of the *MultSE* between 5 and 11 sites. This range of sampling is represented by two shaded areas: suboptimal and optimal improvement, respectively. The first represent improvements of 44% with 7 sites, the second 55% with 11 sites. Sampling 9 sites will ensure improving the worst precision around 51%. At the scale of transect, the suboptimal improvement is accomplished with 5 or 6 replicates, the optimal is beyond 7 replicates. Beyond, each additional sample improves the highest *MultSE* by 2-3 %, achieving a 55% improvement with 10 transects. Another outstanding feature is the marked differences in *MultSE* obtained for the two sources of variation. The magnitude of the difference in variation fits that obtained in the pseudo components of variation estimated for sites and residuals in a PERMANOVA analysis of the pilot data σ<sub>sites</sub> = 26.4, σ<sub>transects</sub> = 34.7): 
+At the scale of sites, there was a noticeable decrease of the *MultSE* between 5 and 11 sites (Fig. 2). This range of sampling is represented by two shaded areas: light grey) and optimal improvement (dark grey), respectively. The first represent improvements of 44% with 7 sites, the second 55% with 11 sites. Sampling 9 sites will improve the worst precision in approximately 51%. At the scale of transect, the suboptimal improvement is accomplished with 5 or 6 replicates, whereas the optimal is beyond 7 replicates, but below 11. It can also be noted that each additional sample improves the highest *MultSE* by 2-3 %, achieving a 55% improvement with 10 transects. It should be pointed out the marked differences in *MultSE* obtained for the two sources of variation. The magnitude of the difference in variation fits that obtained in the pseudo components of variation estimated for sites and residuals in a PERMANOVA analysis of the pilot data σ<sub>sites</sub> = 26.4, σ<sub>transects</sub> = 34.7): 
 
 ```{r}
 dat<-sponges[,2:length(sponges)]
@@ -407,9 +407,9 @@ cv
 ```
 
 
-With these projections, and considering the costs (time, money) of visiting a site and doing each transect, as well as the relative importance of each spatial scale, it will be convenient to keep the number of sites within suboptimal improvement (i.e. 5-7), and set the number of transects in 8. 
+Based on these results, and considering the costs (time and/or money) of visiting a site and doing each transect, as well as the relative importance of each spatial scale, it will be convenient to keep the number of sites within suboptimal improvement (i.e. 5-7), and set the number of transects to 8. 
 
-These examples demonstrates that `SSP` has key advantages in estimating sample effort to study communities whose data will be analyzed with statistical techniques based on similarity indices, such as PERMANOVA (Anderson, 2017). However, it is important to mention that `SSP` is not free from assumptions. First, simulations in `simdata` do not consider any environmental constraint, nor the co-occurrence of species neither their joint distribution functions. In addition, the `SSP` protocol assumes that potential differences in species composition among sites is due to spatial aggregation of species measured in the pilot data. Thus, any spatial structure of species that was not captured by the pilot data will not be reflected in the simulation. Although the protocol performs well with small pilot data, it is recommendable that the pilot sampling captures the greatest possible variability in the system under study. Despite these limitations, if the properties of the simulated data resemble the community of interest and show ecological plausibility, the extrapolations derived from the procedure presented here will hold valid to define an optimal sampling effort for any study based on dissimilarity-based multivariate analysis. 
+These examples demonstrate that **SSP** has key advantages in estimating sample effort to study communities whose data will be analyzed with statistical techniques based on similarity indices, such as PERMANOVA (Anderson, 2017). However, it is important to mention that **SSP** is not free from assumptions. First, simulations in `simdata` do not consider any environmental constraint, nor the co-occurrence of species neither their joint distribution functions. In addition, the **SSP** protocol assumes that potential differences in species composition among sites is due to spatial aggregation of species as estimated from the pilot data. Thus, any spatial structure of species that was not captured by the pilot data will not be reflected in the simulation. Although the protocol performs well with small pilot data, it is recommendable that the pilot sampling captures the greatest possible variability in the system under study. Despite these limitations, if the properties of the simulated data resemble the community of interest and show ecological plausibility, the extrapolations derived from the procedure presented here will hold valid to define an optimal sampling effort for any study based on dissimilarity-based multivariate analysis. 
 
 ------
 
@@ -436,5 +436,7 @@ These examples demonstrates that `SSP` has key advantages in estimating sample e
 -Ortigosa, D., N. Y. Suárez-Mozo, N. C. Barrera, & N. Simões. (2018). First survey of Interstitial molluscs from Cayo Nuevo, Campeche Bank, Gulf of Mexico. Zookeys 779.
 
 -Reese, G. C., Wilson, K. R., & Flather, C. H. (2014). Performance of species richness estimators across assemblage types and survey parameters. Global Ecology and Biogeography, 23(5), 585-594.
+
+-Tillé, Y. (2006). Sampling algorithms. Springer, New York, NY.
 
 -Ugalde, D., P. Gómez, & N. Simoes. (2015). Marine sponges (Porifera: Demospongiae) from the Gulf of México, new records and redescription of Erylus trisphaerus (de Laubenfels, 1953). Zootaxa 3911:151-183.
