@@ -23,7 +23,7 @@ Logical argument indicating if several sites were simulated
 \item{c3}{Third cut. By default 2.5\% improvement for each sample with respect to the highest MultSE.}
 }
 \details{
-Between the minimum sampling effort (i.e. 2) and c1, can be considered the necessary efforts to improve the precision. The number of samples between c1 and c2 reflects the sub-optimal sampling efforts. The number of samples between c2 and c3 would indicate the optimal sampling effort. A cost / benefit criterion can be used to set the final sample size within this range. The sampling effort beyond c3 would imply a marginal improvement of the MultSE for each increase in sample size, which would result in an unnecessary sampling effort due to redundancy. The relationship between MultSe, sampling effort, and optimal sampling can be visualized with \code{\link{plot_ssp}}
+Sampling efforts between the minimum (i.e. 2) and c1, can be considered the necessary efforts to improve the precision. The number of samples between c1 and c2 reflects the sub-optimal sampling efforts. The number of samples between c2 and c3 indicate the optimal sampling effort. A cost / benefit criterion can be used to set the final sample size within this range. The sampling effort beyond c3 would imply a marginal improvement of the MultSE for each increase in sample size, which would result in an unnecessary sampling effort due to redundancy. The relationship between MultSe, sampling effort, and optimal sampling can be visualized with  \code{\link{plot_ssp}}
 }
 \value{
 \item{sample.cut}{
@@ -34,10 +34,10 @@ A vector or matrix with the sampling size for each cut point
 Underwood, A. J. (1990). Experiments in ecology and management: Their logics, functions and interpretations. Australian Journal of Ecology, 15, 365-389.
 }
 \author{
-Edlin Guerra-Castro (edlinguerra@gmail.com), Maite Mascaro (mmm@ciencias.unam.mx), Juan Carlos Cajas (carlos.cajas@enesmerida.unam.mx)
+Edlin Guerra-Castro (edlinguerra@gmail.com), Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro (mmm@ciencias.unam.mx).
 }
 \note{
-The cuts that define the sampling effort as necessary, sub-optimal, optimal or redundant are arbitrary and can be modified according to each research problem. In particular, it is possible that c3 as 3\% is not generated because this would be achieved with a sample size larger than the maximun simulated. In this case, the maximum effort generated with \code{\link[SSP]{sampsd}} will be returned with a warning message.
+The cuts that define the sampling effort as necessary, sub-optimal, optimal or redundant are arbitrary and can be modified according to each research problem. In particular, it is possible that c3 as 3\% is not generated because this would be achieved with a sample size larger than the maximum simulated. In this case, the maximum effort generated with \code{\link[SSP]{sampsd}} will be returned with a warning message.
 }
 
 \seealso{
