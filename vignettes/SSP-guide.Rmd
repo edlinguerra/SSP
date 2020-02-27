@@ -100,11 +100,11 @@ The second function to use is `simdata`, with the following arguments:
 </tr>
 <tr class="odd">
 <td align="center"><code>N</code></td>
-<td align="left">Total number of samples to simulate in each site</td>
+<td align="left">Total number of samples to be simulated in each site</td>
 </tr>
 <tr class="even">
 <td align="center"><code>sites</code></td>
-<td align="left">Total number of sites to simulate in each data set</td>
+<td align="left">Total number of sites to be simulated in each data set</td>
 </tr>
 
 </tbody>
