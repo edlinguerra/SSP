@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro" />
+
+
+<title>Estimation of sampling effort in community ecology with SSP</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Estimation of sampling effort in community ecology with SSP</h1>
+<h4 class="author">Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro</h4>
+
+
+
+<hr />
+<div id="rationale-of-ssp" class="section level2">
+<h2>RATIONALE OF SSP</h2>
+<p><strong>SSP</strong> is an R package design to estimate sampling effort in studies of ecological communities based on the definition of pseudo multivariate standard error (<em>MultSE</em>) (Anderson &amp; Santana-Garcon 2015) and simulation of data. This guide will provide you a brief overview in how to use <strong>SSP</strong>. The theoretical background are described in a submitted paper by Guerra-Castro et al. (2020).</p>
+<p>The protocol in <strong>SSP</strong> consists in simulating several extensive data matrices that mimic some of the relevant ecological features of the community of interest using a pilot data set. For each simulated data, several sampling efforts are repeatedly executed and <em>MultSE</em> is calculated to each one. The mean value, 0.025 and 0.975 quantiles of <em>MultSE</em> for each sampling effort across all simulated data are then estimated and plotted. The mean values are standardized regarding the lowest sampling effort (consequently, the worst precision), and an optimal sampling effort can be identified as that in which the increase in sample size do not improve the precision beyond a threshold value (e.g. 2.5 %).</p>
+<p><strong>SSP</strong> include seven functions: <code>assempar</code> for extrapolation of assemblage parameters using pilot data; <code>simdata</code> for simulation of several data sets based on extrapolated parameters; <code>datquality</code> for evaluation of plausibility of simulated data; <code>sampsd</code> for repeated estimations of <em>MultSE</em> for different sampling designs in simulated data sets; <code>summary_sd</code> for summarizing the behavior of <em>MultSE</em> for each sampling design across all simulated data sets, <code>ioptimum</code> for identification of the optimal sampling effort, and <code>plot_ssp</code> to plot sampling effort and <em>MultSE</em>.</p>
+<hr />
+</div>
+<div id="functions-and-sequence" class="section level2">
+<h2>FUNCTIONS AND SEQUENCE</h2>
+<div id="assempar" class="section level3">
+<h3>1. assempar</h3>
+<p>The first function to use is <code>assempar</code>. The arguments of this functions are:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%">
+<col width="80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">
+Argument
+</th>
+<th align="left">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<code>data</code>
+</td>
+<td align="left">
+a <code>data.frame</code> with species names (columns) and samples (rows) information. The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>type</code>
+</td>
+<td align="left">
+Nature of the data to be processed. It may be presence / absence (“P/A”), counts of individuals (“counts”), or coverage (“cover”)
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>Sest.method</code>
+</td>
+<td align="left">
+Method for estimating species richness. The function <code>specpool</code> is used for this. Available methods are the incidence-based Chao “chao”, first order jackknife “jack1”, second order jackknife “jack2” and Bootstrap “boot”. By default, the “average” of the four estimates is used
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function extracts the main parameters of the pilot data using basic R functions as well as functions like <code>specpool</code> and <code>dispweight</code> from <code>vegan</code>. The expected number of species in the assemblage is estimated using non-parametric methods (Gotelli et al. 2011). Due to the variability in the estimates of each approximation (Reese et al. 2014), we recommend using an average of these. The probability detection of each species is estimated between and within sites. The former is calculated as the frequency of occurrences of each of the species against the number of sites sampled, the second as the weighted average frequencies in sites where the species were present. Also, the degree of spatial aggregation of species (only for real counts of individuals), is identified with the index of dispersion D (Clarke et al. 2006). The corresponding properties of unseen species are approximated using information of observed species. Specifically, the probabilities of detection are assumed to be equal to the rarest species of pilot data. The mean (and variance) of the abundances are defined using random Poisson values with lambda as the overall mean of species abundances. <code>assempar</code> returns an object of class <code>list</code>, to be used by <code>simdata</code>.</p>
+</div>
+</div>
+<div id="simdata" class="section level2">
+<h2>2. simdata</h2>
+<p>The second function to use is <code>simdata</code>, with the following arguments:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%">
+<col width="80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">
+Argument
+</th>
+<th align="left">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<code>Par</code>
+</td>
+<td align="left">
+a <code>list</code> of parameters estimated by <code>assempar</code>
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>cases</code>
+</td>
+<td align="left">
+Number of data sets to be simulated
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>N</code>
+</td>
+<td align="left">
+Total number of samples to simulate in each site
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>sites</code>
+</td>
+<td align="left">
+Total number of sites to simulate in each data set
+</td>
+</tr>
+</tbody>
+</table>
+<p>The presence/absence of each species at each site are simulated with Bernoulli trials and probability of success equals to the empirical frequency of occurrence of each species among sites in the pilot data. Then, for sites with the simulated presence of the species, Bernoulli trials are used again with probability of success equal to the empirical frequency estimated within the sites in pilot data. If required, the presence/absence matrixes are converted to matrixes of abundances replacing presences by random values from an adequate statistical distribution and parameters equals to those estimated in the pilot data. Counts of individuals are generated using Poisson or negative binomial distributions, depending on the degree of aggregation of each species in the pilot data (McArdle &amp; Anderson 2004; Anderson &amp; Walsh 2013). When abundances were measured as a continuous variable (i.e. coverage, biomass), they are generated using the lognormal distribution. The simulation procedure is repeated to generate as many simulated data matrixes (i.e. cases) as needed. This function returns an object of class <code>list</code> that will be used by <code>sampsd</code> and <code>datquality</code>.</p>
+</div>
+<div id="sampsd" class="section level2">
+<h2>3. sampsd</h2>
+<p>The third function is <code>sampsd</code>. If several sites had been generated, subsets of sites of size 2 to m are sampled, followed by the selection of sampling units (from 2 to n) using inclusion probabilities and self-weighted two-stage sampling (Tille, 2011). Each combination of sampling effort (number of sample units and sites), are repeated several times (e.g. k = 100) for all simulated matrixes. If simulated data correspond to a single site, sampling without replacement is performed several times (e.g. k = 100) for each sample size (from 2 to n) within each simulated matrix. This approach is computationally intensive, especially when k is high. Keep this in mind because it will affect the time to get results. For each sample, suitable pre-treatments are applied and distance/similarity matrixes estimated using the appropriate coefficient. When simulations were done for a single site, the MultSE is estimated as , being V the pseudo variance measured at each sample of size n (Anderson &amp; Santana-Garcon, 2015). When several sites were generated, <em>MultSE</em> are estimated using the residual mean squares and the sites mean squares from a PERMANOVA model (Anderson &amp; Santana-Garcon, 2015). The arguments of this function:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%">
+<col width="80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">
+Argument
+</th>
+<th align="left">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<code>dat.sim</code>
+</td>
+<td align="left">
+a <code>list</code> of data sets generated by <code>simdata</code>
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>Par</code>
+</td>
+<td align="left">
+a <code>list</code> of parameters estimated by <code>assempar</code>
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>transformation</code>
+</td>
+<td align="left">
+Mathematical function to reduce the weight of very dominant species: ‘square root’, ‘fourth root’, ‘Log (X+1)’, ‘P/A’, ‘none’
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>method</code>
+</td>
+<td align="left">
+The appropiate distance/dissimilarity metric. The function <code>vegdist</code> is call for that purpose
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>n</code>
+</td>
+<td align="left">
+Maximum number of samples to take at each site. Can be equal or less than <code>N</code>
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>m</code>
+</td>
+<td align="left">
+Maximum number of sites to sample at each data set. Can be equal or less than <code>sites</code>
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>k</code>
+</td>
+<td align="left">
+Number of repetitions of each sampling effort (samples and sites) at each data set
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="summary_ssp" class="section level2">
+<h2>4. summary_ssp</h2>
+<p>The fourth function is <code>summary_ssp</code>. This function is requiered to estimate an average of all <em>MultSE</em> obtained with the <em>k</em> repetitions for each sampling effort within each case, and then an overall mean as well as the lower and upper intervals of means for each sampling effort among all cases. In order to have a general and comparable criteria to evaluate the rate of change of the averaged <em>MultSE</em> with respect to the sampling effort, a relativization to the maximum <em>MultSE</em> value (obteined with the lower sampling effort) is calculated; then, a standard forward finite derivation is computed. All this results are presented in a data frame, that can be used to plot <em>MultSE</em> with respect to the sampling effort, using <code>ssp_plot</code>. The arguments of this function are:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%">
+<col width="80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">
+Argument
+</th>
+<th align="left">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<code>results</code>
+</td>
+<td align="left">
+a <code>matrix</code> generated by <code>sampsd</code>
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>multi.site</code>
+</td>
+<td align="left">
+Logical argument indicating whether several sites were simulated
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="ioptimum" class="section level2">
+<h2>5. ioptimum</h2>
+<p>The fifth function, <code>ioptimum</code> estimates what we consider the optimal improvement. The arguments are:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%">
+<col width="80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">
+Argument
+</th>
+<th align="left">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<code>xx</code>
+</td>
+<td align="left">
+a <code>data frame</code> generated by <code>summary_ssp</code>
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>multi.site</code>
+</td>
+<td align="left">
+Logical argument indicating whether several sites were simulated
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function identifies three cut-off points based on the finite derivative between the standardized <em>MultSE</em> and the sampling effort (as the percentage improvement in precision per sample unit), allowing us to identify: (1) the minimum required improvement, (2) sub-optimal improvement, (3) optimal improvement and (4) unnecessary improvement. It is possible that the cut-off points defined by omission will not be achieved, and this occurs because the arguments <em>n</em> or <em>m</em> of <code>sampsd</code> were low. In situations like this, a warning message will specifically indicate which cut-off point was not achieved, and will return the maximum effort currently executed. To achieve 5%, 3%, and 1% of optimization, <code>sampsd</code> and <code>summary_ssp</code> must be run again with higher values of <em>n</em> or <em>m</em>. Alternatively, the cut-off points can be made flexible, say, 5%, 4%, 3%, respectively, or higher.</p>
+</div>
+<div id="ssp_plot" class="section level2">
+<h2>6. ssp_plot</h2>
+<p>This function allows to visualize the behavior of the <em>MultSE</em> as the sampling effort increases. When the simulation involves two sampling scales, a graph for samples and one for sites will be generated. Above the <em>MultSE</em>~<em>Sampling effort</em> projection, two shaded areas are drawn, highlighting: sub-optimal improvement (light grey), and optimal improvement (dark gray). Both reflect the sampling effort that improves the precision at acceptable (light gray) or desirable levels (dark gray), but beyond the later, any gain could be considered unnecessary. In adition, for each sampling effort, the relativized improvement (with respect to the <em>MultSE</em> estimated with the lower sampling effort) is presented cumulatively (in percentage). This is very usefull because indicates exactly how much the precision is improved for each sampling effort. The graphic is generated with <code>ggplot2</code>, so the resulting object can be modified using functions of that package.The arguments of this functions are:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%">
+<col width="80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">
+Argument
+</th>
+<th align="left">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<code>xx</code>
+</td>
+<td align="left">
+a <code>data frame</code> generated by <code>summary_ssp</code>
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>opt</code>
+</td>
+<td align="left">
+A vector or data matrix generated by 
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>multi.site</code>
+</td>
+<td align="left">
+Logical argument indicating whether several sites were simulated
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="datquality" class="section level2">
+<h2>7. datquality</h2>
+<p>It could be desirable to measure the plausibility of simulated data. This can be done measuring the resemblance these had to the pilot data. This can be assessed with <code>datquality</code>, a function that estimate: the average number of species per sampling unit, (ii) the average species diversity per sampling unit, defined as the average Simpson diversity index per sampling unit, and (iii) the multivariate dispersion (<em>MVD</em>), measured as the average dissimilarity from all sampling units to the main centroid in the space of the dissimilarity measure used (Anderson 2006). The arguments of this functions are:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="20%">
+<col width="80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">
+Argument
+</th>
+<th align="left">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<code>data</code>
+</td>
+<td align="left">
+a <code>data.frame</code> with species names (columns) and samples (rows) information. The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>dat.sim</code>
+</td>
+<td align="left">
+a <code>list</code> of data sets generated by <code>simdata</code>
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>Par</code>
+</td>
+<td align="left">
+a <code>list</code> of parameters estimated by <code>assempar</code>
+</td>
+</tr>
+<tr class="even">
+<td align="center">
+<code>transformation</code>
+</td>
+<td align="left">
+Mathematical function to reduce the weight of very dominant species: ‘square root’, ‘fourth root’, ‘Log (X+1)’, ‘P/A’, ‘none’
+</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<code>method</code>
+</td>
+<td align="left">
+The appropiate distance/dissimilarity metric. The function <code>vegdist</code> is call for that purpose
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="performance-of-ssp-with-real-data" class="section level2">
+<h2>Performance of SSP with real data</h2>
+<p><strong>Micromollusks of marine shallow sandy bottoms:</strong> Presence/absence of 67 species were registered in six cores of 4-inch diameter and 10 cm depth taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico (a small reef cay located 240 km off the North-Western coast of Yucatan). Data correspond to a study on the biodiversity of marine benthic reef habitats off the Yucatan shelf (Ortigosa et al. 2018). The main objective was to estimate an adequate sampling effort for further quantitative studies to characterize the variability in species composition. To do this, the pilot data was characterized with <code>assempar</code> and several matrices of P/A data were simulated with <code>simdata</code>. To speed up the process, only 10 data sets (<em>cases</em>) were simulated, each data matrix consisted in <em>N</em> = 50 potential sampling replicates in one <em>site</em>. Several sample size’s subsets (<em>n</em> = 2 to 50) were repeatedly sampled (<em>k</em> = 10) with <code>sampsd</code>. The Jaccard index was used as the similarity measure between sample units. Keep in mind that you can simulate many more matrices (<em>cases</em>), number of samples (<em>N</em> and <em>n</em>), and repetitions (<em>k</em>), as long as you have the time and patience to wait for the results!</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">data</span>(micromollusk)</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#Estimation of parameters</span></a>
+<a class="sourceLine" id="cb1-4" title="4">par.mic&lt;-<span class="kw">assempar</span>(<span class="dt">data =</span> micromollusk, <span class="dt">type =</span> <span class="st">&quot;P/A&quot;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5"></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#Simulation of data</span></a>
+<a class="sourceLine" id="cb1-7" title="7">sim.mic&lt;-<span class="kw">simdata</span>(<span class="dt">Par =</span> par.mic, <span class="dt">cases =</span> <span class="dv">10</span>, <span class="dt">N =</span> <span class="dv">50</span>, <span class="dt">site =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#Sampling and estimation of MultSE</span></a>
+<a class="sourceLine" id="cb1-10" title="10">samp.mic&lt;-<span class="kw">sampsd</span>(sim.mic, par.mic,</a>
+<a class="sourceLine" id="cb1-11" title="11">                        <span class="dt">transformation =</span> <span class="st">&quot;P/A&quot;</span>,</a>
+<a class="sourceLine" id="cb1-12" title="12">                        <span class="dt">method =</span> <span class="st">&quot;jaccard&quot;</span>,</a>
+<a class="sourceLine" id="cb1-13" title="13">                        <span class="dt">n =</span> <span class="dv">50</span>,</a>
+<a class="sourceLine" id="cb1-14" title="14">                        <span class="dt">m =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb1-15" title="15">                        <span class="dt">k =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-16" title="16"></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co">#Summarizing results</span></a>
+<a class="sourceLine" id="cb1-18" title="18">sum.mic&lt;-<span class="kw">summary_ssp</span>(<span class="dt">results =</span> samp.mic, <span class="dt">multi.site =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-19" title="19"></a>
+<a class="sourceLine" id="cb1-20" title="20"><span class="co">#Identification of optimal effort</span></a>
+<a class="sourceLine" id="cb1-21" title="21"></a>
+<a class="sourceLine" id="cb1-22" title="22">opt.mic&lt;-<span class="kw">ioptimum</span>(<span class="dt">xx =</span> sum.mic, <span class="dt">multi.site =</span> <span class="ot">FALSE</span>, <span class="dt">c1 =</span> <span class="dv">10</span>, <span class="dt">c2 =</span><span class="dv">5</span>, <span class="dt">c3=</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-23" title="23"></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="co">#plot</span></a>
+<a class="sourceLine" id="cb1-25" title="25">fig<span class="fl">.1</span>&lt;-<span class="kw">plot_ssp</span>(<span class="dt">xx =</span> sum.mic, <span class="dt">opt =</span> opt.mic, <span class="dt">multi.site =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-26" title="26">fig<span class="fl">.1</span> </a></code></pre></div>
+<p>The behavior of <em>MultSE</em> for each sampling effort on simulated data sets can be plotted using <code>plot_ssp</code> (Fig.1). The shaded areas indicates the range of samples in which each increase in sampling effort provides suboptimal improvement (light grey), and optimal improvement (dark gray). The suboptimal region highlights improvement between 37% and 47%, while the optimal indicate that up to 66% could be improved with 17 samples, with remarkable precision gain with each additional sample. From 18 samples, it seems that the gain is very little and unjustified, which can be considered as a redundant effort.</p>
+<div class="figure" style="text-align: center">
+<img src="data:image/png;base64,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" alt="Fig. 1. MultSE and sampling effort relationship using micromollusk simulated data" width="100%" />
+<p class="caption">
+Fig. 1. MultSE and sampling effort relationship using micromollusk simulated data
+</p>
+</div>
+<p><strong>Coral reef sponges:</strong> Spatial variability of sponge diversity in reefs from Alacranes Reef National Park (ARNP), Gulf of Mexico, Mexico, was estimated in 36 transects of 20 m × 1 m across 6 sites (≈ 4 to 5 transect per site). In each transect, the colonies of 41 sponge species were counted. This data corresponds to a pilot study on sponge biodiversity in reef habitats in the Yucatán shelf (Ugalde et al. 2015). The main objective was to estimate an adequate sampling effort in two spatial scales (i.e. transect and sites) for further quantitative studies. The studied area represents the leeward area of the reef, with very similar reef geomorphology. Therefore, it cannot be argued a priori that spatial differences in sponge diversity (if any) are due to some environmental model. In this sense, we consider it valid to simulate for the entire leeward area, considering the information of the six sites.<br />
+Several matrixes were simulated, each consisting in 20 potential <em>sites</em> with 20 potential <em>N</em> transects per site. As well as the above example, the pilot data was characterized with <code>assempar</code> and several matrices with counts of individual sponges were simulated with <code>simdata</code>. Again, to speed up the process, only 10 data sets (<em>cases</em>) were simulated. Each combination of <em>n</em> (from 2 to 20) and <em>m</em> (from 2 to 20) were repeatedly sampled (<em>k</em> = 10) with <code>sampsd</code>. The Bray-Curtis index was used as the similarity measure between sample units after square root transformation of simulated abundances. As well, the optimal sampling effort was represented using <code>plot_ssp</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">data</span>(sponges)</a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#Estimation of parameters</span></a>
+<a class="sourceLine" id="cb2-4" title="4">par.spo&lt;-<span class="kw">assempar</span>(<span class="dt">data =</span> sponges, <span class="dt">type =</span> <span class="st">&quot;counts&quot;</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#Simulation of data</span></a>
+<a class="sourceLine" id="cb2-7" title="7">sim.spo&lt;-<span class="kw">simdata</span>(<span class="dt">Par =</span> par.spo, <span class="dt">cases =</span> <span class="dv">10</span>, <span class="dt">N =</span> <span class="dv">20</span>, <span class="dt">sites =</span> <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb2-8" title="8"></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#Sampling and estimation of MultSE</span></a>
+<a class="sourceLine" id="cb2-10" title="10">samp.spo&lt;-<span class="kw">sampsd</span>(sim.spo, par.spo,</a>
+<a class="sourceLine" id="cb2-11" title="11">                        <span class="dt">transformation =</span> <span class="st">&quot;square root&quot;</span>,</a>
+<a class="sourceLine" id="cb2-12" title="12">                        <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>,</a>
+<a class="sourceLine" id="cb2-13" title="13">                        <span class="dt">n =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb2-14" title="14">                        <span class="dt">m =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb2-15" title="15">                        <span class="dt">k =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb2-16" title="16"></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">#Summarizing results</span></a>
+<a class="sourceLine" id="cb2-18" title="18">sum.spo&lt;-<span class="kw">summary_ssp</span>(<span class="dt">results =</span> samp.spo, <span class="dt">multi.site =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-19" title="19"></a>
+<a class="sourceLine" id="cb2-20" title="20"><span class="co">#Identification of optimal effort</span></a>
+<a class="sourceLine" id="cb2-21" title="21"></a>
+<a class="sourceLine" id="cb2-22" title="22">opt.spo&lt;-<span class="kw">ioptimum</span>(<span class="dt">xx =</span> sum.spo, <span class="dt">multi.site =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-23" title="23"></a>
+<a class="sourceLine" id="cb2-24" title="24"><span class="co">#plot</span></a>
+<a class="sourceLine" id="cb2-25" title="25">fig<span class="fl">.2</span>&lt;-<span class="kw">plot_ssp</span>(<span class="dt">xx =</span> sum.spo, <span class="dt">opt =</span> opt.spo, <span class="dt">multi.site =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-26" title="26">fig<span class="fl">.2</span> </a></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="data:image/png;base64,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" alt="Fig. 2. MultSE and sampling effort relationship using sponge simulated data" width="100%" />
+<p class="caption">
+Fig. 2. MultSE and sampling effort relationship using sponge simulated data
+</p>
+</div>
+<p>At the scale of sites, Fig.2 shows noticeable decrease of the <em>MultSE</em> between 5 and 11 sites. This range of sampling is represented by two shaded areas: suboptimal and optimal improvement, respectively. The first represent improvements of 44% with 7 sites, the second 55% with 11 sites. Sampling 9 sites will ensure improving the worst precision around 51%. At the scale of transect, the suboptimal improvement is accomplished with 5 or 6 replicates, the optimal is beyond 7 replicates. Beyond, each additional sample improves the highest <em>MultSE</em> by 2-3 %, achieving a 55% improvement with 10 transects. Another outstanding feature is the marked differences in <em>MultSE</em> obtained for the two sources of variation. The magnitude of the difference in variation fits that obtained in the pseudo components of variation estimated for sites and residuals in a PERMANOVA analysis of the pilot data σ<sub>sites</sub> = 26.4, σ<sub>transects</sub> = 34.7):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">dat&lt;-sponges[,<span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(sponges)]</a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#Square root transformation of abundances</span></a>
+<a class="sourceLine" id="cb3-4" title="4">dat.t&lt;-<span class="kw">sqrt</span>(dat)</a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#Bray-Curtys</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">library</span>(vegan)</a>
+<a class="sourceLine" id="cb3-8" title="8">bc&lt;-<span class="kw">vegdist</span>(dat.t, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>)</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#function to estimate components of variation in PERMANOVA </span></a>
+<a class="sourceLine" id="cb3-11" title="11">cv.permanova &lt;-<span class="st"> </span><span class="cf">function</span>(D, y) {</a>
+<a class="sourceLine" id="cb3-12" title="12">  D =<span class="st"> </span><span class="kw">as.matrix</span>(D)</a>
+<a class="sourceLine" id="cb3-13" title="13">  N =<span class="st"> </span><span class="kw">dim</span>(D)[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb3-14" title="14">  g =<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(y[,<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb3-15" title="15">  X =<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>y[,<span class="dv">1</span>])  <span class="co">#model matrix</span></a>
+<a class="sourceLine" id="cb3-16" title="16">  H =<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)  <span class="co">#Hat matrix</span></a>
+<a class="sourceLine" id="cb3-17" title="17">  I =<span class="st"> </span><span class="kw">diag</span>(N)  <span class="co">#Identity matrix</span></a>
+<a class="sourceLine" id="cb3-18" title="18">  A =<span class="st"> </span><span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>D<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb3-19" title="19">  G =<span class="st"> </span>A <span class="op">-</span><span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">1</span>, mean) <span class="op">%o%</span><span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, N) <span class="op">-</span><span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, N) <span class="op">%o%</span><span class="st"> </span><span class="kw">apply</span>(A, <span class="dv">2</span>, mean) <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(A)</a>
+<a class="sourceLine" id="cb3-20" title="20">  MS1 =<span class="st"> </span><span class="kw">sum</span>(G <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(H))<span class="op">/</span>(g <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)  <span class="co">#Mean square of sites</span></a>
+<a class="sourceLine" id="cb3-21" title="21">  MS2 =<span class="st"> </span><span class="kw">sum</span>(G <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(I <span class="op">-</span><span class="st"> </span>H))<span class="op">/</span>(N <span class="op">-</span><span class="st"> </span>g)  <span class="co">#Mean square of residuals</span></a>
+<a class="sourceLine" id="cb3-22" title="22">  CV1 =<span class="st"> </span>(MS1 <span class="op">-</span><span class="st"> </span>MS2)<span class="op">/</span>(N<span class="op">/</span>g)<span class="co"># Components of variation of sites</span></a>
+<a class="sourceLine" id="cb3-23" title="23">  CV2 =<span class="st"> </span>MS2 <span class="co"># Components of variation of samples</span></a>
+<a class="sourceLine" id="cb3-24" title="24">  CV =<span class="st"> </span><span class="kw">c</span>(CV1, CV2)</a>
+<a class="sourceLine" id="cb3-25" title="25">  sqrtCV =<span class="st"> </span><span class="kw">sqrt</span>(CV)</a>
+<a class="sourceLine" id="cb3-26" title="26">  <span class="kw">return</span>(sqrtCV) <span class="co">#square root of components of variation</span></a>
+<a class="sourceLine" id="cb3-27" title="27">}</a>
+<a class="sourceLine" id="cb3-28" title="28"></a>
+<a class="sourceLine" id="cb3-29" title="29">cv&lt;-<span class="kw">cv.permanova</span>(<span class="dt">D =</span> bc, <span class="dt">y =</span> sponges)</a>
+<a class="sourceLine" id="cb3-30" title="30">cv</a>
+<a class="sourceLine" id="cb3-31" title="31"><span class="co">#&gt; [1] 0.2644432 0.3467063</span></a></code></pre></div>
+<p>With these projections, and considering the costs (time, money) of visiting a site and doing each transect, as well as the relative importance of each spatial scale, it will be convenient to keep the number of sites within suboptimal improvement (i.e. 5-7), and set the number of transects in 8.</p>
+<p>These examples demonstrates that <code>SSP</code> has key advantages in estimating sample effort to study communities whose data will be analyzed with statistical techniques based on similarity indices, such as PERMANOVA (Anderson, 2017). However, it is important to mention that <code>SSP</code> is not free from assumptions. First, simulations in <code>simdata</code> do not consider any environmental constraint, nor the co-occurrence of species neither their joint distribution functions. In addition, the <code>SSP</code> protocol assumes that potential differences in species composition among sites is due to spatial aggregation of species measured in the pilot data. Thus, any spatial structure of species that was not captured by the pilot data will not be reflected in the simulation. Although the protocol performs well with small pilot data, it is recommendable that the pilot sampling captures the greatest possible variability in the system under study. Despite these limitations, if the properties of the simulated data resemble the community of interest and show ecological plausibility, the extrapolations derived from the procedure presented here will hold valid to define an optimal sampling effort for any study based on dissimilarity-based multivariate analysis.</p>
+<hr />
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>-Anderson, M. J. (2017). Permutational Multivariate Analysis of Variance (PERMANOVA). Wiley StatsRef: Statistics Reference Online. John Wiley &amp; Sons, Ltd.</p>
+<p>-Anderson, M. J. (2006). Distance-based tests for homogeneity of multivariate dispersions. Biometrics 62:245-253.</p>
+<p>-Anderson, M. J., &amp; J. Santana-Garcon. (2015). Measures of precision for dissimilarity-based multivariate analysis of ecological communities. Ecology Letters 18:66-73.</p>
+<p>-Anderson, M. J., &amp; D. C. I. Walsh. (2013). PERMANOVA, ANOSIM, and the Mantel test in the face of heterogeneous dispersions: What null hypothesis are you testing? Ecological Monographs 83:557-574.</p>
+<p>-Clarke, K. R., Chapman, M. G., Somerfield, P. J., &amp; Needham, H. R. (2006). Dispersion-based weighting of species counts in assemblage analyses. Journal of Experimental Marine Biology and Ecology, 320, 11-27.</p>
+<p>-Gotelli, N. J., &amp; Colwell, R. K. (2011). Estimating species richness. Pages 39– 54 in A Magurranand B McGill editors. Biological diversity: frontiers in measurement and assessment. Oxford University Press, Oxford, UK.</p>
+<p>-Guerra-Castro, E. J., Cajas, L. C., Cruz-Motta, J. J., Simoes, N., &amp; Mascaro, M. (2020). A simulation-based protocol to estimate sampling effort in studies of ecological communities</p>
+<p>-McArdle, B. H., &amp; M. J. Anderson. (2004). Variance heterogeneity, transformations, and models of species abundance: a cautionary tale. Canadian Journal of Fisheries and Aquatic Sciences 61:1294-1302.</p>
+<p>-Oksanen, J., F. G. Blanchet, R. Kindt, P. Legendre, P. R. Minchin, R. B. O’Hara, G. L. Simpson, P. Solymos, M. H. H. Stevens, and H. Wagner. 2019. Vegan: Community Ecology Package. R package version 2.5-6.</p>
+<p>-Ortigosa, D., N. Y. Suárez-Mozo, N. C. Barrera, &amp; N. Simões. (2018). First survey of Interstitial molluscs from Cayo Nuevo, Campeche Bank, Gulf of Mexico. Zookeys 779.</p>
+<p>-Reese, G. C., Wilson, K. R., &amp; Flather, C. H. (2014). Performance of species richness estimators across assemblage types and survey parameters. Global Ecology and Biogeography, 23(5), 585-594.</p>
+<p>-Ugalde, D., P. Gómez, &amp; N. Simoes. (2015). Marine sponges (Porifera: Demospongiae) from the Gulf of México, new records and redescription of Erylus trisphaerus (de Laubenfels, 1953). Zootaxa 3911:151-183.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
