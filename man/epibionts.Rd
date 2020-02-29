@@ -5,7 +5,7 @@
 Epibionts on Caribbean mangrove roots
 }
 \description{
-Data corresponds to epibenthic organisms in mangrove roots from Laguna de La Restinga National Park, Venezuela (Guerra-Castro et al. 2016). Data consists of the coverage (by point-intercept) of 110 taxa identified in 240 mangrove roots, sampled under a hierarchically nested spatial design that included four random sites within each of three sectors of the lagoon system corresponding to a strong environmental gradient: external (E), intermediate (M), and internal (I). The abundance of epibenthic organisms of 8 roots were described within each site, producing a total of 32 roots in each sector. This spatial protocol was repeated five times over a period of 14 months. For demonstrative purpose, data from the 4th sampling period was randomly chosen as data for this package.
+Data corresponds to epibenthic organisms in mangrove roots from Laguna de La Restinga National Park, Venezuela (Guerra-Castro et al. 2016).
 }
 \usage{data("epibionts")}
 \format{
@@ -166,7 +166,7 @@ Data corresponds to epibenthic organisms in mangrove roots from Laguna de La Res
   }
 }
 \details{
-Data corresponds to epibenthic organisms in mangrove roots from Laguna de La Restinga National Park, Venezuela (Guerra-Castro et al. 2016). Data consists of the coverage (by point-intercept) of 110 taxa identified in 240 mangrove roots, sampled under a hierarchically nested spatial design that included four random sites within each of three sectors of the lagoon system corresponding to a strong environmental gradient: external (E), intermediate (M), and internal (I). The abundance of epibenthic organisms of 8 roots were described within each site, producing a total of 32 roots in each sector. This spatial protocol was repeated five times over a period of 14 months. For demonstrative purpose, data from the 4th sampling period was randomly chosen as data for this package.
+Data consists of the coverage (by point-intercept) of 110 taxa identified in 240 mangrove roots, sampled under a hierarchically nested spatial design that included four random sites within each of three sectors of the lagoon system corresponding to a strong environmental gradient: external (E), intermediate (M), and internal (I). The abundance of epibenthic organisms of 8 roots were described within each site, producing a total of 32 roots in each sector. This spatial protocol was repeated five times over a period of 14 months. For demonstrative purpose, data from the 4th sampling period was randomly chosen as data for this package.
 }
 \source{
 https://doi.org/10.3354/meps11693
