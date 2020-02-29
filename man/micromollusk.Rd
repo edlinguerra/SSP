@@ -82,8 +82,7 @@ Micromollusks of marine shallow sandy bottoms around Cayo Nuevo, Gulf of Mexico,
   }
 }
 \details{
-
-cayo Nuevo is a small reef cay located 240 km off the North-Western coast of Yucatan. Data correspond to a study on the biodiversity of marine benthic reef habitats off the Yucatan shelf (Ortigosa, Suarez-Mozo, Barrera et al. 2018).
+Cayo Nuevo is a small reef cay located 240 km off the North-Western coast of Yucatan. Data correspond to a study about the biodiversity of marine benthic reef habitats off the Yucatan shelf (Ortigosa, Suarez-Mozo, Barrera et al. 2018).
 }
 \source{
 https://doi.org/10.3897/zookeys.779.24562
