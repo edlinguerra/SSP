@@ -9,11 +9,11 @@ Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno
 Simoes and Maite Mascaro
 
 **SSP** is an R package design to estimate sampling effort in studies of
-ecological communities based on the definition of pseudo multivariate
+ecological communities based on the definition of *pseudo*-multivariate
 standard error (*MultSE*) (Anderson & Santana-Garcon 2015), simulation
-of data and resampling.
+of data and resampling (Guerra-Castro et al., 2020).
 
-**SSP** include seven functions: `assempar` for extrapolation of
+**SSP** includes seven functions: `assempar` for extrapolation of
 assemblage parameters using pilot data; `simdata` for simulation of
 several data sets based on extrapolated parameters; `datquality` for
 evaluation of plausibility of simulated data; `sampsd` for repeated
@@ -21,7 +21,7 @@ estimations of *MultSE* for different sampling designs in simulated data
 sets; `summary_sd` for summarizing the behavior of *MultSE* for each
 sampling design across all simulated data sets, `ioptimum` for
 identification of the optimal sampling effort, and `plot_ssp` to plot
-sampling effort and *MultSE*.
+sampling effort vs *MultSE*.
 
 ## R PACKAGE NEEDED IN SSP
 
