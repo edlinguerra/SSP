@@ -3,6 +3,7 @@ title: "Comments"
 author: "Edlin Guerra Castro"
 date: "21/1/2020"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 ---
@@ -88,7 +89,7 @@ output:
 
 **espectativa que se debe describir en el ms**
 
-Edgar
+# Edgar
 
 Gracias por compartir tu paquete antes de someterlo al CRAN. Me parece una excelente aportación, lo probé con un set de datos propio y todo funcionó sin problemas. Hay algunas dudas que me surgieron en el camino pero es más por desconocimiento teórico de algunos argumentos/parámetros que se necesitan en las funciones. Aunado a lo anterior, no logré encontrar el vignette que nos comentaste, ni en la carpeta que se instaló en mi computadora ni en tu sitio de github.
 
