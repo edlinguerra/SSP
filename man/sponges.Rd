@@ -56,7 +56,7 @@ Counts of 41 species of sponges in 36 transects of 20 m * 1 m across 8 sites aro
   }
 }
 \details{
-This data corresponds to a pilot study on sponge biodiversity in reef habitats in the Yucatán shelf (Ugalde et al., 2015)}
+This data corresponds to a pilot study about sponge biodiversity in reef habitats in the Yucatán shelf (Ugalde et al., 2015)}
 
 \source{
 https://biotaxa.org/Zootaxa/article/view/zootaxa.3911.2.1
