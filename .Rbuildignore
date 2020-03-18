@@ -3,7 +3,6 @@
 ^.*\.Rproj$
 ^README\.Rmd$
 ^cran-comments\.md$
-^data/pilot\.Rdata$
 ^data/pilot\.csv$
 ^\.git$
 ^\.gitignore$
@@ -14,4 +13,8 @@
 ^vignettes/permanova_pilot\.R$
 ^vignettes/SSP-guide\.R$
 ^vignettes/SSP-guide\.html$
+^vignettes/fig3\.png$
 ^revdep$
+^figures$
+^doc$
+^Meta$
