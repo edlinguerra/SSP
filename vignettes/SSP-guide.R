@@ -14,31 +14,29 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE----------------------------------------------------------
+#  library(SSP)
 #  data(micromollusk)
 #  
 #  #Estimation of parameters
-#  par.mic<-assempar(data = micromollusk, type = "P/A")
+#  par.mic <- assempar(data = micromollusk, type = "P/A")
 #  
 #  #Simulation of data
-#  sim.mic<-simdata(Par = par.mic, cases = 10, N = 50, site = 1)
+#  sim.mic <- simdata(Par = par.mic, cases = 20, N = 100, site = 1)
+#  
+#  # Quality of simulated data
+#  qua.mic <- datquality(data = micromollusk, dat.sim = sim.mic, Par = par.mic, transformation = "none", method = "jaccard")
 #  
 #  #Sampling and estimation of MultSE
-#  samp.mic<-sampsd(sim.mic, par.mic,
-#                          transformation = "P/A",
-#                          method = "jaccard",
-#                          n = 50,
-#                          m = 1,
-#                          k = 10)
+#  samp.mic <- sampsd(sim.mic, par.mic, transformation = "P/A", method = "jaccard", n = 50, m = 1, k = 10)
 #  
 #  #Summarizing results
-#  sum.mic<-summary_ssp(results = samp.mic, multi.site = FALSE)
+#  sum.mic <- summary_ssp(results = samp.mic, multi.site = FALSE)
 #  
 #  #Identification of optimal effort
-#  
-#  opt.mic<-ioptimum(xx = sum.mic, multi.site = FALSE, c1 = 10, c2 =5, c3= 1)
+#  opt.mic <- ioptimum(xx = sum.mic, multi.site = FALSE)
 #  
 #  #plot
-#  fig.1<-plot_ssp(xx = sum.mic, opt = opt.mic, multi.site = FALSE)
+#  fig.1 <- plot_ssp(xx = sum.mic, opt = opt.mic, multi.site = FALSE)
 #  fig.1
 
 ## ---- echo = FALSE, out.width='100%', fig.align='center', fig.cap='Fig. 1. MultSE and sampling effort relationship using micromollusk simulated data'----
@@ -48,28 +46,27 @@ knitr::include_graphics('fig1.png')
 #  data(sponges)
 #  
 #  #Estimation of parameters
-#  par.spo<-assempar(data = sponges, type = "counts")
+#  par.spo <- assempar(data = sponges, type = "counts")
 #  
 #  #Simulation of data
-#  sim.spo<-simdata(Par = par.spo, cases = 10, N = 20, sites = 20)
+#  sim.spo <- simdata(Par = par.spo, cases = 10, N = 20, sites = 20)
+#  
+#  # Quality of simulated data
+#  qua.spo <- datquality(data = sponges, dat.sim = sim.spo, Par = par.spo, transformation = "square root", method = "bray")
 #  
 #  #Sampling and estimation of MultSE
-#  samp.spo<-sampsd(sim.spo, par.spo,
-#                          transformation = "square root",
-#                          method = "bray",
-#                          n = 20,
-#                          m = 20,
-#                          k = 10)
+#  samp.spo <- sampsd(sim.spo, par.spo, transformation = "square root",
+#                          method = "bray", n = 20, m = 20, k = 10)
 #  
 #  #Summarizing results
-#  sum.spo<-summary_ssp(results = samp.spo, multi.site = TRUE)
+#  sum.spo <- summary_ssp(results = samp.spo, multi.site = TRUE)
 #  
 #  #Identification of optimal effort
 #  
-#  opt.spo<-ioptimum(xx = sum.spo, multi.site = TRUE)
+#  opt.spo <- ioptimum(xx = sum.spo, multi.site = TRUE)
 #  
 #  #plot
-#  fig.2<-plot_ssp(xx = sum.spo, opt = opt.spo, multi.site = TRUE)
+#  fig.2 <- plot_ssp(xx = sum.spo, opt = opt.spo, multi.site = TRUE)
 #  fig.2
 #  
 
