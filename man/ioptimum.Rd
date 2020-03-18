@@ -37,7 +37,7 @@ Underwood, A. J. (1990). Experiments in ecology and management: Their logics, fu
 Edlin Guerra-Castro (edlinguerra@gmail.com), Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro (mmm@ciencias.unam.mx).
 }
 \note{
-The cuts that define the sampling effort as necessary, sub-optimal, optimal or redundant are arbitrary and can be modified according to each research problem. In particular, it is possible that c3 as 3\% is not generated because this would be achieved with a sample size larger than the maximum simulated. In this case, the maximum effort generated with \code{\link[SSP]{sampsd}} will be returned with a warning message.
+The cuts that define the sampling effort as necessary, sub-optimal, optimal or redundant are arbitrary and can be modified according to each research problem. In particular, it is possible that c3 as 2.5\% is not generated because this would be achieved with a sample size larger than the maximum simulated. In this case, the maximum effort generated with \code{\link[SSP]{sampsd}} will be returned with a warning message.
 }
 
 \seealso{
