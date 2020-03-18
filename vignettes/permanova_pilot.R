@@ -19,8 +19,8 @@ dat<-pilot[,3:length(pilot)]
 dat.t<-dat^0.25
 factors$Site<-as.factor(gl(6,10, 6*10*3))
 
-perm <- how(within = Within("none"), plots = Plots(type = "free", strata = factors$Site), nperm = 999)
-adonis(dat.t~Sector+Sector%in%Site, data = factors, permutations = perm)
+perm <- how(within = Within("free"), plots = Plots(type = "free", strata = factors$Sector), nperm = 999)
+adonis(dat.t~Sector+Site%in%Sector, data = factors, permutations = perm)
 
 PERMANOVA table of results
 Unique
