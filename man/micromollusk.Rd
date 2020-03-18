@@ -4,7 +4,7 @@
 \title{
 Micromollusks of marine shallow sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico
 }
-\description{Presence/absence of 67 species registered in six cores of 4-inch diameter and 10 cm depth taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico
+\description{Presence/absence of 68 species registered in six cores of 4 cm diameter and 10 cm depth taken in sandy bottoms around Cayo Nuevo, Gulf of Mexico, Mexico
 }
 \usage{data("micromollusk")}
 \format{
