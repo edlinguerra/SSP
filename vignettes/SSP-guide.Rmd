@@ -424,7 +424,7 @@ These examples demonstrate that **SSP** has key advantages in estimating sample 
 
 -Gotelli, N. J., & Colwell, R. K. (2011). Estimating species richness. Pages 39– 54 in A Magurranand B McGill editors. Biological diversity: frontiers in measurement and assessment. Oxford University Press, Oxford, UK.
 
--Guerra-Castro, E. J., Cajas, L. C., Cruz-Motta, J. J., Simoes, N., & Mascaro, M. (2020). A simulation-based protocol to estimate sampling effort in studies of ecological communities
+-Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
 
 -McArdle, B. H., & M. J. Anderson. (2004). Variance heterogeneity, transformations, and models of species abundance: a cautionary tale. Canadian Journal of Fisheries and Aquatic Sciences 61:1294-1302.
 
