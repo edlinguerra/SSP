@@ -34,6 +34,8 @@ Clarke, K. R., Chapman, M. G., Somerfield, P. J., & Needham, H. R. (2006). Dispe
 
 Gotelli, N. J., & Colwell, R. K. (2011). Estimating species richness. Pages 39-54, in A. E. Magurran and B. J. McGill (editors). Biological diversity: frontiers in measurement and assessment. Oxford University Press, Oxford, UK.
 
+Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
+
 Reese, G. C., Wilson, K. R., & Flather, C. H. (2014). Performance of species richness estimators across assemblage types and survey parameters. Global Ecology and Biogeography, 23(5), 585-594.
 }
 \author{

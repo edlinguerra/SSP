@@ -18,7 +18,7 @@ The SSP package is developed at GitHub (\url{https://github.com/edlinguerra/SSP/
 \references{
 -Anderson, M. J., & J. Santana-Garcon. (2015). Measures of precision for dissimilarity-based multivariate analysis of ecological communities. Ecology Letters 18:66-73.
 
--Guerra-Castro, E. J.C., Cajas, L. C., Cruz-Motta, J. J., Simoes, N., & Mascaro, M. (2020). A simulation-based protocol to estimate sampling effort in studies of ecological communities
+-Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
 }
 \author{
 The SSP development team is Edlin Guerra-Castro, Maite Mascaro, Nuno Simoes, Juan Cruz-Motta and Juan Cajas

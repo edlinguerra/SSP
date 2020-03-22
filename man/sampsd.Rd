@@ -44,6 +44,8 @@ A matrix including all estimated MultSE for each simulated data, combination of 
 \references{
 Anderson, M.J. & Santana-Garcon, J. (2015) Measures of precision for dissimilarity-based multivariate analysis of ecological communities. Ecology Letters, 18, 66-73
 
+Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
+
 Tillé, Y. (2006). Sampling algorithms. Springer, New York, NY.
 }
 \author{

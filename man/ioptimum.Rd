@@ -31,6 +31,8 @@ A vector or matrix with the sampling size for each cut point
 }
 }
 \references{
+Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
+
 Underwood, A. J. (1990). Experiments in ecology and management: Their logics, functions and interpretations. Australian Journal of Ecology, 15, 365-389.
 }
 \author{

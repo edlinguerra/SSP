@@ -39,6 +39,8 @@ A data frame that includes the mean and standard deviation of richness and diver
 }
 \references{
 Anderson, M.J. (2006) Distance-based tests for homogeneity of multivariate dispersions. Biometrics, 62, 245-253
+
+Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
 }
 \author{
 Edlin Guerra-Castro (edlinguerra@gmail.com), Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro (mmm@ciencias.unam.mx).

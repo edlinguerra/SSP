@@ -28,6 +28,8 @@ This function allows to visualize the behavior of the MultSE as sampling effort 
 A \code{\link{ggplot2}} object
 }
 \references{
+Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
+
 Wickham, H. 2016. ggplot2: elegant graphics for data analysis. Springer.
 }
 \author{
