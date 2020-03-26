@@ -8,8 +8,8 @@ Authors@R: c(person(given = "Edlin", family = "Guerra-Castro", role = c("aut", "
     person(given = "Juan", family = "Cajas", role = "aut", email = "carlos.cajas@enesmerida.unam.mx"))       
 Maintainer: Edlin Guerra-Castro <edlinguerra@gmail.com>
 Description: Simulation-based sampling protocol (SSP) is an R package design to estimate sampling effort in studies of
-    ecological communities based on the definition of pseudo-multivariate standard error (MultSE) (Anderson & Santana-Garcon, 2015)<doi:10.1111/ele.12385> and simulation
-    of ecological data. The theoretical background is described in Guerra-Castro et al (2020)<doi:10.1101/2020.03.19.996991>.
+    ecological communities based on the definition of pseudo-multivariate standard error (MultSE) (Anderson & Santana-Garcon, 2015) <doi:10.1111/ele.12385> and simulation
+    of ecological data. The theoretical background is described in Guerra-Castro et al. (2020) <doi:10.1101/2020.03.19.996991>.
 Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
