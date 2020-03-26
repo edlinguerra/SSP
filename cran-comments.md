@@ -7,7 +7,7 @@ In this version I corrected: Guerra-Castro et al (2020)<doi:10.1101/2020.03.19.9
 * local Windows 10 Pro, R 3.6.1
 * win-builder (devel, release, older)
 * Ubuntu 16.04.6 LTS (on travis-ci: release, older and devel)
-* Mac OS X (on travis-ci: release and older)
+* Mac OS X (on travis-ci: release, older and devel)
 
 ## R CMD check results
 Copy/Paste of the R CMD check results
