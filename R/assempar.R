@@ -73,7 +73,14 @@ assempar <- function(data, type = c("P/A", "counts", "cover"), Sest.method = "av
             Par$par <- data.frame(Species = c(rep(NA, Par$Sest)),
                                   fs = c(rep(NA, Par$Sest)),
                                   fw = c(rep(NA, Par$Sest)))
-            Par$par[, 1] <- c(sp.names, rep("unseen species", Par$Sest - Par$Sobs))
+        # labels for unseen species
+            delta.sp <- Par$Sest - Par$Sobs
+            unsee <- c(rep(NA, delta.sp))
+            for(i in 1:delta.sp){
+              unsee[i]<- paste ("unseen.species",i)
+            }
+        # filling data frame
+            Par$par[, 1] <- c(sp.names, unsee)
             Par$par[, 2] <- c(fs, rep(min(fs, na.rm = TRUE), Par$Sest - Par$Sobs))
             Par$par[, 3] <- c(fw, rep(min(fw, na.rm = TRUE), Par$Sest - Par$Sobs))
         } else {
@@ -142,9 +149,16 @@ assempar <- function(data, type = c("P/A", "counts", "cover"), Sest.method = "av
             # Asignation of mean and variance abundance of unseen species using random poisson values
             pois<-rpois(n = Par$Sest - Par$Sobs, lambda = mean(ave))
 
-            Par$par[, 1] <- c(sp.names, rep("unseen species", Par$Sest - Par$Sobs))
-            Par$par[, 2] <- c(fs, rep(min(fs, na.rm = TRUE), Par$Sest - Par$Sobs))
-            Par$par[, 3] <- c(fw, rep(min(fw, na.rm = TRUE), Par$Sest - Par$Sobs))
+            # labels for unseen species
+            delta.sp <- Par$Sest - Par$Sobs
+            unsee <- c(rep(NA, delta.sp))
+            for(i in 1:delta.sp){
+              unsee[i]<- paste ("unseen.species",i)
+            }
+            # filling data frame
+            Par$par[, 1] <- c(sp.names, unsee)
+            Par$par[, 2] <- c(fs, rep(min(fs, na.rm = TRUE), delta.sp))
+            Par$par[, 3] <- c(fw, rep(min(fw, na.rm = TRUE), delta.sp))
             Par$par[, 4] <- c(ave, pois)
             Par$par[, 5] <- c(v, pois)
             Par$par[is.na(Par$par[,5]),5]<-0
@@ -248,9 +262,16 @@ assempar <- function(data, type = c("P/A", "counts", "cover"), Sest.method = "av
             # Asignation of mean and variance abundance of unseen species using random poisson values
             pois<-rpois(n = Par$Sest - Par$Sobs, lambda = mean(ave))
 
-            Par$par[, 1] <- c(sp.names, rep("unseen species", Par$Sest - Par$Sobs))
-            Par$par[, 2] <- c(fs, rep(min(fs, na.rm = TRUE), Par$Sest - Par$Sobs))
-            Par$par[, 3] <- c(fw, rep(min(fw, na.rm = TRUE), Par$Sest - Par$Sobs))
+            # labels for unseen species
+            delta.sp <- Par$Sest - Par$Sobs
+            unsee <- c(rep(NA, delta.sp))
+            for(i in 1:delta.sp){
+              unsee[i]<- paste ("unseen.species",i)
+            }
+            # filling data frame
+            Par$par[, 1] <- c(sp.names, unsee)
+            Par$par[, 2] <- c(fs, rep(min(fs, na.rm = TRUE), delta.sp))
+            Par$par[, 3] <- c(fw, rep(min(fw, na.rm = TRUE), delta.sp))
             Par$par[, 4] <- c(ave, pois)
             Par$par[, 5] <- c(v, pois)
             Par$par[is.na(Par$par[,5]),5]<-0
