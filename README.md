@@ -3,6 +3,8 @@
 
 # SSP development version
 
+<img src="man/figures/SSP.png" style="float: right" width="150" />
+
 ## Estimation of sampling effort in community ecology with SSP
 
 Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno

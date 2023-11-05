@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 
 # SSP development version
 
+![](man/figures/SSP.png){style="float: right" width="150"}
+
 ## Estimation of sampling effort in community ecology with SSP
 
 Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Maite Mascaro
