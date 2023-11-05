@@ -48,6 +48,7 @@ simdata <- function(Par, cases, N, sites) {
         }
     #bind the sites in a data frame
         Yh<-data.frame(apply(Yh, MARGIN = 2, rbind))
+        colnames(Yh)<- Par$par$Species
 
     #Add columns for the id of samples and sites
         Yh$N<-rep.int(1:N, sites)
