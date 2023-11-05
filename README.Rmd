@@ -32,7 +32,7 @@ Edlin Guerra-Castro, Juan Carlos Cajas, Juan Jose Cruz-Motta, Nuno Simoes and Ma
 
 ## HOW TO RUN SSP:
 
-The **SSP** package will be available on [CRAN](https://cran.r-project.org/) but can be downloaded from github using the following commands:
+The **SSP** package is available on [CRAN](https://cran.r-project.org/) but can be downloaded from github using the following commands:
 
 ```{r eval=FALSE}
 ## Packages needed to build SSP and vignettes

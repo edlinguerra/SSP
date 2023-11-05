@@ -42,9 +42,8 @@ sampling effort vs *MultSE*.
 
 ## HOW TO RUN SSP:
 
-The **SSP** package will be available on
-[CRAN](https://cran.r-project.org/) but can be downloaded from github
-using the following commands:
+The **SSP** package is available on [CRAN](https://cran.r-project.org/)
+but can be downloaded from github using the following commands:
 
 ``` r
 ## Packages needed to build SSP and vignettes
