@@ -2,7 +2,7 @@
 title: "Estimation of sampling effort in community ecology with SSP"
 author: "Edlin Guerra-Castro, Juan Carlos Cajas, Juan José Cruz-Motta, Nuno Simoes and Maite Mascaro"
 output: rmarkdown::html_vignette
-        
+ 
 vignette: >
   %\VignetteIndexEntry{Estimation of sampling effort in community ecology with SSP}
   %\VignetteEncoding{UTF-8}
@@ -424,11 +424,11 @@ These examples demonstrate that **SSP** has key advantages in estimating sample 
 
 -Gotelli, N. J., & Colwell, R. K. (2011). Estimating species richness. Pages 39– 54 in A Magurranand B McGill editors. Biological diversity: frontiers in measurement and assessment. Oxford University Press, Oxford, UK.
 
--Guerra-Castro, E. J., J. C. Cajas, F. N. Dias Marques Simoes, J. J. Cruz-Motta, and M. Mascaro. (2020). SSP: An R package to estimate sampling effort in studies of ecological communities. bioRxiv:2020.2003.2019.996991.
+-Guerra-Castro, E.J., Cajas, J.C., Simões, N., Cruz-Motta, J.J., & Mascaró, M. (2021). SSP: an R package to estimate sampling effort in studies of ecological communities. Ecography 44(4), 561-573. doi: \url{https://doi.org/10.1111/ecog.05284}
 
 -McArdle, B. H., & M. J. Anderson. (2004). Variance heterogeneity, transformations, and models of species abundance: a cautionary tale. Canadian Journal of Fisheries and Aquatic Sciences 61:1294-1302.
 
--Oksanen, J., F. G. Blanchet, R. Kindt, P. Legendre, P. R. Minchin, R. B. O'Hara, G. L. Simpson, P. Solymos, M. H. H. Stevens, and H. Wagner. 2019. Vegan: Community Ecology Package. R package version 2.5-6.
+-Oksanen, J., F. G. Blanchet, R. Kindt, P. Legendre, P. R. Minchin, R. B. O'Hara, G. L. Simpson, P. Solymos, M. H. H. Stevens, & H. Wagner. 2019. Vegan: Community Ecology Package. R package version 2.5-6.
 
 -Ortigosa, D., N. Y. Suárez-Mozo, N. C. Barrera, & N. Simões. (2018). First survey of Interstitial molluscs from Cayo Nuevo, Campeche Bank, Gulf of Mexico. Zookeys 779.
 
