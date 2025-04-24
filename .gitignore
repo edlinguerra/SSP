@@ -1,7 +1,32 @@
-.Rproj.user
+# RStudio & R session files
+.Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
-inst/doc
-doc
-Meta
+*.Rproj
+
+# Documentación generada
+inst/doc/
+doc/
+Meta/
+manual_backup/
+
+# Archivos auxiliares y de desarrollo
+README.Rmd
+cran-comments.md
+NEWS.Rmd
+comments.Rmd
+comments.html
+
+# Archivos de datos y vignetas auxiliares
+data/pilot.csv
+vignettes/permanova_pilot.R
+vignettes/SSP-guide.R
+vignettes/SSP-guide.html
+vignettes/fig3.png
+
+# Revdep and build output
+revdep/
+figures/
+*.tar.gz
+

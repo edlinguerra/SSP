@@ -3,7 +3,7 @@
 
 # SSP development version
 
-<img src="man/figures/SSP.png" style="float: right" width="150" />
+<img src="man/figures/SSP.png" align="right" width="120" />
 
 ## Estimation of sampling effort in community ecology with SSP
 
@@ -22,12 +22,12 @@ assemblage parameters using pilot data; `simdata` for simulation of
 several data sets based on extrapolated parameters; `datquality` for
 evaluation of plausibility of simulated data; `sampsd` for repeated
 estimations of *MultSE* for different sampling designs in simulated data
-sets; `summary_sd` for summarizing the behavior of *MultSE* for each
+sets; `summary_ssp` for summarizing the behavior of *MultSE* for each
 sampling design across all simulated data sets, `ioptimum` for
 identification of the optimal sampling effort, and `plot_ssp` to plot
 sampling effort vs *MultSE*.
 
-## R PACKAGE NEEDED IN SSP
+### R Packages needed
 
 - Required: [vegan](https://CRAN.R-project.org/package=vegan),
   [sampling](https://CRAN.R-project.org/package=sampling),
@@ -40,7 +40,7 @@ sampling effort vs *MultSE*.
   **SSP** from [github](https://github.com/edlinguerra/SSP). All these
   must be installed by you.
 
-## HOW TO RUN SSP:
+### Installation:
 
 The **SSP** package is available on [CRAN](https://cran.r-project.org/)
 but can be downloaded from github using the following commands:

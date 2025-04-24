@@ -1,12 +1,58 @@
-## assempar: Script to estimate parameters of the assemblage
-#'@export
-#'@importFrom vegan specpool
-#'@importFrom vegan dispweight
-#'@importFrom stats rpois
-#'@importFrom stats weighted.mean
-#'@importFrom stats dist
-#'@importFrom stats var
-#'@importFrom stats variable.names
+#' Estimation of Ecological Parameters of the Assemblage
+#'
+#' This function extracts the main parameters of the pilot data using base R functions,
+#' as well as functions like \code{\link[vegan]{specpool}} and \code{\link[vegan]{dispweight}}.
+#'
+#' @param data Data frame with species names (columns) and samples (rows). The first column should indicate the site to which the sample belongs, regardless of whether a single site has been sampled.
+#' @param type Nature of the data to be processed. It may be presence/absence ("P/A"), counts of individuals ("counts"), or coverage ("cover").
+#' @param Sest.method Method for estimating species richness. The function \code{\link[vegan]{specpool}} is used. Available methods are "chao", "jack1", "jack2", and "boot". By default, the "average" of the four estimates is used.
+#'
+#' @details
+#' The expected number of species in the assemblage is estimated using non-parametric methods (Gotelli et al. 2011).
+#' Due to variability in the estimates of each approximation (Reese et al. 2014), we recommend using the average.
+#' The probability of detection of each species is estimated among and within sites. Among-site detection is calculated
+#' as the frequency of occurrences of each species across sampled sites; within-site detection is calculated as the
+#' weighted average of frequencies in sites where the species are present. Spatial aggregation (only for count data) is
+#' evaluated using the index of dispersion D (Clarke et al. 2006). Properties of unseen species are approximated using
+#' information from observed species, assuming their detection probabilities match those of the rarest observed species.
+#' Abundance distributions are simulated using random Poisson values with lambda as the overall mean of observed abundances.
+#'
+#' @return A list (class \code{list}) containing the estimated parameters of the assemblage, to be used by \code{\link{simdata}}.
+#'
+#' @note Important: The first column should indicate the site ID of each sample (as character or numeric), even when only a single site was sampled.
+#'
+#' @references
+#' Clarke, K. R., Chapman, M. G., Somerfield, P. J., & Needham, H. R. (2006). Dispersion-based weighting of species counts in assemblage analyses. Journal of Experimental Marine Biology and Ecology, 320, 11–27.
+#'
+#' Gotelli, N. J., & Colwell, R. K. (2011). Estimating species richness. In A. E. Magurran & B. J. McGill (Eds.), Biological diversity: frontiers in measurement and assessment (pp. 39–54). Oxford University Press.
+#'
+#' Guerra-Castro, E.J., Cajas, J.C., Simões, N., Cruz-Motta, J.J., & Mascaró, M. (2021). SSP: an R package to estimate sampling effort in studies of ecological communities. Ecography 44(4), 561-573. doi: \url{https://doi.org/10.1111/ecog.05284}
+#'
+#' Reese, G. C., Wilson, K. R., & Flather, C. H. (2014). Performance of species richness estimators across assemblage types and survey parameters. Global Ecology and Biogeography, 23(5), 585–594.
+#'
+#' @seealso \code{\link[vegan]{dispweight}}, \code{\link[vegan]{specpool}}, \code{\link{simdata}}
+#'
+#' @examples
+#' ## Single site: micromollusk from Cayo Nuevo (Yucatan, Mexico)
+#' data(micromollusk)
+#' par.mic <- assempar(data = micromollusk, type = "P/A", Sest.method = "average")
+#' par.mic
+#'
+#' ## Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico)
+#' data(sponges)
+#' par.spo <- assempar(data = sponges, type = "counts", Sest.method = "average")
+#' par.spo
+#'
+#' @importFrom vegan specpool
+#' @importFrom vegan dispweight
+#' @importFrom stats rpois
+#' @importFrom stats weighted.mean
+#' @importFrom stats dist
+#' @importFrom stats var
+#' @importFrom stats variable.names
+#' @importFrom stats aggregate
+
+#' @export
 
 assempar <- function(data, type = c("P/A", "counts", "cover"), Sest.method = "average") {
 
