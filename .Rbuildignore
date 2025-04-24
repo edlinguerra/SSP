@@ -20,4 +20,6 @@
 ^doc$
 ^Meta$
 manual_backup/
+^SSP_manual\.pdf$
 
+^CRAN-SUBMISSION$

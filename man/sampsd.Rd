@@ -65,7 +65,7 @@ sam.spo <- sampsd(dat.sim = sim.spo, Par = par.spo, transformation = "square roo
 \references{
 Anderson, M. J., & Santana-Garcon, J. (2015). Measures of precision for dissimilarity-based multivariate analysis of ecological communities. Ecology Letters, 18(1), 66–73.
 
-Guerra-Castro, E. J., Cajas, J. C., Simoes, N., Cruz-Motta, J. J., & Mascaro, M. (2021). SSP: An R package to estimate sampling effort in studies of ecological communities. Ecography, 44(4), 561–573. \url{https://doi.org/10.1111/ecog.05284}
+Guerra-Castro, E. J., Cajas, J. C., Simoes, N., Cruz-Motta, J. J., & Mascaro, M. (2021). SSP: An R package to estimate sampling effort in studies of ecological communities. Ecography, 44(4), 561–573. \doi{10.1111/ecog.05284}
 
 Tillé, Y. (2006). Sampling Algorithms. Springer, New York.
 }

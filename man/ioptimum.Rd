@@ -68,7 +68,7 @@ opt.spo <- ioptimum(xx = summ.spo, multi.site = TRUE)
 \references{
 Underwood, A. J. (1990). Experiments in ecology and management: Their logics, functions and interpretations. Australian Journal of Ecology, 15, 365–389.
 
-Guerra-Castro, E.J., Cajas, J.C., Simões, N., Cruz-Motta, J.J., & Mascaró, M. (2021). SSP: an R package to estimate sampling effort in studies of ecological communities. Ecography 44(4), 561-573. doi: \url{https://doi.org/10.1111/ecog.05284}
+Guerra-Castro, E.J., Cajas, J.C., Simões, N., Cruz-Motta, J.J., & Mascaró, M. (2021). SSP: an R package to estimate sampling effort in studies of ecological communities. Ecography 44(4), 561-573. doi: \doi{10.1111/ecog.05284}
 }
 \seealso{
 \code{\link{plot_ssp}}, \code{\link{summary_ssp}}, \code{\link{sampsd}}

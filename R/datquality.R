@@ -24,7 +24,7 @@
 #' @references
 #' Anderson, M. J. (2006). Distance-based tests for homogeneity of multivariate dispersions. Biometrics, 62, 245–253.
 #'
-#' Guerra-Castro, E.J., Cajas, J.C., Simões, N., Cruz-Motta, J.J., & Mascaró, M. (2021). SSP: an R package to estimate sampling effort in studies of ecological communities. Ecography 44(4), 561-573. doi: \url{https://doi.org/10.1111/ecog.05284}
+#' Guerra-Castro, E.J., Cajas, J.C., Simões, N., Cruz-Motta, J.J., & Mascaró, M. (2021). SSP: an R package to estimate sampling effort in studies of ecological communities. Ecography 44(4), 561-573. doi: \doi{10.1111/ecog.05284}
 #'
 #' @seealso \code{\link[vegan]{vegdist}}, \code{\link[vegan]{diversity}}
 #'
