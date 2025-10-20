@@ -1,3 +1,11 @@
+# SSP 1.1.0
+
+## Function adjustments
+
+- `simdata()` can now introduce mild randomness via the new `jitter.base` 
+  parameter to increase variability among simulated communities. This feature is 
+  optional (default `jitter.base = 0`).
+
 
 # SSP 1.0.2 (2025-04-23)
 
