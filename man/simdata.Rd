@@ -4,7 +4,7 @@
 \alias{simdata}
 \title{Simulation of Ecological Data Sets}
 \usage{
-simdata(Par, cases, N, sites)
+simdata(Par, cases, N, sites, jitter.base = 0)
 }
 \arguments{
 \item{Par}{A list of parameters estimated by \code{\link{assempar}}.}
@@ -14,6 +14,8 @@ simdata(Par, cases, N, sites)
 \item{N}{Number of samples to simulate in each site.}
 
 \item{sites}{Number of sites to simulate in each data set.}
+
+\item{jitter.base}{Numeric scalar in \eqn{\[0,1\)}. Standard deviation multiplier used to add Gaussian jitter to \code{fs} and \code{fw}. Defaults to 0.}
 }
 \value{
 A list of simulated community data sets, to be used by \code{\link{datquality}} and \code{\link{sampsd}}.
@@ -35,6 +37,8 @@ assemblage, but without incorporating environmental constraints or species co-oc
 This simulation assumes that differences in composition or abundance are due to spatial aggregation, as captured by the pilot data.
 It does not incorporate environmental gradients or species associations. For more advanced modeling of species associations,
 copula-based approaches as suggested by Anderson et al. (2019) may be integrated in future versions of SSP.
+
+When using a jitter.base, the simulation is stochastic. For reproducibility, use \code{set.seed()} before calling \code{simdata()}.
 }
 \examples{
 ## Single site simulation
@@ -45,7 +49,8 @@ sim.mic <- simdata(par.mic, cases = 3, N = 10, sites = 1)
 ## Multiple site simulation
 data(sponges)
 par.spo <- assempar(data = sponges, type = "counts", Sest.method = "average")
-sim.spo <- simdata(par.spo, cases = 3, N = 10, sites = 3)
+set.seed(42)
+sim.spo <- simdata(par.spo, cases = 3, N = 10, sites = 3, jitter.base = 0.5)
 
 }
 \references{
