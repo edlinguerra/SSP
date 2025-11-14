@@ -40,7 +40,7 @@
 #' ## Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico)
 #' data(sponges)
 #' par.spo <- assempar(data = sponges, type = "counts", Sest.method = "average")
-#' sim.spo <- simdata(par.spo, cases = 3, N = 10, sites = 3)
+#' sim.spo <- simdata(par.spo, cases = 3, N = 20, sites = 10, jitter.base = 0.5)
 #' qua.spo <- datquality(data = sponges, dat.sim = sim.spo, Par = par.spo,
 #'                       transformation = "square root", method = "bray")
 #' qua.spo

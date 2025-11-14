@@ -1,5 +1,26 @@
 ## Resubmission
 
+This is a resubmission. In this version we have: 
+
+- Updated `simdata()` to optionally increase stochasticity in simulations via the `jitter.base` parameter (default 0). This change is backward-compatible and does not alter results unless the user opts in.
+  
+### Test environments
+
+- Local: Ubuntu 22.04 (`devtools::check()`)
+- Remote: Windows (devel) via `devtools::check_win_devel()`
+
+### R CMD check results SSP 1.1.0
+
+Duration: 1m 18.5s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+### Reverse dependencies
+
+- Only **ecocbo** depends on **SSP**; it is maintained by the same team. We are updating both packages in tandem to ensure compatibility.
+
+## Resubmission
+
 This is a resubmission of the SSP package (version 1.0.2) to CRAN, following the request to fix cross-references in Rd files.
 
 ### Changes in this version:

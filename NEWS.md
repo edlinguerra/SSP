@@ -1,4 +1,23 @@
 
+# SSP 1.1.0
+
+## Function adjustments
+
+- `simdata()` now includes the new `jitter.base` parameter, which allows
+  controlled stochastic perturbations of site-level parameters. This
+  feature increases variability among simulated communities,
+  particularly in nested designs (e.g., sites within regions), where
+  previous versions tended to generate unrealistically similar
+  communities. By applying mild randomness to occurrence and abundance
+  probabilities, `simdata()` produces simulated data sets with
+  multivariate dispersion closer to empirical expectations.
+
+- The use of `jitter.base` is optional (default `jitter.base = 0`), so
+  existing workflows remain unchanged. Users who wish to reproduce the
+  behavior of earlier versions can simply ignore this parameter. For
+  reproducibility, remember to use `set.seed()` before calling
+  `simdata()`.
+
 # SSP 1.0.2 (2025-04-23)
 
 ## Changes requested by CRAN
