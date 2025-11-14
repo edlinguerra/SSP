@@ -1,23 +1,26 @@
-## Resubmission
+## Submission to CRAN: SSP 1.1.0
 
-This is a resubmission. In this version we have: 
+This is a new release of the package. In this version, we have:
 
-- Updated `simdata()` to optionally increase stochasticity in simulations via the `jitter.base` parameter (default 0). This change is backward-compatible and does not alter results unless the user opts in.
-  
+- Updated the function `simdata()` to optionally increase stochasticity in simulations via the new `jitter.base` parameter (default 0). This change is backward-compatible and does not affect previous results unless the user opts in.
+
 ### Test environments
 
-- Local: Ubuntu 22.04 (`devtools::check()`)
-- Remote: Windows (devel) via `devtools::check_win_devel()`
+- Windows 10 x64, R 4.4.0 (ucrt) [local]
+- Windows 10 x64, R 4.5.0 (ucrt) [local, `--as-cran`]
+- Ubuntu 22.04.5 LTS, R-devel (2025-11-12 r89009) [via R-hub GitHub Actions]
 
-### R CMD check results SSP 1.1.0
+### R CMD check results
 
-Duration: 1m 18.5s
-
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+- 0 errors ✔  
+- 0 warnings ✔  
+- 1 NOTE:  
+  The package includes a `.github/` directory at the top level to enable GitHub Actions (e.g., R-hub checks). This is intentional and does not affect the functionality or structure of the package.
 
 ### Reverse dependencies
 
-- Only **ecocbo** depends on **SSP**; it is maintained by the same team. We are updating both packages in tandem to ensure compatibility.
+- The package **ecocbo** depends on **SSP**, and is maintained by the same development team. Compatibility has been ensured and updated accordingly.
+
 
 ## Resubmission
 
