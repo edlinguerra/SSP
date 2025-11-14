@@ -13,8 +13,6 @@ manual_backup/
 
 # Archivos auxiliares y de desarrollo
 README.Rmd
-cran-comments.md
-NEWS.Rmd
 comments.Rmd
 comments.html
 
