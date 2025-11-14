@@ -106,11 +106,19 @@ The second function to use is `simdata`, with the following arguments:
 <td align="center"><code>sites</code></td>
 <td align="left">Total number of sites to be simulated in each data set</td>
 </tr>
-
+<tr class="odd">
+<td align="center"><code>jitter.base</code></td>
+<td align="left">Optional numeric value controlling the magnitude of stochastic perturbations applied to site-level parameters. This jitter introduces variability among sites while preserving the overall probabilistic structure of each species. 
+Default is <code>NULL</code> (no perturbation).</td>
 </tbody>
 </table>
 
-The presence/absence of each species at each site are simulated with Bernoulli trials and probability of success equals to the empirical frequency of occurrence of each species among sites in the pilot data. Then, for sites with the simulated presence of the species, Bernoulli trials are used again with probability of success equal to the empirical frequency estimated within the sites in pilot data. If required, the presence/absence matrices are converted to matrices of abundances replacing presences by random values from an adequate statistical distribution and parameters equals to those estimated in the pilot data. Counts of individuals are generated using Poisson or negative binomial distributions, depending on the degree of aggregation of each species in the pilot data (McArdle & Anderson 2004; Anderson & Walsh 2013). When abundances were measured as a continuous variable (i.e. coverage, biomass), they are generated using the lognormal distribution. The simulation procedure is repeated to generate as many simulated data matrices (i.e. cases) as needed. This function returns an object of class `list` that will be used by `sampsd` and `datquality`.
+The presence/absence of each species at each site is simulated using Bernoulli trials, with probability of success equal to the empirical frequency of occurrence among sites in the pilot data. For sites where the species is present, Bernoulli trials are used again with probability of success equal to the empirical frequency estimated within sites. To better reflect realistic variability among nested sampling units (e.g., sites within regions), the function can apply controlled perturbations to the base parameters via the argument `jitter.base`. This stochastic adjustment introduces site-level heterogeneity in occurrence probabilities, producing simulated communities with multivariate dispersion closer to empirical expectations. 
+
+If required, the presence/absence matrices are converted into abundance matrices by replacing presences with random values drawn from appropriate statistical distributions, using parameters estimated from the pilot data. Counts of individuals are generated using Poisson or negative binomial distributions, depending on the degree of aggregation of each species (McArdle & Anderson 2004; Anderson & Walsh 2013). Continuous abundance measures (e.g., coverage, biomass) are generated using the lognormal distribution.  
+
+The simulation procedure is repeated `cases` times, producing a list of simulated data sets that reproduce the statistical properties of the original assemblage. The resulting object of class `list` is used by `sampsd` and `datquality`.
+
 
 ## 3. sampsd
 
@@ -341,7 +349,7 @@ data(sponges)
 par.spo <- assempar(data = sponges, type = "counts")
 
 #Simulation of data
-sim.spo <- simdata(Par = par.spo, cases = 10, N = 20, sites = 20)
+sim.spo <- simdata(Par = par.spo, cases = 10, N = 20, sites = 20, jitter.base = 0.5)
 
 # Quality of simulated data
 qua.spo <- datquality(data = sponges, dat.sim = sim.spo, Par = par.spo, transformation = "square root", method = "bray")
@@ -364,10 +372,10 @@ fig.2
 ```
 
 ```{r, echo = FALSE, out.width='100%', fig.align='center', fig.cap='Fig. 2. MultSE and sampling effort relationship using sponge simulated data'}
-knitr::include_graphics('fig2.png')
+knitr::include_graphics('fig2b.png')
 ```
   
-At the scale of sites, there was a noticeable decrease of the *MultSE* between 5 and 11 sites (Fig. 2). This range of sampling is represented by two shaded areas: light gray) and optimal improvement (dark gray), respectively. The first represent improvements of 44% with 7 sites, the second 55% with 11 sites. Sampling 9 sites will improve the worst precision in approximately 51%. At the scale of transect, the suboptimal improvement is accomplished with 5 or 6 replicates, whereas the optimal is beyond 7 replicates, but below 11. It can also be noted that each additional sample improves the highest *MultSE* by 2-3 %, achieving a 55% improvement with 10 transects. It should be pointed out the marked differences in *MultSE* obtained for the two sources of variation. The magnitude of the difference in variation fits that obtained in the *pseudo*-components of variation estimated for sites and residuals in a PERMANOVA analysis of the pilot data σ<sub>sites</sub> = 26.4, σ<sub>transects</sub> = 34.7): 
+At the scale of sites, there was a noticeable decrease of the *MultSE* between 5 and 10 sites (Fig. 2). This range of sampling is represented by two shaded areas: subotimal improvement (light gray) and optimal improvement (dark gray), respectively. The first represent improvements of 45% with 7 sites, the second 54% with 10 sites. Sampling 9 sites will improve the worst precision in approximately 52%. At the scale of transect, the suboptimal improvement is accomplished with 5 or 6 replicates, whereas the optimal is beyond 7 replicates, but below 10. It can also be noted that each additional sample improves the highest *MultSE* by 2-3 %, achieving a 55% improvement with 10 transects. It should be pointed out the marked differences in *MultSE* obtained for the two sources of variation. The magnitude of the difference in variation fits that obtained in the *pseudo*-components of variation estimated for sites and residuals in a PERMANOVA analysis of the pilot data σ<sub>sites</sub> = 26.4, σ<sub>transects</sub> = 34.7): 
 
 ```{r}
 dat<-sponges[,2:length(sponges)]
@@ -402,7 +410,6 @@ cv<-cv.permanova(D = bc, y = sponges)
 cv
 
 ```
-
 
 Based on these results, and considering the costs (time and/or money) of visiting a site and doing each transect, as well as the relative importance of each spatial scale, it will be convenient to keep the number of sites within suboptimal improvement (i.e. 5-7), and set the number of transects to 8. 
 

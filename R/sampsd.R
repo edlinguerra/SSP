@@ -51,9 +51,9 @@
 #' ## Multiple site example
 #' data(sponges)
 #' par.spo <- assempar(data = sponges, type = "counts", Sest.method = "average")
-#' sim.spo <- simdata(par.spo, cases = 3, N = 20, sites = 3)
+#' sim.spo <- simdata(par.spo, cases = 3, N = 20, sites = 10, jitter.base = 0.5)
 #' sam.spo <- sampsd(dat.sim = sim.spo, Par = par.spo, transformation = "square root",
-#'                   method = "bray", n = 10, m = 3, k = 3)
+#'                   method = "bray", n = 10, m = 10, k = 3)
 #'
 #' @importFrom vegan vegdist
 #' @importFrom stats model.matrix
