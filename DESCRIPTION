@@ -1,7 +1,7 @@
 Package: SSP
 Title: Simulated Sampling Procedure for Community Ecology
 Version: 1.1.0
-Date: 2025-04-23
+Date: 2025-11-18
 Authors@R: c(person(given = "Edlin", family = "Guerra-Castro", role = c("aut", "cre"), email = "edlinguerra@gmail.com"),
     person(given = "Maite", family = "Mascaro", role = "aut", email = "mmm@ciencias.unam.mx"),
     person(given = "Nuno", family = "Simoes", role = "aut", email = "ns@ciencias.unam.mx"),
@@ -13,7 +13,7 @@ Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Suggests: 
     knitr,
     rmarkdown,
