@@ -1,28 +1,31 @@
 ## Resubmission
 
-This is a resubmission of SSP 1.1.0, following incoming checks.
+This is a resubmission of SSP 1.1.0, addressing CRAN feedback.
 
 We have:
 
-- Updated the `Date:` field in DESCRIPTION.
-- Kept the `.github/` folder intentionally to support automated R-hub checks via GitHub Actions.
+- Removed the hidden `.github/` directory from the source tarball.
+- Reduced example runtimes to remain under 5 seconds each.
+- Preserved informative usage via the vignette, referenced in example help pages.
 
-### Test environments
+## Test environments
 
-* Windows 10 x64, R 4.4.0 (ucrt)
-* Windows 10 x64, R 4.5.0 (ucrt), R CMD check --as-cran
-* Ubuntu 22.04 (via rhub), R-devel (2025-11-12 r89009)
-* R CMD check results: 0 ERRORs | 0 WARNINGs | 1 NOTEs (see below)
+- Windows 10 x64, R 4.4.0 (ucrt), local, `--as-cran`
+- Ubuntu 24.04 (via GitHub Actions), R 4.5.2, `--as-cran`
+- Ubuntu 22.04 (via rhub), R-devel (2025-11-12 r89009)
+- Windows (via rhub), R-devel (2025-11-12 r89009)
 
-Found the following hidden files and directories:
-    .github
-These were most likely included in error. See section 'Package structure' in the 'Writing R Extensions' manual.
-  
-### Reverse dependencies
+R CMD check results:
+- 0 ERRORs ✓
+- 0 WARNINGs ✓
+- 0 NOTEs ✓
 
-Only **ecocbo** depends on **SSP**; it is maintained by the same team and remains compatible.
+## Reverse dependencies
 
-### Additional comments
+Only one package (**ecocbo**) depends on **SSP**, and it is maintained by the same team. Compatibility is confirmed.
 
-- The `.github/` folder is included deliberately for CI workflows using [r-hub/actions](https://github.com/r-hub/actions).
-- The `examples()` NOTE reflects simulation-based functions (`simdata()`, `plot_ssp()`, etc.) that require >10s to run, even with minimal input. These are essential to demonstrate usage and cannot be shortened meaningfully.
+## Additional comments
+
+- All examples now execute in <5 seconds.
+- The vignette provides a complete demonstration of multi-site simulations that were previously shown in examples.
+- GitHub CI workflows were tested but excluded from the final package per CRAN guidance.
