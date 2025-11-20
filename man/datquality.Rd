@@ -39,18 +39,12 @@ It is desirable that simulated data resemble observed data in species richness a
 ## Single site: micromollusk from Cayo Nuevo (Yucatan, Mexico)
 data(micromollusk)
 par.mic <- assempar(data = micromollusk, type = "P/A", Sest.method = "average")
-sim.mic <- simdata(par.mic, cases = 3, N = 10, sites = 1)
+sim.mic <- simdata(par.mic, cases = 2, N = 10, sites = 1)
 qua.mic <- datquality(data = micromollusk, dat.sim = sim.mic, Par = par.mic,
                       transformation = "none", method = "jaccard")
 qua.mic
 
-## Multiple sites: Sponges from Alacranes National Park (Yucatan, Mexico)
-data(sponges)
-par.spo <- assempar(data = sponges, type = "counts", Sest.method = "average")
-sim.spo <- simdata(par.spo, cases = 3, N = 20, sites = 10, jitter.base = 0.5)
-qua.spo <- datquality(data = sponges, dat.sim = sim.spo, Par = par.spo,
-                      transformation = "square root", method = "bray")
-qua.spo
+## See the full multi-site workflow in the vignette
 
 }
 \references{

@@ -33,7 +33,7 @@
 #' ## Single site example
 #' data(micromollusk)
 #' par.mic <- assempar(data = micromollusk, type = "P/A", Sest.method = "average")
-#' sim.mic <- simdata(par.mic, cases = 3, N = 20, sites = 1)
+#' sim.mic <- simdata(par.mic, cases = 2, N = 20, sites = 1)
 #' sam.mic <- sampsd(dat.sim = sim.mic,
 #'                   Par = par.mic,
 #'                   transformation = "P/A",
@@ -44,14 +44,7 @@
 #' summ.mic <- summary_ssp(results = sam.mic, multi.site = FALSE)
 #' opt.mic <- ioptimum(xx = summ.mic, multi.site = FALSE)
 #'
-#' ## Multiple sites example
-#' data(sponges)
-#' par.spo <- assempar(data = sponges, type = "counts", Sest.method = "average")
-#' sim.spo <- simdata(par.spo, cases = 3, N = 20, sites = 10, jitter.base = 0.5)
-#' sam.spo <- sampsd(dat.sim = sim.spo, Par = par.spo, transformation = "square root",
-#'                   method = "bray", n = 10, m = 10, k = 3)
-#' summ.spo <- summary_ssp(results = sam.spo, multi.site = TRUE)
-#' opt.spo <- ioptimum(xx = summ.spo, multi.site = TRUE)
+#' ## See the full multi-site workflow in the vignette
 #'
 #' @export
 

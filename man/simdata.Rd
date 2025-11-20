@@ -48,13 +48,13 @@ When using \code{jitter.base}, the simulation introduces stochastic perturbation
 ## Single site simulation
 data(micromollusk)
 par.mic <- assempar(data = micromollusk, type = "P/A", Sest.method = "average")
-sim.mic <- simdata(par.mic, cases = 3, N = 10, sites = 1)
+sim.mic <- simdata(par.mic, cases = 2, N = 10, sites = 1)
 
 ## Multiple site simulation
 data(sponges)
 par.spo <- assempar(data = sponges, type = "counts", Sest.method = "average")
 set.seed(42)
-sim.spo <- simdata(par.spo, cases = 3, N = 20, sites = 10, jitter.base = 0.5)
+sim.spo <- simdata(par.spo, cases = 2, N = 20, sites = 10, jitter.base = 0.5)
 
 }
 \references{
